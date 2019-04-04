@@ -17,17 +17,39 @@ body {
 
   .navBarContainer {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     padding-left: 30px;
     width: 1299px;
     height: $nav-bar-height;
 
     background-color: #F9F5F5;
 
-    .brand {
-      font-size: 34px;
-      text-align: center;
-      margin-right: 40px;
+.leftPart {
+  display: flex;
+  align-items: center;
+
+  .brand {
+    font-size: 34px;
+    text-align: center;
+    margin-right: 40px;
+  }
+}
+
+    .rightPart {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+
+      .usernameContainer {
+        margin-left: 10px;
+        color: #979595;
+        font-size: 18px;
+      }
+
+      .zone-delimeter {
+        margin: 0 20px;
+        background-color: #D1D1D1;
+      }
     }
   }
 }

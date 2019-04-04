@@ -7,9 +7,14 @@ import { NavBar } from './components/NavBar';
 
 const history = createBrowserHistory();
 
+const currentUser = {
+  name: 'Таня',
+  surname: 'Игнатенко',
+};
+
 ReactDOM.render(
   <Router history={history}>
-    <NavBar />
+    <NavBar currentUser={currentUser}/>
   </Router>,
   document.getElementById('root'),
 );
