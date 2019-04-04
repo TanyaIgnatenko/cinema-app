@@ -1,0 +1,33 @@
+@import '../../assets/scss/variables';
+
+li {
+  list-style-type: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+
+  .navBarContainer {
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    width: 1299px;
+    height: $nav-bar-height;
+
+    background-color: #F9F5F5;
+
+    .brand {
+      font-size: 34px;
+      text-align: center;
+      margin-right: 40px;
+    }
+  }
+}

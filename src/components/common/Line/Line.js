@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import './Line.scss';
+
 function Line({ width, height, className, ...props }) {
   return (
     <div
