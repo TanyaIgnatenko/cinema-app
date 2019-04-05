@@ -4,11 +4,10 @@ import classNames from 'classnames';
 
 import { Item } from './Item';
 import { List } from './List';
+import { Toggle } from '../Toggle';
 
 import downArrowIcon from '../../../assets/images/down-arrow.svg';
-
 import './Dropdown.scss';
-import Toggle from '../Toggle/Toggle';
 
 const DropdownContext = React.createContext({
   closeDropdown: () => {},
@@ -44,35 +43,33 @@ class Dropdown extends React.Component {
 
     return (
       <div className='dropdown'>
-        <DropdownContext.Provider
-          value={{
-            closeDropdown: this.closeDropdown,
-          }}
-        >
-          <Toggle>
-            {(isOpen, toggle, open, close) => (
-              <>
-                <img
-                  alt='toggle-icon'
-                  src={toggleIcon}
-                  className={classNames(
-                    'ignore-react-onclickoutside',
-                    isOpen
-                      ? openedToggleIconClassName
-                      : closedToggleIconClassName,
-                  )}
-                  onClick={toggle}
-                />
-
-                {isOpen && (
-                  <Dropdown.List closeDropdown={close} className='dropdownList'>
-                    {children}
-                  </Dropdown.List>
+        <Toggle>
+          {(isOpen, toggle, open, close) => (
+            <DropdownContext.Provider
+              value={{
+                closeDropdown: close,
+              }}
+            >
+              <img
+                alt='toggle-icon'
+                src={toggleIcon}
+                className={classNames(
+                  'ignore-react-onclickoutside',
+                  isOpen
+                    ? openedToggleIconClassName
+                    : closedToggleIconClassName,
                 )}
-              </>
-            )}
-          </Toggle>
-        </DropdownContext.Provider>
+                onClick={toggle}
+              />
+
+              {isOpen && (
+                <Dropdown.List closeDropdown={close} className='dropdownList'>
+                  {children}
+                </Dropdown.List>
+              )}
+            </DropdownContext.Provider>
+          )}
+        </Toggle>
       </div>
     );
   }
