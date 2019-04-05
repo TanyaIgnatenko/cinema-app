@@ -6,11 +6,10 @@ import { Dropdown } from '..';
 import '../Dropdown.scss';
 
 function Item({ onClick, className, children, ...props }) {
-  const { closeDropdown } = useContext(Dropdown.Context);
-  const handleClick = event => {
+  const { closeDropdownList } = useContext(Dropdown.Context);
+  const handleClick = () => {
     onClick();
-    closeDropdown();
-    event.stopPropagation();
+    closeDropdownList();
   };
 
   return (

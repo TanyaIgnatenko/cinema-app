@@ -9,6 +9,8 @@ import { ROUTE } from '../../constants';
 
 import './NavBar.scss';
 
+import downArrowIcon from '../../assets/images/down-arrow.svg';
+
 function NavBar({ currentUser, onLogout, onSettings }) {
   return (
     <ul className='navBarContainer'>
@@ -29,8 +31,13 @@ function NavBar({ currentUser, onLogout, onSettings }) {
             </div>
 
             <Dropdown>
-              <Dropdown.Item onClick={onSettings}>Настройки</Dropdown.Item>
-              <Dropdown.Item onClick={onLogout}>Выход</Dropdown.Item>
+              <Dropdown.Toggle>
+                <img alt='toggle-icon' src={downArrowIcon} />
+              </Dropdown.Toggle>
+              <Dropdown.List>
+                <Dropdown.Item onClick={onSettings}>Настройки</Dropdown.Item>
+                <Dropdown.Item onClick={onLogout}>Выход</Dropdown.Item>
+              </Dropdown.List>
             </Dropdown>
           </>
         ) : (

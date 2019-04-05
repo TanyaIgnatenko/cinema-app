@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Toggle extends React.Component {
   static propTypes = {
-    children: PropTypes.any.isRequired,
+    children: PropTypes.func.isRequired,
     openByDefault: PropTypes.bool,
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 
@@ -6,25 +6,49 @@ import { Dropdown } from '..';
 
 import '../Dropdown.scss';
 
-class List extends React.Component {
-  handleClickOutside = () => {
-    const { closeDropdown } = this.props;
-    closeDropdown();
+function DropdownList({ children, className, ...props }) {
+  const { closeDropdownList } = useContext(Dropdown.Context);
+
+  DropdownList.handleClickOutside = () => {
+    closeDropdownList();
   };
 
-  render() {
-    const { children, className, ...props } = this.props;
-    return (
-      <ul className={className} {...props}>
-        {children}
-      </ul>
-    );
-  }
+  return (
+    <ul className={className} {...props}>
+      {children}
+    </ul>
+  );
+}
+
+const clickOutsideConfig = {
+  handleClickOutside: () => DropdownList.handleClickOutside,
+};
+
+DropdownList.propTypes = {
+  children: PropTypes.any.isRequired,
+  className: PropTypes.string,
+};
+
+DropdownList.defaultProps = {
+  className: 'dropdownList',
+};
+
+const DropdownListWithClickOutsideWatcher = onClickOutside(
+  DropdownList,
+  clickOutsideConfig,
+);
+
+function List({ children, className, ...props }) {
+  const { isOpen } = useContext(Dropdown.Context);
+  return isOpen ? (
+    <DropdownListWithClickOutsideWatcher className={className} {...props}>
+      {children}
+    </DropdownListWithClickOutsideWatcher>
+  ) : null;
 }
 
 List.propTypes = {
   children: PropTypes.any.isRequired,
-  closeDropdown: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 
@@ -32,4 +56,4 @@ List.defaultProps = {
   className: 'dropdownList',
 };
 
-export default onClickOutside(List);
+export default List;
