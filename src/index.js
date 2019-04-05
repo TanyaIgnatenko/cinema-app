@@ -14,7 +14,11 @@ const currentUser = {
 
 ReactDOM.render(
   <Router history={history}>
-    <NavBar currentUser={currentUser}/>
+    <NavBar
+      currentUser={currentUser}
+      onLogout={() => {}}
+      onSettings={() => {}}
+    />
   </Router>,
   document.getElementById('root'),
 );

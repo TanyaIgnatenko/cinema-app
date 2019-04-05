@@ -1,0 +1,40 @@
+.dropdown {
+  position: relative;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 20px;
+    height: 20px;
+    fill: #979595;
+
+    &.up {
+      transform: rotate(180deg);
+    }
+
+    &.down {}
+  }
+
+  .dropdownList {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    z-index: 100;
+
+    border: 1px solid #c5c9cc;
+    box-shadow: 0 14px 24px rgba(0,0,0,0.20), 0 10px 8px rgba(0,0,0,0.17);
+
+    .item {
+      width: 200px;
+      padding-left: 20px;
+      padding-bottom: 20px;
+      padding-top: 20px;
+
+      &:hover {
+        background-color: #FFEBA0;
+      }
+    }
+  }
+}
+

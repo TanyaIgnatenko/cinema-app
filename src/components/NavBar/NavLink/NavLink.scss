@@ -5,6 +5,10 @@
   color: #000000;
   text-decoration: none;
   text-align: center;
+
+  &:hover {
+    color: hsl(0, 100%, 45%);;
+  }
 }
 
 .activelink {}

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from './NavLink';
 import { UserIcon } from './UserIcon';
 import { VerticalLine } from '../common/VerticalLine';
+import { Dropdown } from '../common/Dropdown';
 import { ROUTE } from '../../constants';
 
 import './NavBar.scss';
@@ -27,13 +28,10 @@ function NavBar({ currentUser, onLogout, onSettings }) {
               <p>{currentUser.surname}</p>
             </div>
 
-            {/* <Dropdown toggleIcon={}> */}
-            {/*   <Dropdown.ToggleIcon openedClassname='up' closedClassname='down'> */}
-            {/*     <ArrowIcon/> */}
-            {/*   </Dropdown.ToggleIcon> */}
-            {/*   <Dropdown.Item onClick={onSettings}>Настройки</Dropdown.Item> */}
-            {/*   <Dropdown.Item onClick={onLogout}>Выход</Dropdown.Item> */}
-            {/* </Dropdown> */}
+            <Dropdown>
+              <Dropdown.Item onClick={onSettings}>Настройки</Dropdown.Item>
+              <Dropdown.Item onClick={onLogout}>Выход</Dropdown.Item>
+            </Dropdown>
           </>
         ) : (
           <button>Войти</button>
