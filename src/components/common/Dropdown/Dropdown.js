@@ -8,6 +8,7 @@ import { List } from './List';
 import downArrowIcon from '../../../assets/images/down-arrow.svg';
 
 import './Dropdown.scss';
+import Toggle from '../Toggle/Toggle';
 
 const DropdownContext = React.createContext({
   closeDropdown: () => {},
@@ -33,18 +34,6 @@ class Dropdown extends React.Component {
 
   static Item = Item;
 
-  state = {
-    isOpen: false,
-  };
-
-  toggleDropdown = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
-  };
-
-  closeDropdown = () => {
-    this.setState({ isOpen: false });
-  };
-
   render() {
     const {
       children,
@@ -53,35 +42,38 @@ class Dropdown extends React.Component {
       closedToggleIconClassName,
     } = this.props;
 
-    const { isOpen } = this.state;
-
     return (
-      <DropdownContext.Provider
-        value={{
-          closeDropdown: this.closeDropdown,
-        }}
-      >
-        <div className='dropdown'>
-          <img
-            alt='toggle-icon'
-            src={toggleIcon}
-            className={classNames(
-              'ignore-react-onclickoutside',
-              isOpen ? openedToggleIconClassName : closedToggleIconClassName,
-            )}
-            onClick={this.toggleDropdown}
-          />
+      <div className='dropdown'>
+        <DropdownContext.Provider
+          value={{
+            closeDropdown: this.closeDropdown,
+          }}
+        >
+          <Toggle>
+            {(isOpen, toggle, open, close) => (
+              <>
+                <img
+                  alt='toggle-icon'
+                  src={toggleIcon}
+                  className={classNames(
+                    'ignore-react-onclickoutside',
+                    isOpen
+                      ? openedToggleIconClassName
+                      : closedToggleIconClassName,
+                  )}
+                  onClick={toggle}
+                />
 
-          {isOpen && (
-            <Dropdown.List
-              closeDropdown={this.closeDropdown}
-              className='dropdownList'
-            >
-              {children}
-            </Dropdown.List>
-          )}
-        </div>
-      </DropdownContext.Provider>
+                {isOpen && (
+                  <Dropdown.List closeDropdown={close} className='dropdownList'>
+                    {children}
+                  </Dropdown.List>
+                )}
+              </>
+            )}
+          </Toggle>
+        </DropdownContext.Provider>
+      </div>
     );
   }
 }
