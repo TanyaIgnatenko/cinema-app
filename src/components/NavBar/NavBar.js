@@ -5,6 +5,7 @@ import { NavLink } from './NavLink';
 import { UserIcon } from './UserIcon';
 import { VerticalLine } from '../common/VerticalLine';
 import { Dropdown } from '../common/Dropdown';
+import { Button } from '../common/Button';
 import { ROUTE } from '../../constants';
 
 import './NavBar.scss';
@@ -41,7 +42,7 @@ function NavBar({ currentUser, onLogout, onSettings }) {
             </Dropdown>
           </>
         ) : (
-          <button>Войти</button>
+          <Button>Войти</Button>
         )}
       </div>
     </ul>
