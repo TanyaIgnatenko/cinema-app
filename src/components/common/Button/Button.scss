@@ -1,0 +1,16 @@
+.button {
+  width: 120px;
+  height: 35px;
+  border: 0;
+
+  font-size: 20px;
+  cursor: pointer;
+  background-color: hsl(48, 100%, 70%);
+
+&:hover {
+  background-color: hsl(48, 100%, 65%);
+}
+  &:active {
+    border: 1px solid hsl(48, 100%, 55%);
+  }
+}

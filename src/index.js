@@ -15,7 +15,6 @@ const currentUser = {
 ReactDOM.render(
   <Router history={history}>
     <NavBar
-      currentUser={currentUser}
       onLogout={() => {}}
       onSettings={() => {}}
     />
