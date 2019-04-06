@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import { createBrowserHistory } from 'history';
-import { NavBar } from './components/navbar';
+import { App } from './containers/app';
+
+import './assets/scss/main.scss';
 
 const history = createBrowserHistory();
 
@@ -13,11 +15,8 @@ const currentUser = {
 };
 
 ReactDOM.render(
-  <Router history={history}>
-    <NavBar
-      onLogout={() => {}}
-      onSettings={() => {}}
-    />
-  </Router>,
+  <BrowserRouter history={history}>
+    <App />
+  </BrowserRouter>,
   document.getElementById('root'),
 );

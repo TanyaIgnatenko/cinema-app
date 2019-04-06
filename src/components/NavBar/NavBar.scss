@@ -1,59 +1,42 @@
 @import '../../assets/scss/variables';
 
-li {
-  list-style-type: none;
-}
-
-* {
-  z-index: 0;
-  margin: 0;
-  padding: 0;
-  font-family: Roboto, sans-serif;
-  box-sizing: border-box;
-}
-
-body {
+.navBarContainer {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding-left: 30px;
+  width: 1299px;
+  height: $nav-bar-height;
 
-  .navBarContainer {
+  background-color: white;
+  border-bottom: 1px solid #E5E5E5;
+
+  .leftPart {
     display: flex;
-    justify-content: space-between;
-    padding-left: 30px;
-    width: 1299px;
-    height: $nav-bar-height;
+    align-items: center;
 
-    background-color: white;
-    border-bottom: 1px solid #E5E5E5;
-
-.leftPart {
-  display: flex;
-  align-items: center;
-
-  .brand {
-    color: rgb(21, 21, 21);
-    font-size: 34px;
-    text-align: center;
-    margin-right: 40px;
-    cursor: default;
+    .brand {
+      color: rgb(21, 21, 21);
+      font-size: 34px;
+      text-align: center;
+      margin-right: 40px;
+      cursor: default;
+    }
   }
-}
 
-    .rightPart {
-      display: flex;
-      align-items: center;
-      margin-right: 30px;
+  .rightPart {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
 
-      .usernameContainer {
-        margin-left: 10px;
-        color: #979595;
-        font-size: 18px;
-      }
+    .usernameContainer {
+      margin-left: 10px;
+      color: #979595;
+      font-size: 18px;
+    }
 
-      .zone-delimeter {
-        margin: 0 20px;
-        background-color: #D1D1D1;
-      }
+    .zone-delimeter {
+      margin: 0 20px;
+      background-color: #D1D1D1;
     }
   }
 }
