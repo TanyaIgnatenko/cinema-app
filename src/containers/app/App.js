@@ -14,7 +14,9 @@ function App({ currentUser }) {
         onLogout={() => {}}
         onSettings={() => {}}
       />
-      <Routes className='' />
+      <div className='page'>
+        <Routes className='' />
+      </div>
     </div>
   );
 }

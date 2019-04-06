@@ -4,4 +4,6 @@ const ROUTE = {
   BEST_DEALS: '/best-deals',
 };
 
-export { ROUTE };
+const APP_DATE_FORMAT = 'YYYY-MM-DD';
+
+export { ROUTE, APP_DATE_FORMAT };
