@@ -13,26 +13,26 @@ class Toggle extends React.Component {
 
   state = {
     // eslint-disable-next-line react/destructuring-assignment
-    isOpen: this.props.openByDefault,
+    on: this.props.openByDefault,
   };
 
   toggle = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
+    this.setState(state => ({ on: !state.on }));
   };
 
   open = () => {
-    this.setState({ isOpen: true });
+    this.setState({ on: true });
   };
 
   close = () => {
-    this.setState({ isOpen: false });
+    this.setState({ on: false });
   };
 
   render() {
     const { children } = this.props;
-    const { isOpen } = this.state;
+    const { on } = this.state;
 
-    return children(isOpen, this.toggle, this.open, this.close);
+    return children(on, this.toggle, this.open, this.close);
   }
 }
 

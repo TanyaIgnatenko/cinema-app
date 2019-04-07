@@ -4,18 +4,6 @@
   display: flex;
   flex-direction: column;
 
-  img {
-    width: 20px;
-    height: 20px;
-    fill: #979595;
-
-    &.up {
-      transform: rotate(180deg);
-    }
-
-    &.down {}
-  }
-
   .dropdownList {
     position: absolute;
     top: 40px;

@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 
 import { NavLink } from './NavLink';
 import { UserIcon } from './UserIcon';
+import ToggleIcon from '../common/ToggleIcon/ToggleIcon';
 import { VerticalLine } from '../common/VerticalLine';
 import { Dropdown } from '../common/Dropdown';
 import { Button } from '../common/Button';
 import { ROUTE } from '../../constants';
 
 import './NavBar.scss';
-
-import downArrowIcon from '../../assets/images/down-arrow.svg';
 
 function NavBar({ currentUser, onLogout, onSettings }) {
   return (
@@ -30,10 +29,11 @@ function NavBar({ currentUser, onLogout, onSettings }) {
               <p>{currentUser.name}</p>
               <p>{currentUser.surname}</p>
             </div>
-
             <Dropdown>
               <Dropdown.Toggle>
-                <img alt='toggle-icon' src={downArrowIcon} />
+                {(on, toggleDropdown) => (
+                  <ToggleIcon on={on} onClick={toggleDropdown} />
+                )}
               </Dropdown.Toggle>
               <Dropdown.List>
                 <Dropdown.Item onClick={onSettings}>Настройки</Dropdown.Item>

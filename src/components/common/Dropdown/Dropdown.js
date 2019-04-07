@@ -31,10 +31,10 @@ class Dropdown extends React.Component {
     return (
       <div className='dropdown'>
         <ToggleLogic>
-          {(isOpen, toggle, open, close) => (
+          {(on, toggle, open, close) => (
             <DropdownContext.Provider
               value={{
-                isOpen,
+                on,
                 toggleDropdownList: toggle,
                 closeDropdownList: close,
               }}

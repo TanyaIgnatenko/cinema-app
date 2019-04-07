@@ -1,0 +1,11 @@
+.toggleIcon {
+  width: 20px;
+  height: 20px;
+  fill: #979595;
+
+  &.on {
+    transform: rotate(180deg);
+  }
+
+  &.off {}
+}

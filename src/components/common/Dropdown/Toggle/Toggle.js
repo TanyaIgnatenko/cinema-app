@@ -1,28 +1,13 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import { Dropdown } from '..';
 
 import '../Dropdown.scss';
 
-function Toggle({
-  className,
-  openedClassName,
-  closedClassName,
-  children,
-  ...props
-}) {
-  const { isOpen, toggleDropdownList } = useContext(Dropdown.Context);
-  return React.cloneElement(children, {
-    className: classNames(
-      className,
-      'ignore-react-onclickoutside',
-      isOpen ? openedClassName : closedClassName,
-    ),
-    onClick: toggleDropdownList,
-    ...props,
-  });
+function Toggle({ children }) {
+  const { on, toggleDropdownList } = useContext(Dropdown.Context);
+  return children(on, toggleDropdownList);
 }
 
 Toggle.propTypes = {

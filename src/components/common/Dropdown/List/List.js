@@ -39,8 +39,8 @@ const DropdownListWithClickOutsideWatcher = onClickOutside(
 );
 
 function List({ children, className, ...props }) {
-  const { isOpen } = useContext(Dropdown.Context);
-  return isOpen ? (
+  const { on } = useContext(Dropdown.Context);
+  return on ? (
     <DropdownListWithClickOutsideWatcher className={className} {...props}>
       {children}
     </DropdownListWithClickOutsideWatcher>
