@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
+import { Provider } from 'react-redux';
 import moment from 'moment';
 
 import { App } from './containers/app';
-import { Calendar } from './components/common/Calendar';
 
 import './assets/scss/main.scss';
+import { store } from './store/store';
+import { history } from './store/rootReducer';
 
 moment.locale('ru');
 moment.updateLocale('ru', {
@@ -25,9 +26,9 @@ moment.updateLocale('ru', {
     'Ноябрь',
     'Декабрь',
   ],
+  weekdaysShort: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+  weekdaysMin: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
 });
-
-const history = createBrowserHistory();
 
 const currentUser = {
   name: 'Таня',
@@ -35,13 +36,10 @@ const currentUser = {
 };
 
 ReactDOM.render(
-  <BrowserRouter history={history}>
-    <Calendar
-      minDate='2019-03-04'
-      maxDate='2019-06-28'
-      onDateSelected={() => {}}
-      selectedMonth='2019-04-01'
-    />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById('root'),
 );

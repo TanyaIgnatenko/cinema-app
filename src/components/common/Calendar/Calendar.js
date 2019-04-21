@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { extendMoment } from 'moment-range';
-import Moment from 'moment';
 import classNames from 'classnames';
+
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+import onClickOutside from 'react-onclickoutside';
 
 import { ButtonNext } from '../ButtonNext';
 import { ButtonPrev } from '../ButtonPrev';
@@ -20,8 +22,8 @@ const moment = extendMoment(Moment);
 
 class Calendar extends React.Component {
   static propTypes = {
-    selectedMonth: PropTypes.string.isRequired,
     onDateSelected: PropTypes.func.isRequired,
+    closeCalendar: PropTypes.func,
     onDateEnter: PropTypes.func,
     onDateLeave: PropTypes.func,
     minDate: PropTypes.string,
@@ -31,6 +33,7 @@ class Calendar extends React.Component {
   static defaultProps = {
     onDateEnter: () => {},
     onDateLeave: () => {},
+    closeCalendar: () => {},
     minDate: null,
     maxDate: null,
   };
@@ -55,6 +58,11 @@ class Calendar extends React.Component {
       const prevMonth = toAppDateFormat(prevMonthMoment);
       return { selectedMonth: prevMonth };
     });
+  };
+
+  handleClickOutside = () => {
+    const { closeCalendar } = this.props;
+    closeCalendar();
   };
 
   render() {
@@ -137,4 +145,4 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+export default onClickOutside(Calendar);

@@ -1,1 +1,1 @@
-export { default as CalendarButton } from './DateInput';
+export { default as DateInput } from './DateInput';

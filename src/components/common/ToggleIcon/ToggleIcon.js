@@ -4,15 +4,11 @@ import classNames from 'classnames';
 
 import downArrowIcon from '../../../assets/images/down-arrow.svg';
 
-function ToggleIcon({ on, ...props }) {
+function ToggleIcon({ on, className, ...props }) {
   return (
     <img
       alt='toggle icon'
-      className={classNames(
-        'toggleIcon',
-        on ? 'on' : 'off',
-        'ignore-react-onclickoutside',
-      )}
+      className={classNames('toggleIcon', on ? 'on' : 'off', className)}
       src={downArrowIcon}
       {...props}
     />
@@ -21,6 +17,11 @@ function ToggleIcon({ on, ...props }) {
 
 ToggleIcon.propTypes = {
   on: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+};
+
+ToggleIcon.defaultProps = {
+  className: '',
 };
 
 export default ToggleIcon;

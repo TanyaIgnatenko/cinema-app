@@ -2,13 +2,15 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { DateFilter } from '..';
+import { Button } from '../../../common/Button';
 import { Calendar } from '../../../common/Calendar';
 import { Toggle } from '../../../common/Toggle';
-import { Button } from '../../../common/Button';
-import { toMoment } from '../../../../helpers/dateHelpers';
 import { ToggleIcon } from '../../../common/ToggleIcon';
+import { toMoment } from '../../../../helpers/dateHelpers';
 
-class DateInput {
+import './DateInput.scss';
+
+class DateInput extends React.Component {
   state = {
     buttonLabel: this.props.defaultLabel,
   };
@@ -29,17 +31,19 @@ class DateInput {
   };
 
   render() {
-    const { isAllowedDate } = this.props;
+    const { minDate, maxDate } = this.props;
     const { buttonLabel } = this.state;
+
     return (
       <Toggle>
         {(on, toggle) => (
-          <>
-            <Button className='calendarBtn'>
-              <>
-                {buttonLabel}
-                <ToggleIcon on={on} onClick={toggle} />
-              </>
+          <div className='date-input-container'>
+            <Button
+              className='calendar-btn ignore-react-onclickoutside'
+              onClick={toggle}
+            >
+              {buttonLabel}
+              <ToggleIcon on={on} className='calendar-btn-icon' />
             </Button>
             {on && (
               <Calendar
@@ -49,10 +53,12 @@ class DateInput {
                 }}
                 onDateEnter={this.handleDateEnter}
                 onDateLeave={this.handleDateLeave}
-                isAllowedDate={isAllowedDate}
+                closeCalendar={toggle}
+                minDate={minDate}
+                maxDate={maxDate}
               />
             )}
-          </>
+          </div>
         )}
       </Toggle>
     );
@@ -61,14 +67,16 @@ class DateInput {
 
 DateInput.propTypes = {
   defaultLabel: PropTypes.string,
-  isAllowedDate: PropTypes.func,
   getDateLabel: PropTypes.func,
+  minDate: PropTypes.string,
+  maxDate: PropTypes.string,
 };
 
 DateInput.defaultProps = {
   defaultLabel: 'Выбрать дату',
-  isAllowedDate: () => true,
   getDateLabel: date => toMoment(date).format('DD MMMM'),
+  minDate: null,
+  maxDate: null,
 };
 
 export default DateInput;

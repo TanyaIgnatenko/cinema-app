@@ -26,10 +26,13 @@ li {
 }
 
 .pageTitle {
-  padding-left: 30px;
-  padding-top: 30px;
+  margin-bottom: 15px;
 
   color: #333;
   font-size: 24px;
   font-weight: 400;
+}
+
+.horizontal {
+  display: flex;
 }
