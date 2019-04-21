@@ -12,7 +12,7 @@ const getTomorrowDate = () => toAppDateFormat(moment().add(1, 'days'));
 
 const getDateAfterTomorrow = () => toAppDateFormat(moment().add(2, 'days'));
 
-const getDateRange = (startDate, endDate) => {
+const dateRange = (startDate, endDate) => {
   const currentDate = startDate.clone();
   const dateRange = [];
   while (currentDate.isSameOrBefore(endDate)) {
@@ -28,5 +28,5 @@ export {
   getTodayDate,
   getTomorrowDate,
   getDateAfterTomorrow,
-  getDateRange,
+  dateRange,
 };

@@ -1,1 +1,1 @@
-export { default as FrequentDayButton } from './FrequentDateButton';
+export { default as FrequentDateButton } from './FrequentDateButton';

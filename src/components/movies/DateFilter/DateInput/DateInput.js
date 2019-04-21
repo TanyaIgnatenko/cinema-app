@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
+import { DateFilter } from '..';
+import { Calendar } from '../../../common/Calendar';
 import { Toggle } from '../../../common/Toggle';
 import { Button } from '../../../common/Button';
 import { toMoment } from '../../../../helpers/dateHelpers';
-import ToggleIcon from '../../../common/ToggleIcon/ToggleIcon';
+import { ToggleIcon } from '../../../common/ToggleIcon';
 
 class DateInput {
   state = {
     buttonLabel: this.props.defaultLabel,
   };
 
-  handleDateLeave = () => {
-    const { defaultLabel } = this.props;
-    this.setState({ buttonLabel: defaultLabel });
+  handleDateSelected = date => {
+    const { selectDate } = useContext(DateFilter.Context);
+    selectDate(date);
   };
 
   handleDateEnter = date => {
     const { getDateLabel } = this.props;
     this.setState({ buttonLabel: getDateLabel(date) });
+  };
+
+  handleDateLeave = () => {
+    const { defaultLabel } = this.props;
+    this.setState({ buttonLabel: defaultLabel });
   };
 
   render() {
@@ -36,10 +43,13 @@ class DateInput {
             </Button>
             {on && (
               <Calendar
-                onDateSelected={toggle}
+                onDateSelected={date => {
+                  this.handleDateSelected(date);
+                  toggle();
+                }}
                 onDateEnter={this.handleDateEnter}
                 onDateLeave={this.handleDateLeave}
-                onDateisAllowedDate={isAllowedDate}
+                isAllowedDate={isAllowedDate}
               />
             )}
           </>

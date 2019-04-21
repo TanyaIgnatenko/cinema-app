@@ -1,11 +1,11 @@
-import { getDateRange, toMoment } from '../dateHelpers';
+import { dateRange, toMoment } from '../dateHelpers';
 
-describe('getDateRange', () => {
+describe('dateRange', () => {
   it('should return array of dates from given start moment to given end moment', () => {
     const startMoment = toMoment('2019-04-01');
     const endMoment = toMoment('2019-04-05');
 
-    const dateRange = getDateRange(startMoment, endMoment);
+    const dateRange = dateRange(startMoment, endMoment);
 
     const expectedDateRange = [
       toMoment('2019-04-01'),

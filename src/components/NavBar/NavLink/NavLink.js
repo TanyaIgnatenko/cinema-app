@@ -28,7 +28,6 @@ function NavLink({
         to={to}
         data-testid='link'
         className={classNames(linkClassName, isActive && activeLinkClassName)}
-        {...props}
       >
         {children}
       </Link>

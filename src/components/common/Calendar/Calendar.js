@@ -1,0 +1,140 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { extendMoment } from 'moment-range';
+import Moment from 'moment';
+import classNames from 'classnames';
+
+import { ButtonNext } from '../ButtonNext';
+import { ButtonPrev } from '../ButtonPrev';
+import { range } from '../../../helpers/arrayHelpers';
+
+import {
+  dateRange,
+  toAppDateFormat,
+  toMoment,
+} from '../../../helpers/dateHelpers';
+
+import './Calendar.scss';
+
+const moment = extendMoment(Moment);
+
+class Calendar extends React.Component {
+  static propTypes = {
+    selectedMonth: PropTypes.string.isRequired,
+    onDateSelected: PropTypes.func.isRequired,
+    onDateEnter: PropTypes.func,
+    onDateLeave: PropTypes.func,
+    minDate: PropTypes.string,
+    maxDate: PropTypes.string,
+  };
+
+  static defaultProps = {
+    onDateEnter: () => {},
+    onDateLeave: () => {},
+    minDate: null,
+    maxDate: null,
+  };
+
+  state = {
+    selectedMonth: toAppDateFormat(moment()),
+  };
+
+  handleNextMonthClick = () => {
+    this.setState(({ selectedMonth }) => {
+      const monthMoment = toMoment(selectedMonth);
+      const nextMonthMoment = monthMoment.add(1, 'months');
+      const nextMonth = toAppDateFormat(nextMonthMoment);
+      return { selectedMonth: nextMonth };
+    });
+  };
+
+  handlePrevMonthClick = () => {
+    this.setState(({ selectedMonth }) => {
+      const monthMoment = toMoment(selectedMonth);
+      const prevMonthMoment = monthMoment.subtract(1, 'months');
+      const prevMonth = toAppDateFormat(prevMonthMoment);
+      return { selectedMonth: prevMonth };
+    });
+  };
+
+  render() {
+    const {
+      minDate,
+      maxDate,
+      onDateSelected,
+      onDateEnter,
+      onDateLeave,
+    } = this.props;
+
+    const { selectedMonth } = this.state;
+    const selectedMonthMoment = toMoment(selectedMonth);
+
+    const startMonthDate = selectedMonthMoment.startOf('month').clone();
+    const endMonthDate = selectedMonthMoment.endOf('month').clone();
+    const monthDates = dateRange(startMonthDate, endMonthDate);
+
+    const startWeekdayNumber = Number(startMonthDate.format('E'));
+    const startEmptyDays = range(1, startWeekdayNumber - 1);
+
+    const minMoment = toMoment(minDate);
+    const maxMoment = toMoment(maxDate);
+    const prevMonthBtnEnabled =
+      !minMoment.isValid() || minMoment.isBefore(startMonthDate);
+    const nextMonthBtnEnabled =
+      !minMoment.isValid() || maxMoment.isAfter(endMonthDate);
+
+    return (
+      <div className='calendar'>
+        <div className='selectMonthArea'>
+          <p className='month'>{selectedMonthMoment.format('MMMM')}</p>
+          <div className='btnContainer'>
+            <ButtonPrev
+              onClick={this.handlePrevMonthClick}
+              className={classNames(
+                'btn btn-prev',
+                !prevMonthBtnEnabled && 'disabled',
+              )}
+              disabled={!prevMonthBtnEnabled}
+            />
+            <ButtonNext
+              onClick={this.handleNextMonthClick}
+              className={classNames('btn', !nextMonthBtnEnabled && 'disabled')}
+              disabled={!nextMonthBtnEnabled}
+            />
+          </div>
+        </div>
+        <ul className='weekdays'>
+          <li className='weekday'>пн</li>
+          <li className='weekday'>вт</li>
+          <li className='weekday'>ср</li>
+          <li className='weekday'>чт</li>
+          <li className='weekday'>пт</li>
+          <li className='weekday weekend'>сб</li>
+          <li className='weekday weekend'>вс</li>
+        </ul>
+        <ul className='days'>
+          {startEmptyDays.map(() => (
+            <li className='day' />
+          ))}
+          {monthDates.map(date => {
+            const enabledDate =
+              !minMoment.isValid() ||
+              (date.isSameOrAfter(minMoment) && date.isSameOrBefore(maxDate));
+            return (
+              <li
+                onClick={() => (enabledDate ? onDateSelected(date) : false)}
+                className={enabledDate ? 'enabled-day' : 'disabled-day'}
+                onMouseEnter={onDateEnter}
+                onMouseLeave={onDateLeave}
+              >
+                {date.format('DD')}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default Calendar;

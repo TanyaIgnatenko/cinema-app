@@ -1,29 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CalendarButton } from './CalendarButton';
-import { FrequentDayButton } from './FrequentDateButton';
+import { CalendarButton } from './DateInput';
+import { FrequentDateButton } from './FrequentDateButton';
 
-const DateFilterContext = React.createContext({
+export const DateFilterContext = React.createContext({
   selectedDate: null,
   selectDate: () => {},
 });
 
 class DateFilter extends React.Component {
-  static FrequentDateButton = FrequentDayButton;
+  static FrequentDateButton = FrequentDateButton;
 
   static CalendarButton = CalendarButton;
 
-  static Consumer = DateFilterContext.Consumer;
+  static Context = DateFilterContext;
 
   render() {
-    const { selectedDate, selectDate } = this.props;
-    return <DateFilterContext.Provider value={{ selectedDate, selectDate }} />;
+    const { selectedDate, selectDate, children } = this.props;
+    return (
+      <DateFilterContext.Provider value={{ selectedDate, selectDate }}>
+        {children}
+      </DateFilterContext.Provider>
+    );
   }
 }
 
 DateFilter.propTypes = {
   selectedDate: PropTypes.string.isRequired,
   selectDate: PropTypes.func.isRequired,
+  children: PropTypes.any.isRequired,
 };
 
 export default DateFilter;
