@@ -23,7 +23,6 @@ class DateFilter extends React.Component {
 
   render() {
     const { selectedDate, selectDate, children, className } = this.props;
-    console.log('selectDate.toString(): ', selectDate.toString());
     return (
       <DateFilterContext.Provider value={{ selectedDate, selectDate }}>
         <div className={className}>{children}</div>
@@ -33,10 +32,14 @@ class DateFilter extends React.Component {
 }
 
 DateFilter.propTypes = {
-  selectedDate: PropTypes.string.isRequired,
+  selectedDate: PropTypes.string,
   selectDate: PropTypes.func.isRequired,
   children: PropTypes.any.isRequired,
   className: PropTypes.string.isRequired,
+};
+
+DateFilter.defaultProps = {
+  selectedDate: null,
 };
 
 const mapStateToProps = state => ({

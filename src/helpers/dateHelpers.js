@@ -12,6 +12,13 @@ const getTomorrowDate = () => toAppDateFormat(moment().add(1, 'days'));
 
 const getDateAfterTomorrow = () => toAppDateFormat(moment().add(2, 'days'));
 
+const getEndDateOfSixthMonthFromCurrent = () =>
+  toAppDateFormat(
+    moment()
+      .add(6, 'months')
+      .endOf('month'),
+  );
+
 const dateRange = (startDate, endDate) => {
   const currentDate = startDate.clone();
   const dateRange = [];
@@ -28,5 +35,6 @@ export {
   getTodayDate,
   getTomorrowDate,
   getDateAfterTomorrow,
+  getEndDateOfSixthMonthFromCurrent,
   dateRange,
 };

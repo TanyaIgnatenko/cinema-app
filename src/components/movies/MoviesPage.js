@@ -1,36 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import { connect } from 'react-redux';
 
 import { DateFilter } from './DateFilter';
 
 import {
   getDateAfterTomorrow,
+  getEndDateOfSixthMonthFromCurrent,
   getTodayDate,
-  getTomorrowDate,
-  toAppDateFormat,
+  getTomorrowDate, toAppDateFormat,
   toMoment,
 } from '../../helpers/dateHelpers';
 
 import '../../assets/scss/main.scss';
+import { selectSelectedDate } from '../../ducks/date/selectors';
 
 const TODAY_LABEL = 'Сегодня';
 const TOMORROW_LABEL = 'Завтра';
 const DEFAULT_DATE_INPUT_LABEL = 'Выбрать день';
 
-function MoviesPage(props) {
+function MoviesPage({ selectedDate }) {
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
   const dayAfterTomorrow = getDateAfterTomorrow();
-  const DAY_AFTER_TOMORROW_LABEL = toMoment(getDateAfterTomorrow()).format(
+  const DAY_AFTER_TOMORROW_LABEL = toMoment(dayAfterTomorrow).format(
     'dd, DD MMMM',
   );
-  const minDate = toAppDateFormat(moment());
-  const maxDate = toAppDateFormat(
-    moment()
-      .add(6, 'months')
-      .endOf('month'),
-  );
+
+  console.log('selectedDate: ', selectedDate);
+  const shouldShowSelectedDateOnDateInput =
+    selectedDate &&
+    selectedDate !== today &&
+    selectedDate !== tomorrow &&
+    selectedDate !== dayAfterTomorrow;
+  console.log('shouldShowSelectedDateOnDateInput: ', shouldShowSelectedDateOnDateInput);
+
+  const datesLabels = {
+    [today]: TODAY_LABEL,
+    [tomorrow]: TOMORROW_LABEL,
+  };
+  const getDateLabel = date => {
+    if (date in datesLabels) return datesLabels[date];
+    return toMoment(date).format('dd, DD MMMM');
+  };
+
+  const minDate = today;
+  const maxDate = getEndDateOfSixthMonthFromCurrent();
 
   return (
     <>
@@ -44,7 +59,9 @@ function MoviesPage(props) {
         />
         <DateFilter.DateInput
           defaultLabel={DEFAULT_DATE_INPUT_LABEL}
-          getDateLabel={date => date.format('dd, DD MMMM')}
+          getDateLabel={getDateLabel}
+          shouldShowSelectedDate={shouldShowSelectedDateOnDateInput}
+          active={shouldShowSelectedDateOnDateInput}
           minDate={minDate}
           maxDate={maxDate}
         />
@@ -53,6 +70,16 @@ function MoviesPage(props) {
   );
 }
 
-MoviesPage.propTypes = {};
+MoviesPage.propTypes = {
+  selectedDate: PropTypes.string,
+};
 
-export default MoviesPage;
+MoviesPage.defaultProps = {
+  selectedDate: null,
+};
+
+const mapStateToProps = state => ({
+  selectedDate: selectSelectedDate(state),
+});
+
+export default connect(mapStateToProps)(MoviesPage);
