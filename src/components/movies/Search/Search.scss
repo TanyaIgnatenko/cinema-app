@@ -1,0 +1,43 @@
+.input-box {
+  position: relative;
+  display: inline-block;
+
+  .search-input {
+    width: 456px;
+    height: 32px;
+    padding: 3px 25px 3px 30px;
+
+    font-size: 15px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+
+    &:focus {
+      outline: 2px solid #FFDB4D;
+    }
+  }
+
+  .icon {
+    position: absolute;
+    top: 9px;
+    width: 15px;
+    height: 15px;
+    color: black;
+    opacity: .3;
+  }
+
+  .search-icon {
+    @extend .icon;
+    left: 10px;
+    cursor: default;
+  }
+
+  .reset-icon {
+    @extend .icon;
+    right: 10px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+}
+

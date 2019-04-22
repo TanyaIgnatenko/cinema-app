@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { Search } from './Search';
 import { DateFilter } from './DateFilter';
+import { selectSelectedDate } from '../../ducks/date/selectors';
 
 import {
   getDateAfterTomorrow,
   getEndDateOfSixthMonthFromCurrent,
+  getTomorrowDate,
   getTodayDate,
-  getTomorrowDate, toAppDateFormat,
   toMoment,
 } from '../../helpers/dateHelpers';
 
+import './MoviesPage.scss';
 import '../../assets/scss/main.scss';
-import { selectSelectedDate } from '../../ducks/date/selectors';
 
 const TODAY_LABEL = 'Сегодня';
 const TOMORROW_LABEL = 'Завтра';
 const DEFAULT_DATE_INPUT_LABEL = 'Выбрать день';
+const MOVIE_SEARCH_PLACEHOLDER = 'Название';
 
 function MoviesPage({ selectedDate }) {
   const today = getTodayDate();
@@ -27,13 +30,11 @@ function MoviesPage({ selectedDate }) {
     'dd, DD MMMM',
   );
 
-  console.log('selectedDate: ', selectedDate);
   const shouldShowSelectedDateOnDateInput =
     selectedDate &&
     selectedDate !== today &&
     selectedDate !== tomorrow &&
     selectedDate !== dayAfterTomorrow;
-  console.log('shouldShowSelectedDateOnDateInput: ', shouldShowSelectedDateOnDateInput);
 
   const datesLabels = {
     [today]: TODAY_LABEL,
@@ -47,6 +48,7 @@ function MoviesPage({ selectedDate }) {
   const minDate = today;
   const maxDate = getEndDateOfSixthMonthFromCurrent();
 
+  const [movieHint, setMovieHint] = useState('');
   return (
     <>
       <h1 className='pageTitle'>Расписание</h1>
@@ -66,6 +68,13 @@ function MoviesPage({ selectedDate }) {
           maxDate={maxDate}
         />
       </DateFilter>
+      <Search
+        hint={movieHint}
+        placeholder={MOVIE_SEARCH_PLACEHOLDER}
+        onHintChange={event => setMovieHint(event.target.value)}
+        resetHint={() => setMovieHint('')}
+        className='search'
+      />
     </>
   );
 }
