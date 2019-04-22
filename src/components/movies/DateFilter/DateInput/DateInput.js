@@ -43,6 +43,7 @@ function DateInput({
           </Button>
           {on && (
             <Calendar
+              initialMonth={selectedDate}
               minDate={minDate}
               maxDate={maxDate}
               onDateSelected={date => selectDate(date)}

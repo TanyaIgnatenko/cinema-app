@@ -22,6 +22,7 @@ const moment = extendMoment(Moment);
 
 class Calendar extends React.Component {
   static propTypes = {
+    initialMonth: PropTypes.string,
     onDateSelected: PropTypes.func.isRequired,
     closeCalendar: PropTypes.func,
     onDateEnter: PropTypes.func,
@@ -32,6 +33,7 @@ class Calendar extends React.Component {
   };
 
   static defaultProps = {
+    initialMonth: toAppDateFormat(moment()),
     onDateEnter: () => {},
     onDateLeave: () => {},
     closeCalendar: () => {},
@@ -41,7 +43,8 @@ class Calendar extends React.Component {
   };
 
   state = {
-    selectedMonth: toAppDateFormat(moment()),
+    // eslint-disable-next-line react/destructuring-assignment
+    selectedMonth: this.props.initialMonth,
   };
 
   handleNextMonthClick = () => {
