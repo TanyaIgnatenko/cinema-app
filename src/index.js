@@ -11,21 +11,44 @@ import { store } from './store/store';
 import { history } from './store/rootReducer';
 
 moment.locale('ru');
+
+const nominative_months = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
+];
+
+const subjective_months = [
+  'Января',
+  'Февраля',
+  'Мара',
+  'Апреля',
+  'Мая',
+  'Июня',
+  'Июля',
+  'Августа',
+  'Сентября',
+  'Октября',
+  'Ноября',
+  'Декабря',
+];
+
 moment.updateLocale('ru', {
-  months: [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь',
-  ],
+  months(momentToFormat, format) {
+    if (/^MMMM/.test(format)) {
+      return nominative_months[momentToFormat.month()];
+    }
+    return subjective_months[momentToFormat.month()];
+  },
   weekdaysShort: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
   weekdaysMin: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
 });
