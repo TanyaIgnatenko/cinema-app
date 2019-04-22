@@ -1,10 +1,12 @@
 .toggleIcon {
-  width: 20px;
-  height: 20px;
-  fill: #979595;
+  width: 10px;
+  height: 10px;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in;
 
   &.on {
-    transform: rotate(180deg);
+    transform: rotate(-180deg);
   }
 
   &.off {}

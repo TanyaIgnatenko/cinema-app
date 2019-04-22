@@ -4,6 +4,8 @@ import classNames from 'classnames';
 
 import downArrowIcon from '../../../assets/images/down-arrow.svg';
 
+import './ToggleIcon.scss';
+
 function ToggleIcon({ on, className, ...props }) {
   return (
     <img
