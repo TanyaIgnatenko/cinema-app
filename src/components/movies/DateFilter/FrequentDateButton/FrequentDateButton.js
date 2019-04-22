@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { DateFilter } from '..';
+import { DateFilterContext } from '..';
 
 import './FrequentDateButton.scss';
 
 function FrequentDateButton({ date, label }) {
-  const { selectedDate, selectDate } = useContext(DateFilter.Context);
+  const { selectedDate, selectDate } = useContext(DateFilterContext);
   const isSelected = date === selectedDate;
   return (
     <button

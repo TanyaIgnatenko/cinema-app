@@ -5,21 +5,15 @@ import moment from 'moment';
 
 import { DateInput } from './DateInput';
 import { FrequentDateButton } from './FrequentDateButton';
-import { selectSelectedDate } from '../../../ducks/date/selectors';
+import { DateFilterContext } from '.';
 import { selectDate } from '../../../ducks/date/actions';
 import { toAppDateFormat } from '../../../helpers/dateHelpers';
-
-export const DateFilterContext = React.createContext({
-  selectedDate: null,
-  selectDate: () => {},
-});
+import { selectSelectedDate } from '../../../ducks/date/selectors';
 
 class DateFilter extends React.Component {
-  static FrequentDateButton = FrequentDateButton;
-
   static DateInput = DateInput;
 
-  static Context = DateFilterContext;
+  static FrequentDateButton = FrequentDateButton;
 
   componentDidMount() {
     const { selectDate } = this.props;
@@ -29,6 +23,7 @@ class DateFilter extends React.Component {
 
   render() {
     const { selectedDate, selectDate, children, className } = this.props;
+    console.log('selectDate.toString(): ', selectDate.toString());
     return (
       <DateFilterContext.Provider value={{ selectedDate, selectDate }}>
         <div className={className}>{children}</div>
