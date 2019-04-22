@@ -132,8 +132,8 @@ class Calendar extends React.Component {
               <li
                 onClick={() => (enabledDate ? onDateSelected(date) : false)}
                 className={enabledDate ? 'enabled-day' : 'disabled-day'}
-                onMouseEnter={onDateEnter}
-                onMouseLeave={onDateLeave}
+                onMouseEnter={() => onDateEnter(date)}
+                onMouseLeave={() => onDateLeave(date)}
               >
                 {date.format('DD')}
               </li>

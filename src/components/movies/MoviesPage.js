@@ -44,6 +44,7 @@ function MoviesPage(props) {
         />
         <DateFilter.DateInput
           defaultLabel={DEFAULT_DATE_INPUT_LABEL}
+          getDateLabel={date => date.format('dd, DD MMMM')}
           minDate={minDate}
           maxDate={maxDate}
         />

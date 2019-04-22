@@ -74,7 +74,7 @@ DateInput.propTypes = {
 
 DateInput.defaultProps = {
   defaultLabel: 'Выбрать дату',
-  getDateLabel: date => toMoment(date).format('DD MMMM'),
+  getDateLabel: date => date.format('DD MMMM'),
   minDate: null,
   maxDate: null,
 };
