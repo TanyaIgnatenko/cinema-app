@@ -28,12 +28,14 @@ class Calendar extends React.Component {
     onDateLeave: PropTypes.func,
     minDate: PropTypes.string,
     maxDate: PropTypes.string,
+    closeOnSelect: PropTypes.bool,
   };
 
   static defaultProps = {
     onDateEnter: () => {},
     onDateLeave: () => {},
     closeCalendar: () => {},
+    closeOnSelect: false,
     minDate: null,
     maxDate: null,
   };
@@ -60,19 +62,19 @@ class Calendar extends React.Component {
     });
   };
 
+  handleDateSelected = date => {
+    const { onDateSelected, closeOnSelect, closeCalendar } = this.props;
+    onDateSelected(date);
+    if (closeOnSelect) closeCalendar();
+  };
+
   handleClickOutside = () => {
     const { closeCalendar } = this.props;
     closeCalendar();
   };
 
   render() {
-    const {
-      minDate,
-      maxDate,
-      onDateSelected,
-      onDateEnter,
-      onDateLeave,
-    } = this.props;
+    const { minDate, maxDate, onDateEnter, onDateLeave } = this.props;
 
     const { selectedMonth } = this.state;
     const selectedMonthMoment = toMoment(selectedMonth);
@@ -130,7 +132,9 @@ class Calendar extends React.Component {
               (date.isSameOrAfter(minMoment) && date.isSameOrBefore(maxDate));
             return (
               <li
-                onClick={() => (enabledDate ? onDateSelected(date) : false)}
+                onClick={() =>
+                  enabledDate ? this.handleDateSelected(date) : false
+                }
                 className={enabledDate ? 'enabled-day' : 'disabled-day'}
                 onMouseEnter={() => onDateEnter(date)}
                 onMouseLeave={() => onDateLeave(date)}

@@ -25,15 +25,13 @@ function DateInput({ minDate, maxDate, defaultLabel, getDateLabel }) {
           </Button>
           {on && (
             <Calendar
-              onDateSelected={date => {
-                selectDate(date);
-                toggle();
-              }}
+              minDate={minDate}
+              maxDate={maxDate}
+              onDateSelected={date => selectDate(date)}
               onDateEnter={date => setButtonLabel(getDateLabel(date))}
               onDateLeave={() => setButtonLabel(defaultLabel)}
               closeCalendar={toggle}
-              minDate={minDate}
-              maxDate={maxDate}
+              closeOnSelect
             />
           )}
         </div>
