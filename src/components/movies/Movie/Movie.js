@@ -1,0 +1,76 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import { GENRE } from '../../../constants';
+
+import './Movie.scss';
+
+const RUSSIAN_CURRENCY_SYMBOL = '\u20BD';
+
+function Movie({ name, genres, poster, seances }) {
+  return (
+    <div className='movie-box'>
+      <img className='poster' src={poster} />
+      <div className='main-info'>
+        <p className='genres'>{genres.join(', ')}</p>
+        <p className='title'>{name}</p>
+      </div>
+      <div className='seances'>
+        {Object.keys(seances).map(
+          technology =>
+            seances[technology].length && (
+              <div>
+                <p className='technology'>{technology}</p>
+                <div className='tech-seances'>
+                  {seances[technology].map(seance => (
+                    <li key={seance.startTime}>
+                      <div className='seance' onClick={() => {}}>
+                        {seance.startTime}
+                        <div className='price-tooltip'>
+                          {`от ${seance.price} ${RUSSIAN_CURRENCY_SYMBOL}`}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </div>
+              </div>
+            ),
+        )}
+      </div>
+    </div>
+  );
+}
+
+Movie.propTypes = {
+  name: PropTypes.string.isRequired,
+  genres: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      GENRE.COMEDY,
+      GENRE.ACTION,
+      GENRE.HORROR,
+      GENRE.TRILLER,
+      GENRE.DETECTIV,
+      GENRE.MELODRAMA,
+      GENRE.FANTASY,
+      GENRE.ADVENTURES,
+      GENRE.BIOGRAPHY,
+    ]),
+  ).isRequired,
+  poster: PropTypes.string.isRequired,
+  seances: PropTypes.shape({
+    '2d': PropTypes.arrayOf(
+      PropTypes.shape({
+        startTime: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    '3d': PropTypes.arrayOf(
+      PropTypes.shape({
+        startTime: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+      }),
+    ),
+  }).isRequired,
+};
+
+export default Movie;

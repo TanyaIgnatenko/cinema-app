@@ -1,0 +1,113 @@
+.movie-box {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+
+  .poster{
+    height: 180px;
+    width: 120px;
+    cursor: pointer;
+  }
+
+  .main-info {
+    flex-basis: 30%;
+    margin-left: 15px;
+
+    .genres {
+      margin-bottom: 8px;
+      color: #666;
+      font-size: 13px;
+      line-height: 15px;
+    }
+
+    .title {
+      color: #333;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 25px;
+      cursor: pointer;
+
+      &:hover {
+        color: hsl(0, 100%, 45%);
+      }
+    }
+  }
+
+  .seances {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+
+    & > * {
+      display: flex;
+    }
+
+    & > *:not(:last-child) {
+      margin-bottom: 8px;
+    }
+
+    .technology {
+      margin-top: 5px;
+      flex-basis: 10%;
+      color: #999;
+    }
+
+    .tech-seances {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+
+      .seance {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 64px;
+        height: 32px;
+        background-color: #ffdb4d;
+        cursor: pointer;
+
+        .price-tooltip {
+          z-index: 15;
+          position: absolute;
+          top: calc(100% - 68px);
+          display: none;
+          height: 28px;
+          width: 72px;
+          justify-content: center;
+          align-items: center;
+
+          background-color: white;
+          font-size: 14px;
+          border: 1px solid lightgray;
+          border-radius: 3px;
+
+          &::before, &::after {
+            content: '';
+            position: absolute;
+            left: auto;
+            width: 0;
+            height: 0;
+            border: 7px solid transparent;
+          }
+
+          &::before {
+            bottom: -15px;
+            border-top-color: lightgray;
+          }
+
+          &::after {
+            bottom: -13px;
+            border-top-color: white;
+          }
+        }
+
+        &:hover {
+          .price-tooltip {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}
