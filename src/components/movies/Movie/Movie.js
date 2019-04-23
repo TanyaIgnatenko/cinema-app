@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { GENRE } from '../../../constants';
 
@@ -7,9 +8,9 @@ import './Movie.scss';
 
 const RUSSIAN_CURRENCY_SYMBOL = '\u20BD';
 
-function Movie({ name, genres, poster, seances }) {
+function Movie({ name, genres, poster, seances, className, ...props }) {
   return (
-    <div className='movie-box'>
+    <div className={classNames('movie-box', className)} {...props}>
       <img className='poster' src={poster} />
       <div className='main-info'>
         <p className='genres'>{genres.join(', ')}</p>
@@ -44,7 +45,7 @@ function Movie({ name, genres, poster, seances }) {
 Movie.propTypes = {
   name: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(
-    PropTypes.oneOfType([
+    PropTypes.oneOf([
       GENRE.COMEDY,
       GENRE.ACTION,
       GENRE.HORROR,
@@ -71,6 +72,11 @@ Movie.propTypes = {
       }),
     ),
   }).isRequired,
+  className: PropTypes.string,
+};
+
+Movie.defaultProps = {
+  className: '',
 };
 
 export default Movie;

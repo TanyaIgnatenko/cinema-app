@@ -15,12 +15,6 @@ class DateFilter extends React.Component {
 
   static FrequentDateButton = FrequentDateButton;
 
-  componentDidMount() {
-    const { selectDate } = this.props;
-    const today = toAppDateFormat(moment());
-    selectDate(today);
-  }
-
   render() {
     const { selectedDate, selectDate, children, className } = this.props;
     return (

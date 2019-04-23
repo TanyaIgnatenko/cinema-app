@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
+import { Movie } from './Movie';
 import { Search } from './Search';
 import { DateFilter } from './DateFilter';
-import { selectSelectedDate } from '../../ducks/date/selectors';
+import { GENRE } from '../../constants';
 
 import {
+  toMoment,
+  getTodayDate,
+  getTomorrowDate,
   getDateAfterTomorrow,
   getEndDateOfSixthMonthFromCurrent,
-  getTomorrowDate,
-  getTodayDate,
-  toMoment,
 } from '../../helpers/dateHelpers';
 
 import './MoviesPage.scss';
@@ -22,7 +22,7 @@ const TOMORROW_LABEL = 'Завтра';
 const DEFAULT_DATE_INPUT_LABEL = 'Выбрать день';
 const MOVIE_SEARCH_PLACEHOLDER = 'Название';
 
-function MoviesPage({ selectedDate }) {
+function MoviesPage({ selectedDate, selectedMovies }) {
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
   const dayAfterTomorrow = getDateAfterTomorrow();
@@ -75,20 +75,60 @@ function MoviesPage({ selectedDate }) {
         resetHint={() => setMovieHint('')}
         className='search'
       />
+      <ul className='movie-list'>
+        {selectedMovies.map(movie => (
+          <Movie
+            key={movie.name}
+            name={movie.name}
+            genres={movie.genres}
+            poster={movie.poster}
+            seances={movie.seances}
+          />
+        ))}
+      </ul>
     </>
   );
 }
 
 MoviesPage.propTypes = {
   selectedDate: PropTypes.string,
+  selectedMovies: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      genres: PropTypes.arrayOf(
+        PropTypes.oneOf([
+          GENRE.COMEDY,
+          GENRE.ACTION,
+          GENRE.HORROR,
+          GENRE.TRILLER,
+          GENRE.DETECTIV,
+          GENRE.MELODRAMA,
+          GENRE.FANTASY,
+          GENRE.ADVENTURES,
+          GENRE.BIOGRAPHY,
+        ]),
+      ).isRequired,
+      poster: PropTypes.string.isRequired,
+      seances: PropTypes.shape({
+        '2d': PropTypes.arrayOf(
+          PropTypes.shape({
+            startTime: PropTypes.string.isRequired,
+            price: PropTypes.string.isRequired,
+          }),
+        ).isRequired,
+        '3d': PropTypes.arrayOf(
+          PropTypes.shape({
+            startTime: PropTypes.string.isRequired,
+            price: PropTypes.string.isRequired,
+          }),
+        ),
+      }).isRequired,
+    }),
+  ).isRequired,
 };
 
 MoviesPage.defaultProps = {
   selectedDate: null,
 };
 
-const mapStateToProps = state => ({
-  selectedDate: selectSelectedDate(state),
-});
-
-export default connect(mapStateToProps)(MoviesPage);
+export default MoviesPage;
