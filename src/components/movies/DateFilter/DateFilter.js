@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
+import { DateFilterContext } from '.';
 import { DateInput } from './DateInput';
 import { FrequentDateButton } from './FrequentDateButton';
-import { DateFilterContext } from '.';
-import { selectDate } from '../../../ducks/date/actions';
-import { toAppDateFormat } from '../../../helpers/dateHelpers';
 import { selectSelectedDate } from '../../../ducks/date/selectors';
+import { selectDate } from '../../../ducks/date/actions';
 
 class DateFilter extends React.Component {
   static DateInput = DateInput;
@@ -18,9 +16,11 @@ class DateFilter extends React.Component {
   render() {
     const { selectedDate, selectDate, children, className } = this.props;
     return (
-      <DateFilterContext.Provider value={{ selectedDate, selectDate }}>
-        <div className={className}>{children}</div>
-      </DateFilterContext.Provider>
+      <div className={className}>
+        <DateFilterContext.Provider value={{ selectedDate, selectDate }}>
+          <>{children}</>
+        </DateFilterContext.Provider>
+      </div>
     );
   }
 }
