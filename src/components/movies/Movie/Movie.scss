@@ -12,7 +12,7 @@
   }
 
   .main-info {
-    flex-basis: 30%;
+    flex-basis: 40%;
     margin-left: 15px;
 
     .genres {
@@ -38,7 +38,7 @@
   .seances {
     display: flex;
     flex-direction: column;
-    flex-basis: 50%;
+    flex-basis: 40%;
 
     & > * {
       display: flex;
@@ -50,6 +50,7 @@
 
     .technology {
       margin-top: 5px;
+      margin-right: 30px;
       flex-basis: 10%;
       color: #999;
       font-size: 14px;
