@@ -1,0 +1,51 @@
+.slider-box {
+  display: flex;
+  flex-direction: column;
+
+  .slider-mark-labels {
+    display: flex;
+
+    .mark-label {
+      font-size: 11px;
+      margin-bottom: 8px;
+
+      &:not(:first-of-type) {
+        margin-left: 7.7%;
+      }
+    }
+  }
+
+  .slider {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    margin-left: 2%;
+    padding: 6px;
+
+    .slider-handler {
+      position: absolute;
+      top: 0;
+      width: 15px;
+      height: 18px;
+      background-color: white;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 1px;
+
+      &.left {
+        left: 0;
+      }
+
+      &.right {
+        right: 0;
+      }
+    }
+
+    .time-interval {
+      width: 20px;
+      height: 6px;
+      border: 1px solid #e7c100;
+      border-left: none;
+      background-color: #fee8a4;
+    }
+  }
+}

@@ -1,5 +1,14 @@
+.sub-filters {
+  display: flex;
+  justify-content: space-between;
+}
+
 .search {
   margin-top: 32px;
+}
+
+.time-range-slider {
+  align-self: flex-end;
 }
 
 .movie-list {

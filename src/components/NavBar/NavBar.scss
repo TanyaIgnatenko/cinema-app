@@ -3,7 +3,7 @@
 .navBarContainer {
   display: flex;
   justify-content: space-between;
-  padding-left: 30px;
+  padding: 0 100px;
   width: 1299px;
   height: $nav-bar-height;
 
@@ -26,7 +26,6 @@
   .rightPart {
     display: flex;
     align-items: center;
-    margin-right: 30px;
 
     .usernameContainer {
       margin-left: 10px;
