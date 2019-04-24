@@ -14,37 +14,7 @@ const mockMovies = [
     genres: [GENRE.FANTASY, GENRE.ADVENTURES],
     poster: lordOfTheRingsPoster,
     seances: {
-      '2d': [
-        {
-          startTime: '10 30',
-          price: '150',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-      ],
-      '3d': [
+      '3D': [
         {
           startTime: '12 30',
           price: '200',
@@ -72,6 +42,36 @@ const mockMovies = [
         {
           startTime: '16 50',
           price: '270',
+        },
+      ],
+      '2D': [
+        {
+          startTime: '10 30',
+          price: '150',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
         },
       ],
     },
@@ -81,37 +81,7 @@ const mockMovies = [
     genres: [GENRE.FANTASY, GENRE.ADVENTURES],
     poster: lordOfTheRingsPoster,
     seances: {
-      '2d': [
-        {
-          startTime: '10 30',
-          price: '150',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-      ],
-      '3d': [
+      '3D': [
         {
           startTime: '12 30',
           price: '200',
@@ -139,6 +109,36 @@ const mockMovies = [
         {
           startTime: '16 50',
           price: '270',
+        },
+      ],
+      '2D': [
+        {
+          startTime: '10 30',
+          price: '150',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
         },
       ],
     },
@@ -148,37 +148,7 @@ const mockMovies = [
     genres: [GENRE.FANTASY, GENRE.ADVENTURES],
     poster: lordOfTheRingsPoster,
     seances: {
-      '2d': [
-        {
-          startTime: '10 30',
-          price: '150',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-      ],
-      '3d': [
+      '3D': [
         {
           startTime: '12 30',
           price: '200',
@@ -206,6 +176,36 @@ const mockMovies = [
         {
           startTime: '16 50',
           price: '270',
+        },
+      ],
+      '2D': [
+        {
+          startTime: '10 30',
+          price: '150',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
         },
       ],
     },
@@ -215,37 +215,7 @@ const mockMovies = [
     genres: [GENRE.FANTASY, GENRE.ADVENTURES],
     poster: lordOfTheRingsPoster,
     seances: {
-      '2d': [
-        {
-          startTime: '10 30',
-          price: '150',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-        {
-          startTime: '12 40',
-          price: '180',
-        },
-        {
-          startTime: '14 00',
-          price: '200',
-        },
-      ],
-      '3d': [
+      '3D': [
         {
           startTime: '12 30',
           price: '200',
@@ -273,6 +243,36 @@ const mockMovies = [
         {
           startTime: '16 50',
           price: '270',
+        },
+      ],
+      '2D': [
+        {
+          startTime: '10 30',
+          price: '150',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
+        },
+        {
+          startTime: '12 40',
+          price: '180',
+        },
+        {
+          startTime: '14 00',
+          price: '200',
         },
       ],
     },
