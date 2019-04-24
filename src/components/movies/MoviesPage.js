@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Movie } from './Movie';
 import { Search } from './Search';
 import { DateFilter } from './DateFilter';
+import { TimeRangeSlider } from './TimeRangeSlider';
 import { GENRE } from '../../constants';
 
 import {
@@ -68,13 +69,16 @@ function MoviesPage({ selectedDate, selectedMovies }) {
           maxDate={maxDate}
         />
       </DateFilter>
-      <Search
-        hint={movieHint}
-        placeholder={MOVIE_SEARCH_PLACEHOLDER}
-        onHintChange={event => setMovieHint(event.target.value)}
-        resetHint={() => setMovieHint('')}
-        className='search'
-      />
+      <div className='sub-filters'>
+        <Search
+          hint={movieHint}
+          placeholder={MOVIE_SEARCH_PLACEHOLDER}
+          onHintChange={event => setMovieHint(event.target.value)}
+          resetHint={() => setMovieHint('')}
+          className='search'
+        />
+        <TimeRangeSlider selectedRange={{ start: 10, end: 2 }} className='time-range-slider'/>
+      </div>
       <ul className='movie-list'>
         {selectedMovies.map(movie => (
           <Movie

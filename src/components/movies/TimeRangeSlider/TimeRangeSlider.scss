@@ -10,7 +10,7 @@
       margin-bottom: 8px;
 
       &:not(:first-of-type) {
-        margin-left: 7.7%;
+        margin-left: 15.7%;
       }
     }
   }
@@ -20,7 +20,6 @@
     display: flex;
     align-items: flex-end;
     margin-left: 2%;
-    padding: 6px;
 
     .slider-handler {
       position: absolute;
@@ -30,6 +29,16 @@
       background-color: white;
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 1px;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 27%;
+        left: 30%;
+        height: 46%;
+        width: 40%;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 20%, white 20% 40%, rgba(0, 0, 0, 0.4) 40% 60%, white 60% 80%, rgba(0, 0, 0, 0.4) 80%);
+      }
 
       &.left {
         left: 0;
@@ -46,6 +55,14 @@
       border: 1px solid #e7c100;
       border-left: none;
       background-color: #fee8a4;
+    }
+
+    .mark {
+      position: relative;
+      bottom: -3px;
+      width: 1px;
+      height: 12px;
+      background-color: rgba(0, 0, 0, 0.2);
     }
   }
 }

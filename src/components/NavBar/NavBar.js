@@ -42,7 +42,7 @@ function NavBar({ currentUser, onLogout, onSettings }) {
             </Dropdown>
           </>
         ) : (
-          <Button>Войти</Button>
+          <Button className='login-btn'>Войти</Button>
         )}
       </div>
     </ul>

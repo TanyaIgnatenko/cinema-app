@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavBar } from '../../components/navbar';
 import { Routes } from '../routes';
 
-import './App.scss';
+import '../../assets/scss/main.scss';
 
 function App({ currentUser }) {
   return (
