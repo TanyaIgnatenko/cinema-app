@@ -77,7 +77,11 @@ function MoviesPage({ selectedDate, selectedMovies }) {
           resetHint={() => setMovieHint('')}
           className='search'
         />
-        <TimeRangeSlider selectedRange={{ start: 10, end: 2 }} className='time-range-slider'/>
+        <TimeRangeSlider
+          range={{ startHour: 10, endHour: 2 }}
+          selectedRange={{ startHour: 10, endHour: 2 }}
+          className='time-range-slider'
+        />
       </div>
       <ul className='movie-list'>
         {selectedMovies.map(movie => (

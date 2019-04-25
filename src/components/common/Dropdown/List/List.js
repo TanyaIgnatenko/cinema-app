@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-    import onClickOutside from 'react-onclickoutside';
+import onClickOutside from 'react-onclickoutside';
 
 import { Dropdown } from '..';
 

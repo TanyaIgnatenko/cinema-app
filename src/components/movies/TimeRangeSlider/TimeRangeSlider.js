@@ -2,124 +2,67 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { getHoursRange } from '../../../helpers/hoursHelpers';
+
 import './TimeRangeSlider.scss';
 
-const MARK_LABEL_WIDTH = 40;
-
-class HoursRangeSlider extends React.Component {
+class TimeRangeSlider extends React.Component {
   constructor(props) {
     super(props);
     const {
       range: { startHour, endHour },
-      markStep,
     } = this.props;
     this.hoursRange = getHoursRange(startHour, endHour);
-    this.initSliderMarks(startHour, endHour, markStep);
+    this.hoursCount = this.hoursRange.length - 1;
   }
-
-  componentDidMount() {
-    // const sliderRect = this.slider.getBoundingClientRect();
-    // const sliderHandlerRect = this.handler.getBoundingClientRect();
-    // this.sliderLeftBorder = sliderRect.left;
-    // this.sliderLeftBorderRelativeToHandler = -sliderHandlerRect.width / 2;
-    // this.sliderRightBorderRelativeToHandler =
-    //   sliderRect.width + sliderHandlerRect.width / 2;
-  }
-
-  initSliderMarks = (startHour, endHour, markStep) => {
-    this.hoursCount =
-      endHour > startHour ? endHour - startHour : endHour + 24 - startHour;
-    this.marksCount = hoursCount / markStep + 1;
-    this.sliderMarks = [];
-    for (
-      let currentHour = startHour;
-      currentHour <= endHour;
-      currentHour += markStep
-    ) {
-      const mark = {
-        label: `${currentHour}:00`,
-        posX: 100 / (marksCount - 1) - MARK_LABEL_WIDTH / 2,
-      };
-      this.sliderMarks.push(`${currentHour}:00`);
-    }
-  };
-
-  makeDraggable = event => {
-    console.log('makeDraggable');
-    // const draggableObject = event.currentTarget;
-    this.handler.onmousedown = null;
-    document.onmousemove = this.handleDrag;
-    document.onmouseup = this.makeUndraggable;
-  };
-
-  handleDrag = event => {
-    console.log('handleDrag');
-    // const draggableObject = event.currentTarget;
-    const mouseXRelativeToHandler = this.toXRelativeToHandler(event.pageX);
-    const limitedX = this.limitBySliderBorders(mouseXRelativeToHandler);
-    this.handler.style.left = `${limitedX}px`;
-  };
-
-  makeUndraggable = event => {
-    // const draggableObject = event.currentTarget;
-    console.log('makeUndraggable');
-    document.onmouseup = null;
-    document.onmousemove = null;
-    this.handler.onmousedown = this.makeDraggable;
-  };
-
-  toXRelativeToHandler = x => x - this.sliderLeftBorder;
-
-  limitBySliderBorders(sliderHandlerX) {
-    let limitedPosX = this.limitByLeftSliderBorder(sliderHandlerX);
-    limitedPosX = this.limitByRightSliderBorder(limitedPosX);
-    return limitedPosX;
-  }
-
-  limitByLeftSliderBorder = sliderHandlerX =>
-    Math.max(this.sliderLeftBorderRelativeToHandler, sliderHandlerX);
-
-  limitByRightSliderBorder = sliderHandlerX =>
-    Math.min(sliderHandlerX, this.sliderRightBorderRelativeToHandler);
 
   setSliderRef = slider => (this.slider = slider);
 
-  setHandlerRef = handler => (this.handler = handler);
+  setSliderHandlerRef = handler => (this.sliderHandler = handler);
 
   isMarkStep = step => {
     const { markStep } = this.props;
     return step % markStep === 0;
   };
 
+  isFirstStep = step => {
+    return step === 0;
+  };
+
   render() {
     const { className } = this.props;
-    console.log('render');
-
     return (
+      <div ref={this.setSliderRef} className={classNames('slider', className)}>
+        {this.hoursRange.map((hour, step) =>
+          this.isFirstStep(step) ? (
+            <div className='first-mark-box'>
+              <span className='first-mark' />
+              <p className='first-mark-label'>{`${hour}:00`}</p>
+            </div>
+          ) : this.isMarkStep(step) ? (
+            <div className='time-interval-with-mark-box'>
+              <p className='mark-label'>{`${hour}:00`}</p>
+              <div className='time-interval with-mark' />
+            </div>
+          ) : (
+            <div className='time-interval' />
+          ),
+        )}
         <div
-          ref={this.setSliderRef}
-          className='slider'
-          onMouseDown={this.makeDraggable}
-        >
-          {this.hoursRange.map((hour, step) =>
-            this.isMarkStep(step) ? (
-              <>
-                <span className='mark' />
-                <p className='mark-label'>{`${hour}:00`}</p>
-                <div className='time-interval' />
-              </>
-            ) : (
-              <div className='time-interval' />
-            ),
-          )}
-          <div className='slider-handler left'/>
-          <div className='slider-handler right'/>
-        </div>
+          ref={this.setSliderHandlerRef}
+          onMouseDown={this.prepareToMovement}
+          className='slider-handler left draggable'
+        />
+        <div
+          onMouseDown={this.prepareToMovement}
+          className='slider-handler right draggable'
+        />
+      </div>
     );
   }
 }
 
-HoursRangeSlider.propTypes = {
+TimeRangeSlider.propTypes = {
   range: PropTypes.shape({
     startHour: PropTypes.number.isRequired,
     endHour: PropTypes.number.isRequired,
@@ -132,9 +75,9 @@ HoursRangeSlider.propTypes = {
   className: PropTypes.string,
 };
 
-HoursRangeSlider.defaultProps = {
-  markStep: 1,
+TimeRangeSlider.defaultProps = {
+  markStep: 4,
   className: '',
 };
 
-export default HoursRangeSlider;
+export default TimeRangeSlider;
