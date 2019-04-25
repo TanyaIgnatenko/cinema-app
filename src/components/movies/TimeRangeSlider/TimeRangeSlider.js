@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { createDragManager } from '../../../helpers/dragManager';
 import { getHoursRange } from '../../../helpers/hoursHelpers';
+import { getCoords } from '../../../helpers/coordsHelpers';
 
 import './TimeRangeSlider.scss';
+
+const HOUR_WIDTH = 21;
 
 class TimeRangeSlider extends React.Component {
   constructor(props) {
@@ -14,6 +18,29 @@ class TimeRangeSlider extends React.Component {
     } = this.props;
     this.hoursRange = getHoursRange(startHour, endHour);
     this.hoursCount = this.hoursRange.length - 1;
+  }
+
+  componentDidMount() {
+    const sliderCoords = getCoords(this.slider);
+    const sliderWidth = this.hoursCount * HOUR_WIDTH; // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
+    const sliderHandlerWidth = this.sliderHandler.offsetWidth;
+
+    const dragManagerConfig = {
+      dragAlongX: true,
+      dragObjectClass: '.draggable',
+      dragZone: {
+        left: sliderCoords.left - sliderHandlerWidth / 2,
+        right: sliderCoords.left + sliderWidth - sliderHandlerWidth / 2,
+      },
+      positioningContainer: this.slider,
+    };
+    this.dragManager = createDragManager(dragManagerConfig);
+
+    this.dragManager.start();
+  }
+
+  componentWillUnmount() {
+    this.dragManager.stop();
   }
 
   setSliderRef = slider => (this.slider = slider);
