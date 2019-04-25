@@ -23,11 +23,11 @@ class TimeRangeSlider extends React.Component {
   componentDidMount() {
     const sliderCoords = getCoords(this.slider);
     const sliderWidth = this.hoursCount * HOUR_WIDTH; // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
-    const sliderHandlerWidth = this.sliderHandler.offsetWidth;
+    const sliderHandlerWidth = this.sliderHandlerLeft.offsetWidth;
 
     const dragManagerConfig = {
       dragAlongX: true,
-      dragObjectClass: '.draggable',
+      dragObjects: [this.sliderHandlerLeft, this.sliderHandlerRight],
       dragZone: {
         left: sliderCoords.left - sliderHandlerWidth / 2,
         right: sliderCoords.left + sliderWidth - sliderHandlerWidth / 2,
@@ -45,7 +45,9 @@ class TimeRangeSlider extends React.Component {
 
   setSliderRef = slider => (this.slider = slider);
 
-  setSliderHandlerRef = handler => (this.sliderHandler = handler);
+  setSliderLeftHandlerRef = handler => (this.sliderHandlerLeft = handler);
+
+  setSliderRightHandlerRef = handler => (this.sliderHandlerRight = handler);
 
   isMarkStep = step => {
     const { markStep } = this.props;
@@ -76,11 +78,12 @@ class TimeRangeSlider extends React.Component {
           ),
         )}
         <div
-          ref={this.setSliderHandlerRef}
+          ref={this.setSliderLeftHandlerRef}
           onMouseDown={this.prepareToMovement}
           className='slider-handler left draggable'
         />
         <div
+          ref={this.setSliderRightHandlerRef}
           onMouseDown={this.prepareToMovement}
           className='slider-handler right draggable'
         />

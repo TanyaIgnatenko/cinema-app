@@ -3,7 +3,7 @@ import { getCoords } from './coordsHelpers';
 function createDragManager({
   dragAlongX = false,
   dragAlongY = false,
-  dragObjectClass = '.draggable',
+  dragObjects = [],
   dragZone = {
     left: 0,
     right: Infinity,
@@ -12,7 +12,7 @@ function createDragManager({
   },
   positioningContainer,
 }) {
-  let dragObject = null;
+  let currentDragObject = null;
 
   const containerCoords = getCoords(positioningContainer);
   const positioningObjectSystem = {
@@ -26,20 +26,18 @@ function createDragManager({
   });
 
   const onMouseDown = event => {
-    if (!isLeftMouseButtonClick(event)) return;
-
-    dragObject = event.target.closest(dragObjectClass);
-    if (!dragObject) return;
-
-    const objectCoords = getCoords(dragObject);
-    dragObject.cursorShiftX = event.pageX - objectCoords.left;
-    dragObject.cursorShiftY = event.pageY - objectCoords.top;
-
-    prepareToDrag();
+    if (isLeftMouseButtonClick(event)) prepareToDrag(event);
   };
 
-  const prepareToDrag = () => {
-    document.onmousedown = null;
+  const prepareToDrag = event => {
+    currentDragObject = event.target;
+    const cursorX = event.pageX;
+    const cursorY = event.pageY;
+    const objectCoords = getCoords(currentDragObject);
+    currentDragObject.cursorShiftX = cursorX - objectCoords.left;
+    currentDragObject.cursorShiftY = cursorY - objectCoords.top;
+
+    dragObjects.forEach(dragObject => (dragObject.onmousedown = null));
     document.onmousemove = dragTo;
     document.onmouseup = finishDrag;
   };
@@ -61,7 +59,7 @@ function createDragManager({
       x: limitedX,
     }).x;
 
-    dragObject.style.left = `${positionedX}px`;
+    currentDragObject.style.left = `${positionedX}px`;
   };
 
   const dragToY = pageY => {
@@ -72,13 +70,13 @@ function createDragManager({
       y: limitedY,
     }).y;
 
-    dragObject.style.top = `${positionedY}px`;
+    currentDragObject.style.top = `${positionedY}px`;
   };
 
   const finishDrag = () => {
     document.onmousemove = null;
     document.onmouseup = null;
-    document.onmousedown = onMouseDown;
+    dragObjects.forEach(dragObject => (dragObject.onmousedown = onMouseDown));
   };
 
   const limitByLeftBorder = x => Math.max(dragZone.left, x);
@@ -87,10 +85,10 @@ function createDragManager({
 
   return {
     start: () => {
-      document.onmousedown = onMouseDown;
+      dragObjects.forEach(dragObject => (dragObject.onmousedown = onMouseDown));
     },
     stop: () => {
-      document.onmousedown = null;
+      dragObjects.forEach(dragObject => (dragObject.onmousedown = null));
       document.onmousemove = null;
       document.onmouseup = null;
     },
