@@ -48,6 +48,7 @@ rules:
   no-return-assign: [error, except-parens]
   prefer-destructuring: off
   no-underscore-dangle: off
+  no-use-before-define: [error, { functions: false, classes: true, variables: false }]
 
   unicorn/import-index: error
 
