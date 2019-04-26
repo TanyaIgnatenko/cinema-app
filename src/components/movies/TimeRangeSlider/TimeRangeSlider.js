@@ -67,6 +67,8 @@ class TimeRangeSlider extends React.Component {
       endHour: Math.round(this.toHour(endHandlerLeft)),
     };
 
+    console.log('newSelectedRange: ', newSelectedRange);
+
     const { onSelectedRangeChange } = this.props;
     onSelectedRangeChange(newSelectedRange);
   };
@@ -130,10 +132,14 @@ class TimeRangeSlider extends React.Component {
   render() {
     const { selectedRange, className } = this.props;
 
+    console.log('RENDER START');
+    console.log('selectedRange : ', selectedRange);
+
     const startHandlerPosition = this.toSliderPosition(selectedRange.startHour);
     const endHandlerPosition = this.toSliderPosition(selectedRange.endHour);
     console.log('startHandlerPosition: ', startHandlerPosition);
     console.log('endHandlerPosition: ', endHandlerPosition);
+    console.log('RENDER END');
 
     const firstHandlerPosition = this.isFirstHandlerLeft()
       ? startHandlerPosition
@@ -141,8 +147,6 @@ class TimeRangeSlider extends React.Component {
     const secondHandlerPosition = this.isSecondHandlerLeft()
       ? startHandlerPosition
       : endHandlerPosition;
-    console.log('firstHandlerPosition: ', firstHandlerPosition);
-    console.log('secondHandlerPosition: ', secondHandlerPosition);
 
     return (
       <div ref={this.setSliderRef} className={classNames('slider', className)}>
@@ -177,9 +181,9 @@ class TimeRangeSlider extends React.Component {
           ref={this.setFirstHandlerRef}
         />
         <div
+          className='slider-handler'
           style={{ left: `${secondHandlerPosition}px` }}
           ref={this.setSecondHandlerRef}
-          className='slider-handler'
         />
       </div>
     );
