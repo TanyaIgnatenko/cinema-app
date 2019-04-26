@@ -83,13 +83,5 @@
       width: 40%;
       background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 20%, white 20% 40%, rgba(0, 0, 0, 0.4) 40% 60%, white 60% 80%, rgba(0, 0, 0, 0.4) 80%);
     }
-
-    &.left {
-      left: -7px;
-    }
-
-    &.right {
-      left: 336px;
-    }
   }
 }
