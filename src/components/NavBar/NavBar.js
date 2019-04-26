@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { NavLink } from './NavLink';
 import { UserIcon } from './UserIcon';
-import ToggleIcon from '../common/ToggleIcon/ToggleIcon';
+import { ToggleIcon } from '../common/ToggleIcon';
 import { VerticalLine } from '../common/VerticalLine';
 import { Dropdown } from '../common/Dropdown';
 import { Button } from '../common/Button';
