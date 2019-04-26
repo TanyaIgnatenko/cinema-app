@@ -1,4 +1,4 @@
-import { getCoords } from './coordsHelpers';
+import { getCoords, getObjectPosition } from './coordsHelpers';
 
 function createDragManager({
   dragAlongX = false,
@@ -12,6 +12,7 @@ function createDragManager({
   },
   positioningContainer,
   onObjectDidDrag = () => {},
+  onObjectDragDidFinish = () => {},
 }) {
   let currentDragObject = null;
 
@@ -43,35 +44,35 @@ function createDragManager({
     document.onmouseup = finishDrag;
   };
 
-  const dragTo = ({ pageX, pageY }) => {
+  const dragTo = ({ pageX: cursorX, pageY: cursorY }) => {
     if (dragAlongX) {
-      dragToX(pageX);
+      dragToX(cursorX);
     }
     if (dragAlongY) {
-      dragToY(pageY);
+      dragToY(cursorY);
     }
-    onObjectDidDrag();
+
+    const newDragObjectsPositions = dragObjects.map(dragObject =>
+      getObjectPosition(dragObject),
+    );
+    onObjectDidDrag(newDragObjectsPositions);
   };
 
-  const dragToX = pageX => {
-    let limitedX = limitByLeftBorder(pageX);
+  const dragToX = cursorX => {
+    let limitedX = limitByLeftBorder(cursorX + currentDragObject.cursorShiftX);
     limitedX = limitByRightBorder(limitedX);
-
     const positionedX = toObjectPositioningSystem({
       x: limitedX,
     }).x;
-
     currentDragObject.style.left = `${positionedX}px`;
   };
 
-  const dragToY = pageY => {
-    let limitedY = limitByLeftBorder(pageY);
-    limitedY = limitByRightBorder(limitedY);
-
+  const dragToY = cursorY => {
+    let limitedY = limitByTopBorder(cursorY + currentDragObject.cursorShiftY);
+    limitedY = limitByBottomBorder(limitedY);
     const positionedY = toObjectPositioningSystem({
       y: limitedY,
     }).y;
-
     currentDragObject.style.top = `${positionedY}px`;
   };
 
@@ -79,11 +80,20 @@ function createDragManager({
     document.onmousemove = null;
     document.onmouseup = null;
     dragObjects.forEach(dragObject => (dragObject.onmousedown = onMouseDown));
+
+    const newDragObjectsPositions = dragObjects.map(dragObject =>
+      getObjectPosition(dragObject),
+    );
+    onObjectDragDidFinish(newDragObjectsPositions);
   };
 
   const limitByLeftBorder = x => Math.max(dragZone.left, x);
 
   const limitByRightBorder = x => Math.min(x, dragZone.right);
+
+  const limitByTopBorder = y => Math.max(dragZone.top, y);
+
+  const limitByBottomBorder = y => Math.min(dragZone.bottom, y);
 
   return {
     start: () => {

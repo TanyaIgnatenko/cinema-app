@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { createDragManager } from '../../../helpers/dragManager';
-import { getCoords } from '../../../helpers/coordsHelpers';
+import { getCoords, getPositionedLeft } from '../../../helpers/coordsHelpers';
 import { range } from '../../../helpers/arrayHelpers';
 
 import './TimeRangeSlider.scss';
@@ -28,11 +28,11 @@ class TimeRangeSlider extends React.Component {
 
     const sliderCoords = getCoords(this.slider);
     const sliderWidth = this.hoursCount * HOUR_WIDTH; // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
-    this.sliderHandlerWidth = this.sliderHandlerLeft.offsetWidth;
+    this.sliderHandlerWidth = this.firstHandler.offsetWidth;
 
     const dragManagerConfig = {
       dragAlongX: true,
-      dragObjects: [this.sliderHandlerLeft, this.sliderHandlerRight],
+      dragObjects: [this.firstHandler, this.secondHandler],
       dragZone: {
         left: sliderCoords.left - this.sliderHandlerWidth / 2,
         right: sliderCoords.left + sliderWidth - this.sliderHandlerWidth / 2,
@@ -52,19 +52,19 @@ class TimeRangeSlider extends React.Component {
   placeSliderHandlers({ startHour, endHour }) {
     const leftSliderPosition = this.toSliderPosition(startHour);
     const rightSliderPosition = this.toSliderPosition(endHour);
-    this.sliderHandlerLeft.style.left = `${leftSliderPosition}px`;
-    this.sliderHandlerRight.style.left = `${rightSliderPosition}px`;
+    this.firstHandler.style.left = `${leftSliderPosition}px`;
+    this.secondHandler.style.left = `${rightSliderPosition}px`;
   }
 
-  onSliderHandlerDidDrag = () => {
-    const firstHandlerPosX = parseInt(this.sliderHandlerLeft.style.left, 10);
-    const secondHandlerPosX = parseInt(this.sliderHandlerRight.style.left, 10);
+  onSliderHandlerDidDrag = newHandlersPositions => {
+    const firstHandlerLeft = newHandlersPositions[0].left;
+    const secondHandlerLeft = newHandlersPositions[1].left;
 
-    const startRangePosX = Math.min(firstHandlerPosX, secondHandlerPosX);
-    const endRangePosX = Math.max(firstHandlerPosX, secondHandlerPosX);
+    const startHandlerLeft = Math.min(firstHandlerLeft, secondHandlerLeft);
+    const endHandlerLeft = Math.max(firstHandlerLeft, secondHandlerLeft);
     const newSelectedRange = {
-      startHour: this.toHour(startRangePosX),
-      endHour: this.toHour(endRangePosX),
+      startHour: Math.round(this.toHour(startHandlerLeft)),
+      endHour: Math.round(this.toHour(endHandlerLeft)),
     };
 
     const { onSelectedRangeChange } = this.props;
@@ -72,9 +72,8 @@ class TimeRangeSlider extends React.Component {
   };
 
   toHour = sliderPosition => {
-    const offsetFromStartHour = Math.round(
-      (sliderPosition + this.sliderHandlerWidth / 2) / HOUR_WIDTH,
-    );
+    const offsetFromStartHour =
+      (sliderPosition + this.sliderHandlerWidth / 2) / HOUR_WIDTH;
     const { range } = this.props;
     return range.startHour + offsetFromStartHour;
   };
@@ -87,9 +86,9 @@ class TimeRangeSlider extends React.Component {
 
   setSliderRef = slider => (this.slider = slider);
 
-  setSliderLeftHandlerRef = handler => (this.sliderHandlerLeft = handler);
+  setFirstHandlerRef = handler => (this.firstHandler = handler);
 
-  setSliderRightHandlerRef = handler => (this.sliderHandlerRight = handler);
+  setSecondHandlerRef = handler => (this.secondHandler = handler);
 
   isMarkStep = step => {
     const { markStep } = this.props;
@@ -105,11 +104,46 @@ class TimeRangeSlider extends React.Component {
     return hour >= selectedRange.startHour && hour < selectedRange.endHour;
   };
 
+  isFirstHandlerLeft = () => {
+    const firstHandlerLastPos = this.firstHandler
+      ? parseInt(this.firstHandler.style.left, 10)
+      : 0;
+    const secondHandlerLastPos = this.secondHandler
+      ? parseInt(this.secondHandler.style.left, 10)
+      : Infinity;
+    return firstHandlerLastPos < secondHandlerLastPos;
+  };
+
+  isSecondHandlerLeft = () => {
+    const firstHandlerLastPos = this.firstHandler
+      ? parseInt(this.firstHandler.style.left, 10)
+      : 0;
+    const secondHandlerLastPos = this.secondHandler
+      ? parseInt(this.secondHandler.style.left, 10)
+      : Infinity;
+    return secondHandlerLastPos < firstHandlerLastPos;
+  };
+
   toBeautifulTimeString = hour =>
     `${hour < HOURS_IN_DAY ? hour : hour - HOURS_IN_DAY}:00`;
 
   render() {
-    const { className } = this.props;
+    const { selectedRange, className } = this.props;
+
+    const startHandlerPosition = this.toSliderPosition(selectedRange.startHour);
+    const endHandlerPosition = this.toSliderPosition(selectedRange.endHour);
+    console.log('startHandlerPosition: ', startHandlerPosition);
+    console.log('endHandlerPosition: ', endHandlerPosition);
+
+    const firstHandlerPosition = this.isFirstHandlerLeft()
+      ? startHandlerPosition
+      : endHandlerPosition;
+    const secondHandlerPosition = this.isSecondHandlerLeft()
+      ? startHandlerPosition
+      : endHandlerPosition;
+    console.log('firstHandlerPosition: ', firstHandlerPosition);
+    console.log('secondHandlerPosition: ', secondHandlerPosition);
+
     return (
       <div ref={this.setSliderRef} className={classNames('slider', className)}>
         {this.hoursRange.map((hour, step) =>
@@ -138,12 +172,14 @@ class TimeRangeSlider extends React.Component {
           <div className={classNames('invisible-time-interval with-mark')} />
         </div>
         <div
-          ref={this.setSliderLeftHandlerRef}
-          className='slider-handler left'
+          className='slider-handler'
+          style={{ left: `${firstHandlerPosition}px` }}
+          ref={this.setFirstHandlerRef}
         />
         <div
-          ref={this.setSliderRightHandlerRef}
-          className='slider-handler right'
+          style={{ left: `${secondHandlerPosition}px` }}
+          ref={this.setSecondHandlerRef}
+          className='slider-handler'
         />
       </div>
     );
