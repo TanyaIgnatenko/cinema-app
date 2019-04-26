@@ -11,6 +11,7 @@ function createDragManager({
     bottom: Infinity,
   },
   positioningContainer,
+  onObjectDidDrag = () => {},
 }) {
   let currentDragObject = null;
 
@@ -49,6 +50,7 @@ function createDragManager({
     if (dragAlongY) {
       dragToY(pageY);
     }
+    onObjectDidDrag();
   };
 
   const dragToX = pageX => {

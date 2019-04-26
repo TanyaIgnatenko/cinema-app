@@ -6,24 +6,20 @@
   flex-grow: 0;
   align-items: flex-end;
 
-.first-mark-box {
-  .first-mark-label {
-    position: absolute;
-    top: 9.5px;
-    left: -13px;
-    font-size: 11px;
-    margin-bottom: 8px;
-  }
+  .time-interval {
+    z-index: -1;
+    width: 21px;
+    height: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-right: none;
+    background-color: white;
 
-  .first-mark {
-    position: relative;
-    display: inline-block;
-    top: 8px;
-    width: 2px;
-    height: 14px;
-    background-color: rgba(0, 0, 0, 0.2);
+    &.selected {
+      border: 1px solid #e7c100;
+      border-right: none;
+      background-color: #fee8a4;
+    }
   }
-}
 
   .time-interval-with-mark-box {
     position: relative;
@@ -31,40 +27,39 @@
     .mark-label {
       position: absolute;
       top: -24px;
-      right: -13px;
+      left: -16px;
       font-size: 11px;
       margin-bottom: 8px;
       margin-left: 15.7%;
     }
 
-    //.mark {
-    //  position: relative;
-    //  display: inline-block;
-    //  bottom: -10px;
-    //  width: 1px;
-    //  height: 12px;
-    //  background-color: rgba(0, 0, 0, 0.2);
-    //}
-  }
-
-  .time-interval {
-    z-index: -1;
-    width: 21px;
-    height: 6px;
-    border: 1px solid #e7c100;
-    border-left: none;
-    background-color: #fee8a4;
-
-    &.with-mark {
-      border-right: none;
+    .time-interval.with-mark {
+      border-left: none;
 
       &:after {
         content: '';
-        width: 100%;
         position: absolute;
         top: -3.5px;
+        width: 1px;
         height: 13px;
-        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
+
+        &.first {
+          width: 2px;
+        }
+      }
+    }
+
+    .invisible-time-interval.with-mark {
+      height: 6px;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: -3.5px;
+        width: 1px;
+        height: 13px;
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
       }
     }
   }
@@ -94,7 +89,7 @@
     }
 
     &.right {
-      right: 17px;
+      left: 336px;
     }
   }
 }

@@ -50,6 +50,10 @@ function MoviesPage({ selectedDate, selectedMovies }) {
   const maxDate = getEndDateOfSixthMonthFromCurrent();
 
   const [movieHint, setMovieHint] = useState('');
+  const [selectedRange, setSelectedRange] = useState({
+    startHour: 10,
+    endHour: 26,
+  });
   return (
     <>
       <h1 className='pageTitle'>Расписание</h1>
@@ -78,8 +82,9 @@ function MoviesPage({ selectedDate, selectedMovies }) {
           className='search'
         />
         <TimeRangeSlider
-          range={{ startHour: 10, endHour: 2 }}
-          selectedRange={{ startHour: 10, endHour: 2 }}
+          range={{ startHour: 10, endHour: 26 }}
+          selectedRange={selectedRange}
+          onSelectedRangeChange={setSelectedRange}
           className='time-range-slider'
         />
       </div>
