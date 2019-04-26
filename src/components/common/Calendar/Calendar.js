@@ -96,7 +96,7 @@ class Calendar extends React.Component {
     const monthDates = dateRange(startMonthDate, endMonthDate);
 
     const startWeekdayNumber = Number(startMonthDate.format('E'));
-    const startEmptyDays = range(1, startWeekdayNumber - 1);
+    const startEmptyDays = range(1, startWeekdayNumber);
 
     const minMoment = toMoment(minDate);
     const maxMoment = toMoment(maxDate);
