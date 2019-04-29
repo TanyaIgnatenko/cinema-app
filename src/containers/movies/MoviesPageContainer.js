@@ -6,7 +6,7 @@ import moment from 'moment';
 import { MoviesPage } from '../../components/movies';
 import { selectSelectedDate } from '../../ducks/date/selectors';
 import { selectMovies } from '../../ducks/movies/selectors';
-import { toAppDateFormat } from '../../helpers/dateHelpers';
+import { toAppDateFormat } from '../../utils/date';
 import { fetchMoviesRequest } from '../../ducks/movies/actions';
 import { selectDate } from '../../ducks/date/actions';
 import { GENRE } from '../../constants';

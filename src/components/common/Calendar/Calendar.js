@@ -8,13 +8,13 @@ import onClickOutside from 'react-onclickoutside';
 
 import { ButtonNext } from '../ButtonNext';
 import { ButtonPrev } from '../ButtonPrev';
-import { range } from '../../../helpers/arrayHelpers';
+import { range } from '../../../utils/array';
 
 import {
   dateRange,
   toAppDateFormat,
   toMoment,
-} from '../../../helpers/dateHelpers';
+} from '../../../utils/date';
 
 import './Calendar.scss';
 

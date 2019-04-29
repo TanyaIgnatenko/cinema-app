@@ -18,6 +18,7 @@
       border: 1px solid #e7c100;
       border-right: none;
       background-color: #fee8a4;
+
     }
   }
 
@@ -42,11 +43,11 @@
         top: -3.5px;
         width: 1px;
         height: 13px;
-        border-left: 1px solid rgba(0, 0, 0, 0.2);
+        border-left: 1px solid #d4d4d4;
+      }
 
-        &.first {
-          width: 2px;
-        }
+      &.first:after {
+        border-left: 2px solid #d4d4d4;
       }
     }
 

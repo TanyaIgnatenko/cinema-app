@@ -13,7 +13,7 @@ import {
   getTomorrowDate,
   getDateAfterTomorrow,
   getEndDateOfSixthMonthFromCurrent,
-} from '../../helpers/dateHelpers';
+} from '../../utils/date';
 
 import './MoviesPage.scss';
 import '../../assets/scss/main.scss';

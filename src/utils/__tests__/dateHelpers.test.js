@@ -1,4 +1,4 @@
-import { dateRange, toMoment } from '../dateHelpers';
+import { dateRange, toMoment } from '../date';
 
 describe('dateRange', () => {
   it('should return array of dates from given start moment to given end moment', () => {

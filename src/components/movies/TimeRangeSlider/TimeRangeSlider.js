@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { createDragManager } from '../../../helpers/dragManager';
-import { getCoords, getPositionedLeft } from '../../../helpers/coordsHelpers';
-import { range } from '../../../helpers/arrayHelpers';
+import { getCoords } from '../../../utils/position';
+import { createDragManager } from '../../../utils/drag-manager';
+import { range } from '../../../utils/array';
 
 import './TimeRangeSlider.scss';
 
@@ -24,7 +24,6 @@ class TimeRangeSlider extends React.Component {
 
   componentDidMount() {
     const { selectedRange } = this.props;
-    this.placeSliderHandlers(selectedRange);
 
     const sliderCoords = getCoords(this.slider);
     const sliderWidth = this.hoursCount * HOUR_WIDTH; // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
@@ -49,13 +48,6 @@ class TimeRangeSlider extends React.Component {
     this.dragManager.stop();
   }
 
-  placeSliderHandlers({ startHour, endHour }) {
-    const leftSliderPosition = this.toSliderPosition(startHour);
-    const rightSliderPosition = this.toSliderPosition(endHour);
-    this.firstHandler.style.left = `${leftSliderPosition}px`;
-    this.secondHandler.style.left = `${rightSliderPosition}px`;
-  }
-
   onSliderHandlerDidDrag = newHandlersPositions => {
     const firstHandlerLeft = newHandlersPositions[0].left;
     const secondHandlerLeft = newHandlersPositions[1].left;
@@ -66,8 +58,6 @@ class TimeRangeSlider extends React.Component {
       startHour: Math.round(this.toHour(startHandlerLeft)),
       endHour: Math.round(this.toHour(endHandlerLeft)),
     };
-
-    console.log('newSelectedRange: ', newSelectedRange);
 
     const { onSelectedRangeChange } = this.props;
     onSelectedRangeChange(newSelectedRange);
@@ -132,14 +122,8 @@ class TimeRangeSlider extends React.Component {
   render() {
     const { selectedRange, className } = this.props;
 
-    console.log('RENDER START');
-    console.log('selectedRange : ', selectedRange);
-
     const startHandlerPosition = this.toSliderPosition(selectedRange.startHour);
     const endHandlerPosition = this.toSliderPosition(selectedRange.endHour);
-    console.log('startHandlerPosition: ', startHandlerPosition);
-    console.log('endHandlerPosition: ', endHandlerPosition);
-    console.log('RENDER END');
 
     const firstHandlerPosition = this.isFirstHandlerLeft()
       ? startHandlerPosition

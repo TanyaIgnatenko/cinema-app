@@ -1,4 +1,4 @@
-import { range } from '../arrayHelpers';
+import { range } from '../array';
 
 describe('range', () => {
   it('should return array from given start = 1 to given end = 10 (not including)', () => {
