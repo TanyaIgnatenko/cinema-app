@@ -48,7 +48,7 @@ class TimeRangeSlider extends React.Component {
       maxLeft: this.sliderWidth - this.selectedRangeLength,
     });
 
-    this.slider.onmousedown = this.grabObject;
+    this.slider.addEventListener('mousedown', this.grabObject);
   }
 
   componentDidUpdate(prevProps) {
@@ -71,7 +71,7 @@ class TimeRangeSlider extends React.Component {
   }
 
   componentWillUnmount() {
-    this.slider.onmousedown = null;
+    this.slider.removeEventListener('mousedown', this.grabObject);
   }
 
   grabObject = ({ target, offsetX, offsetY }) => {
@@ -81,14 +81,14 @@ class TimeRangeSlider extends React.Component {
       cursorShiftY: offsetY,
     };
 
-    document.onmousemove = this.handleObjectMove;
-    document.onmouseup = this.releaseObject;
+    document.addEventListener('mousemove', this.handleObjectMove);
+    document.addEventListener('mouseup', this.releaseObject);
   };
 
   releaseObject = () => {
     this.grabbedObject = null;
-    document.onmousemove = null;
-    document.onmouseup = null;
+    document.removeEventListener('mousemove', this.handleObjectMove);
+    document.removeEventListener('mouseup', this.releaseObject);
   };
 
   handleObjectMove = ({ clientX: pageX, clientY: pageY }) => {
