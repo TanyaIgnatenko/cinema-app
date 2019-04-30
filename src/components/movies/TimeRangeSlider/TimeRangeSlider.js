@@ -9,7 +9,6 @@ import { Placer } from '../../../utils/Placer';
 
 import './TimeRangeSlider.scss';
 
-const HOUR_WIDTH = 21;
 class TimeRangeSlider extends React.Component {
   static propTypes = {
     range: PropTypes.shape({
@@ -33,18 +32,18 @@ class TimeRangeSlider extends React.Component {
   static Wireframe = Wireframe;
 
   componentDidMount() {
-    this.sliderWidth = this.calculateSliderWidth(); // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
-    this.SLIDER_HANDLER_HALF_WIDTH = this.handler.offsetWidth / 2;
+    this.measureElementsSize();
 
     this.handlersPlacer = new Placer({
       relatedToContainer: this.slider,
       minLeft: -this.SLIDER_HANDLER_HALF_WIDTH,
-      maxLeft: this.sliderWidth - this.SLIDER_HANDLER_HALF_WIDTH,
+      maxLeft: this.SLIDER_WIDTH - this.SLIDER_HANDLER_HALF_WIDTH,
     });
+
     this.selectedRangePlacer = new Placer({
       relatedToContainer: this.slider,
       minLeft: 0,
-      maxLeft: this.sliderWidth - this.selectedRangeLength,
+      maxLeft: this.SLIDER_WIDTH - this.selectedRangeLength,
     });
 
     this.slider.addEventListener('mousedown', this.grabObject);
@@ -52,20 +51,12 @@ class TimeRangeSlider extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.selectedRange !== this.props.selectedRange) {
-      this.selectedRangePlacer.setMaxLeft(
-        this.sliderWidth - this.selectedRangeLength,
-      );
+      this.updateSelectedRangePlacerPositionLimitations();
     }
     if (prevProps.range !== this.props.range) {
-      this.sliderWidth = this.calculateSliderWidth();
-
-      this.handlersPlacer.setMaxLeft(
-        this.sliderWidth - this.SLIDER_HANDLER_HALF_WIDTH,
-      );
-
-      this.selectedRangePlacer.setMaxLeft(
-        this.sliderWidth - this.selectedRangeLength,
-      );
+      this.measureElementsSize();
+      this.updateHandlersPlacerPositionLimitations();
+      this.updateSelectedRangePlacerPositionLimitations();
     }
   }
 
@@ -179,20 +170,37 @@ class TimeRangeSlider extends React.Component {
 
   toHour = sliderPosition => {
     const { range } = this.props;
-    const offsetFromStartInHours = sliderPosition / HOUR_WIDTH;
+    const offsetFromStartInHours = sliderPosition / this.HOUR_WIDTH;
     return range.startHour + offsetFromStartInHours;
   };
 
   toSliderPosition = hour => {
     const { range } = this.props;
     const offsetFromStartHour = hour - range.startHour;
-    return offsetFromStartHour * HOUR_WIDTH;
+    return offsetFromStartHour * this.HOUR_WIDTH;
   };
 
-  calculateSliderWidth() {
+  measureElementsSize() {
+    this.SLIDER_WIDTH = this.slider.offsetWidth;
+
     const { range } = this.props;
     const hoursCount = range.endHour - range.startHour;
-    return hoursCount * HOUR_WIDTH;
+    this.HOUR_WIDTH = this.SLIDER_WIDTH / hoursCount;
+
+    this.SLIDER_HANDLER_HALF_WIDTH = this.handler.offsetWidth / 2;
+  }
+
+  updateHandlersPlacerPositionLimitations() {
+    this.handlersPlacer.setMinLeft(-this.SLIDER_HANDLER_HALF_WIDTH);
+    this.handlersPlacer.setMaxLeft(
+      this.SLIDER_WIDTH - this.SLIDER_HANDLER_HALF_WIDTH,
+    );
+  }
+
+  updateSelectedRangePlacerPositionLimitations() {
+    this.selectedRangePlacer.setMaxLeft(
+      this.SLIDER_WIDTH - this.selectedRangeLength,
+    );
   }
 
   setSliderRef = slider => (this.slider = slider);
