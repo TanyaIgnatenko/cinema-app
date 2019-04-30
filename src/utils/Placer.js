@@ -2,25 +2,19 @@ import { getPageOffsets } from './position';
 
 const defaultConfig = {
   relatedToContainer: document.body,
-  positionLimits: {
-    minLeft: -Infinity,
-    maxLeft: Infinity,
-    minTop: -Infinity,
-    maxTop: Infinity,
-  },
-  unit: 'px',
+  minLeft: -Infinity,
+  maxLeft: Infinity,
+  minTop: -Infinity,
+  maxTop: Infinity,
 };
 
 class Placer {
   constructor({
     relatedToContainer = document.body,
-    positionLimits = {
-      minLeft: -Infinity,
-      maxLeft: Infinity,
-      minTop: -Infinity,
-      maxTop: Infinity,
-    },
-    unit = 'px',
+    minLeft = -Infinity,
+    maxLeft = Infinity,
+    minTop = -Infinity,
+    maxTop = Infinity,
   } = defaultConfig) {
     const offsets = getPageOffsets(relatedToContainer);
     this.system = {
@@ -28,22 +22,15 @@ class Placer {
       offsetTop: offsets.top,
     };
 
-    this.positionLimits = positionLimits;
-    this.unit = unit;
-
-    relatedToContainer.style.position = 'relative';
+    this.minLeft = minLeft;
+    this.maxLeft = maxLeft;
+    this.minTop = minTop;
+    this.maxTop = maxTop;
   }
 
-  place(element, pagePosition) {
+  place(pagePosition) {
     const containerPosition = this.toContainerPosition(pagePosition);
-    const limitedPosition = this.limitPosition(containerPosition);
-
-    // TODO: Если этот класс теперь не размещает объекты, а просто высчитывает координаты, стоит ли его так называть?
-    // element.style.position = 'absolute';
-    // element.style.left = limitedPosition.left + this.unit;
-    // element.style.top = limitedPosition.top + this.unit;
-
-    return limitedPosition;
+    return this.limitPosition(containerPosition);
   }
 
   toContainerPosition(pagePosition) {
@@ -60,23 +47,19 @@ class Placer {
     };
   }
 
-  limitLeft(left) {
-    return Math.min(
-      Math.max(this.positionLimits.minLeft, left),
-      this.positionLimits.maxLeft,
-    );
-  }
+  limitLeft = left => Math.min(Math.max(this.minLeft, left), this.maxLeft);
 
-  limitTop(top) {
-    return Math.min(
-      Math.max(this.positionLimits.minTop, top),
-      this.positionLimits.maxTop,
-    );
-  }
+  limitTop = top => Math.min(Math.max(this.minTop, top), this.maxTop);
 
-  setPositionLimits(positionLimits) {
-    this.positionLimits = positionLimits;
-  }
+  setMinLeft = minLeft => (this.minLeft = minLeft);
+
+  setMaxLeft = maxLeft => {
+    return (this.maxLeft = maxLeft);
+  };
+
+  setMinTop = minTop => (this.minTop = minTop);
+
+  setMaxTop = maxTop => (this.maxTop = maxTop);
 }
 
 export { Placer };

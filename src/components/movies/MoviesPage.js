@@ -23,6 +23,13 @@ const TOMORROW_LABEL = 'Завтра';
 const DEFAULT_DATE_INPUT_LABEL = 'Выбрать день';
 const MOVIE_SEARCH_PLACEHOLDER = 'Название';
 
+const MIN_HOUR = 10;
+const MAX_HOUR = 26;
+const TIME_SLIDER_RANGE = {
+  startHour: MIN_HOUR,
+  endHour: MAX_HOUR,
+};
+
 function MoviesPage({ selectedDate, selectedMovies }) {
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
@@ -54,6 +61,7 @@ function MoviesPage({ selectedDate, selectedMovies }) {
     startHour: 10,
     endHour: 26,
   });
+
   return (
     <>
       <h1 className='pageTitle'>Расписание</h1>
@@ -82,7 +90,7 @@ function MoviesPage({ selectedDate, selectedMovies }) {
           className='search'
         />
         <TimeRangeSlider
-          range={{ startHour: 10, endHour: 26 }}
+          range={TIME_SLIDER_RANGE}
           selectedRange={selectedRange}
           onSelectedRangeChange={setSelectedRange}
           className='time-range-slider'

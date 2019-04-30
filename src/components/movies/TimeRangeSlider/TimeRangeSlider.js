@@ -3,125 +3,164 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { Wireframe } from './Wireframe';
-import { createDragManager } from '../../../utils/DragManager';
 import { POSITION_UNIT } from '../../../constants';
+
+import { Placer } from '../../../utils/Placer';
 
 import './TimeRangeSlider.scss';
 
 const HOUR_WIDTH = 21;
 
 class TimeRangeSlider extends React.Component {
+  static propTypes = {
+    range: PropTypes.shape({
+      startHour: PropTypes.number.isRequired,
+      endHour: PropTypes.number.isRequired,
+    }).isRequired,
+    markStep: PropTypes.number,
+    selectedRange: PropTypes.shape({
+      startHour: PropTypes.number.isRequired,
+      endHour: PropTypes.number.isRequired,
+    }).isRequired,
+    onSelectedRangeChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+  };
+
+  static defaultProps = {
+    markStep: 4,
+    className: '',
+  };
+
   static Wireframe = Wireframe;
 
   componentDidMount() {
-    const { range } = this.props;
-    const hoursCount = range.endHour - range.startHour;
-    this.sliderWidth = hoursCount * HOUR_WIDTH; // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
-    this.sliderHandlerWidth = this.startHandler.offsetWidth;
+    this.sliderWidth = this.calculateSliderWidth(); // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
+    this.SLIDER_HANDLER_HALF_WIDTH = this.startHandler.offsetWidth / 2;
 
-    const startHandlerDragManagerConfig = {
-      ignoreY: true,
-      draggableObjects: [this.startHandler],
-      dragOnlyZone: {
-        minLeft: -this.sliderHandlerWidth / 2,
-        maxLeft: this.sliderWidth - this.sliderHandlerWidth / 2,
-        minTop: -Infinity,
-        maxTop: Infinity,
-      },
+    this.handlersPlacer = new Placer({
       relatedToContainer: this.slider,
-      onObjectDidDrag: this.handleStartHandlerDidDrag,
-    };
+      minLeft: -this.SLIDER_HANDLER_HALF_WIDTH,
+      maxLeft: this.sliderWidth - this.SLIDER_HANDLER_HALF_WIDTH,
+    });
+    this.selectedRangePlacer = new Placer({
+      relatedToContainer: this.slider,
+      minLeft: 0,
+      maxLeft: this.sliderWidth - this.selectedRangeLength,
+    });
 
-    const endHandlerDragManagerConfig = {
-      ...startHandlerDragManagerConfig,
-      draggableObjects: [this.endHandler],
-      onObjectDidDrag: this.handleEndHandlerDidDrag,
-    };
+    this.slider.onmousedown = this.grabObject;
+  }
 
-    const selectedRangeHandlerDragManagerConfig = {
-      ...startHandlerDragManagerConfig,
-      draggableObjects: [this.selectedRange],
-      dragOnlyZone: {
-        minLeft: 0,
-        maxLeft: this.sliderWidth - this.selectedRangeLength,
-        minTop: -Infinity,
-        maxTop: Infinity,
-      },
-      onObjectDidDrag: this.handleTrackDidDrag,
-    };
+  componentDidUpdate(prevProps) {
+    if (prevProps.selectedRange !== this.props.selectedRange) {
+      this.selectedRangePlacer.setMaxLeft(
+        this.sliderWidth - this.selectedRangeLength,
+      );
+    }
+    if (prevProps.range !== this.props.range) {
+      this.sliderWidth = this.calculateSliderWidth();
 
-    this.startHandlerDragManager = createDragManager(
-      startHandlerDragManagerConfig,
-    );
-    this.endHandlerDragManager = createDragManager(endHandlerDragManagerConfig);
-    this.selectedRangeDragManager = createDragManager(selectedRangeHandlerDragManagerConfig);
+      this.handlersPlacer.setMaxLeft(
+        this.sliderWidth - this.SLIDER_HANDLER_HALF_WIDTH,
+      );
 
-    this.startHandlerDragManager.start();
-    this.endHandlerDragManager.start();
-    this.selectedRangeDragManager.start();
+      this.selectedRangePlacer.setMaxLeft(
+        this.sliderWidth - this.selectedRangeLength,
+      );
+    }
   }
 
   componentWillUnmount() {
-    this.startHandlerDragManager.stop();
-    this.endHandlerDragManager.stop();
-    this.selectedRangeDragManager.stop();
+    this.slider.onmousedown = null;
   }
 
-  handleStartHandlerDidDrag = (object, position) =>
-    this.handleStartHandlerMove(position.left);
+  grabObject = ({ target, offsetX, offsetY }) => {
+    this.grabbedObject = {
+      name: target.getAttribute('name'),
+      cursorShiftX: offsetX,
+      cursorShiftY: offsetY,
+    };
 
-  handleStartHandlerMove = position => {
-    const { selectedRange } = this.props;
+    document.onmousemove = this.handleObjectMove;
+    document.onmouseup = this.releaseObject;
+  };
+
+  releaseObject = () => {
+    this.grabbedObject = null;
+    document.onmousemove = null;
+    document.onmouseup = null;
+  };
+
+  handleObjectMove = ({ clientX: pageX, clientY: pageY }) => {
+    const pagePosition = {
+      left: pageX + this.grabbedObject.cursorShiftX,
+      top: pageY + this.grabbedObject.cursorShiftY,
+    };
+
+    switch (this.grabbedObject.name) {
+      case 'start-handler':
+        this.handleStartHandlerMove(pagePosition);
+        break;
+      case 'end-handler':
+        this.handleEndHandlerMove(pagePosition);
+        break;
+      case 'selected-range':
+        this.handleSelectedRangeMove(pagePosition);
+        break;
+    }
+  };
+
+  handleStartHandlerMove = pagePosition => {
+    const { selectedRange, onSelectedRangeChange } = this.props;
+
+    const sliderPosition = this.handlersPlacer.place(pagePosition);
+
+    const handlerCenter = sliderPosition.left + this.SLIDER_HANDLER_HALF_WIDTH;
     const newSelectedRange = {
-      startHour: Math.round(this.toHour(position)),
+      startHour: Math.round(this.toHour(handlerCenter)),
       endHour: selectedRange.endHour,
     };
 
-    const { onSelectedRangeChange } = this.props;
     onSelectedRangeChange(newSelectedRange);
   };
 
-  handleEndHandlerDidDrag = (object, position) =>
-    this.handleEndHandlerMove(position.left);
+  handleEndHandlerMove = pagePosition => {
+    const { selectedRange, onSelectedRangeChange } = this.props;
 
-  handleEndHandlerMove = position => {
-    const { selectedRange } = this.props;
+    const sliderPosition = this.handlersPlacer.place(pagePosition);
 
+    const handlerCenter = sliderPosition.left + this.SLIDER_HANDLER_HALF_WIDTH;
     const newSelectedRange = {
       startHour: selectedRange.startHour,
-      endHour: Math.round(this.toHour(position)),
+      endHour: Math.round(this.toHour(handlerCenter)),
     };
 
-    const { onSelectedRangeChange } = this.props;
     onSelectedRangeChange(newSelectedRange);
   };
 
-  handleTrackDidDrag = (object, position) =>
-    this.handleTrackMove(position.left);
-
-  handleTrackMove = position => {
+  handleSelectedRangeMove = pagePosition => {
     const {
       selectedRange: { startHour, endHour },
+      onSelectedRangeChange,
     } = this.props;
+
+    const sliderPosition = this.selectedRangePlacer.place(pagePosition);
 
     const lastStartRangePosition = this.toSliderPosition(startHour);
     const lastEndRangePosition = this.toSliderPosition(endHour);
-
-    const moveX = position - lastStartRangePosition;
+    const moveX = sliderPosition.left - lastStartRangePosition;
 
     const newSelectedRange = {
       startHour: Math.round(this.toHour(lastStartRangePosition + moveX)),
       endHour: Math.round(this.toHour(lastEndRangePosition + moveX)),
     };
 
-    const { onSelectedRangeChange } = this.props;
     onSelectedRangeChange(newSelectedRange);
   };
 
   toHour = sliderPosition => {
-    const offsetFromStartInHours =
-      (sliderPosition + this.sliderHandlerWidth / 2) / HOUR_WIDTH;
     const { range } = this.props;
+    const offsetFromStartInHours = sliderPosition / HOUR_WIDTH;
     return range.startHour + offsetFromStartInHours;
   };
 
@@ -131,22 +170,17 @@ class TimeRangeSlider extends React.Component {
     return offsetFromStartHour * HOUR_WIDTH;
   };
 
+  calculateSliderWidth() {
+    const { range } = this.props;
+    const hoursCount = range.endHour - range.startHour;
+    return hoursCount * HOUR_WIDTH;
+  }
+
   setSliderRef = slider => (this.slider = slider);
 
   setStartHandlerRef = handler => (this.startHandler = handler);
 
   setEndHandlerRef = handler => (this.endHandler = handler);
-
-  setTrackRef = handler => (this.selectedRange = handler);
-
-  componentDidUpdate() {
-    this.selectedRangeDragManager.setDragOnlyZone({
-      minLeft: 0,
-      maxLeft: this.sliderWidth - this.selectedRangeLength,
-      minTop: -Infinity,
-      maxTop: Infinity,
-    });
-  }
 
   render() {
     const { range, selectedRange, markStep, className } = this.props;
@@ -159,18 +193,20 @@ class TimeRangeSlider extends React.Component {
     return (
       <div ref={this.setSliderRef} className={classNames('slider', className)}>
         <div
+          name='start-handler'
           className='slider-handler'
           ref={this.setStartHandlerRef}
           style={{ left: startHandlerPosition + POSITION_UNIT }}
         />
         <div
+          name='end-handler'
           className='slider-handler'
           ref={this.setEndHandlerRef}
           style={{ left: endHandlerPosition + POSITION_UNIT }}
         />
         <div
+          name='selected-range'
           className='selected-range'
-          ref={this.setTrackRef}
           style={{
             left: selectedRangePosition + POSITION_UNIT,
             width: this.selectedRangeLength + POSITION_UNIT,
@@ -185,24 +221,5 @@ class TimeRangeSlider extends React.Component {
     );
   }
 }
-
-TimeRangeSlider.propTypes = {
-  range: PropTypes.shape({
-    startHour: PropTypes.number.isRequired,
-    endHour: PropTypes.number.isRequired,
-  }).isRequired,
-  markStep: PropTypes.number,
-  selectedRange: PropTypes.shape({
-    startHour: PropTypes.number.isRequired,
-    endHour: PropTypes.number.isRequired,
-  }).isRequired,
-  onSelectedRangeChange: PropTypes.func.isRequired,
-  className: PropTypes.string,
-};
-
-TimeRangeSlider.defaultProps = {
-  markStep: 4,
-  className: '',
-};
 
 export default TimeRangeSlider;

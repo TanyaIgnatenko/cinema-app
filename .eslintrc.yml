@@ -70,7 +70,7 @@ rules:
   react/no-unused-prop-types: error
   react/no-unused-state: error
   react/prefer-stateless-function: error
-  react/destructuring-assignment: error
+  react/destructuring-assignment: off
   react/no-access-state-in-setstate: error
   react/jsx-wrap-multilines: error
   react/jsx-uses-vars: error
