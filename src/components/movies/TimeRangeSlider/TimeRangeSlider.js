@@ -160,10 +160,21 @@ class TimeRangeSlider extends React.Component {
     this.handleSelectedRangeChange(newSelectedRange);
   };
 
-  handleSelectedRangeChange = selectedRange => {
+  handleSelectedRangeChange = ({ startHour, endHour }) => {
+    this.handlersCrossed = startHour > endHour;
+
+    const selectedRange = !this.handlersCrossed
+      ? {
+          startHour,
+          endHour,
+        }
+      : {
+          startHour: endHour,
+          endHour: startHour,
+        };
+
     const { onSelectedRangeChange } = this.props;
-    this.handlersCrossed = selectedRange.startHour > selectedRange.endHour;
-    onSelectedRangeChange(selectedRange, this.handlersCrossed);
+    onSelectedRangeChange(selectedRange);
   };
 
   toHour = sliderPosition => {

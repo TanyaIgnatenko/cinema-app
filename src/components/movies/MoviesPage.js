@@ -62,12 +62,6 @@ function MoviesPage({ selectedDate, selectedMovies }) {
     startHour: 10,
     endHour: 26,
   });
-  function handleSelectedRangeChange({ startHour, endHour }, handlersCrossed) {
-    setSelectedRange({
-      startHour: !handlersCrossed ? startHour : endHour,
-      endHour: !handlersCrossed ? endHour : startHour,
-    });
-  }
 
   return (
     <>
@@ -99,7 +93,7 @@ function MoviesPage({ selectedDate, selectedMovies }) {
         <TimeRangeSlider
           range={TIME_SLIDER_RANGE}
           selectedRange={selectedRange}
-          onSelectedRangeChange={handleSelectedRangeChange}
+          onSelectedRangeChange={setSelectedRange}
           className='time-range-slider'
         />
       </div>
