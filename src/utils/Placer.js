@@ -35,14 +35,15 @@ class Placer {
   }
 
   place(element, pagePosition) {
-    console.log('pagePosition: ', pagePosition);
     const containerPosition = this.toContainerPosition(pagePosition);
     const limitedPosition = this.limitPosition(containerPosition);
-    console.log('limitedPosition: ', limitedPosition);
 
-    element.style.position = 'absolute';
-    element.style.left = limitedPosition.left + this.unit;
-    element.style.top = limitedPosition.top + this.unit;
+    // TODO: Если этот класс теперь не размещает объекты, а просто высчитывает координаты, стоит ли его так называть?
+    // element.style.position = 'absolute';
+    // element.style.left = limitedPosition.left + this.unit;
+    // element.style.top = limitedPosition.top + this.unit;
+
+    return limitedPosition;
   }
 
   toContainerPosition(pagePosition) {
@@ -71,6 +72,10 @@ class Placer {
       Math.max(this.positionLimits.minTop, top),
       this.positionLimits.maxTop,
     );
+  }
+
+  setPositionLimits(positionLimits) {
+    this.positionLimits = positionLimits;
   }
 }
 

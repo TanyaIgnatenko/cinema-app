@@ -1,6 +1,6 @@
-import { POSITION_UNIT } from '../constants';
 import { getPageOffsets } from './position';
 import { Placer } from './Placer';
+import { POSITION_UNIT } from '../constants';
 
 function createDragManager({
   ignoreX = false,
@@ -17,8 +17,6 @@ function createDragManager({
   onObjectDragDidFinish = () => {},
 }) {
   let grabbedObject = null;
-
-  console.log('dragOnlyZone: ', dragOnlyZone);
 
   const placer = new Placer({
     relatedToContainer,
@@ -47,9 +45,9 @@ function createDragManager({
       left: ignoreX ? lastPosition.left : cursorX - grabbedObject.cursorShiftX,
       top: ignoreY ? lastPosition.top : cursorY - grabbedObject.cursorShiftY,
     };
-    placer.place(grabbedObject, newPagePosition);
+    const placedPosition = placer.place(grabbedObject, newPagePosition);
 
-    onObjectDidDrag(grabbedObject, newPagePosition);
+    onObjectDidDrag(grabbedObject, placedPosition);
   }
 
   function finishDrag() {
@@ -60,13 +58,16 @@ function createDragManager({
   }
 
   return {
-    start: () => {
+    start() {
       draggableObjects.forEach(object => (object.onmousedown = onMouseDown));
     },
-    stop: () => {
+    stop() {
       draggableObjects.forEach(object => (object.onmousedown = null));
       document.onmousemove = null;
       document.onmouseup = null;
+    },
+    setDragOnlyZone(zone) {
+      placer.setPositionLimits(zone);
     },
   };
 }

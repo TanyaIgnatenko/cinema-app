@@ -65,7 +65,17 @@
     }
   }
 
+  .selected-range {
+    z-index: 1000;
+    position: absolute;
+    height: 6px;
+    border: 1px solid rgba(231, 197, 0, 1);
+    border-right: none;
+    background-color: rgba(255, 222, 65, 0.4);
+  }
+
   .slider-handler {
+    z-index: 1001;
     position: absolute;
     top: 26px;
 

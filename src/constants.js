@@ -18,4 +18,6 @@ const GENRE = {
 
 const APP_DATE_FORMAT = 'YYYY-MM-DD';
 
-export { ROUTE, APP_DATE_FORMAT, GENRE };
+const POSITION_UNIT = 'px';
+
+export { ROUTE, APP_DATE_FORMAT, GENRE, POSITION_UNIT };

@@ -2,61 +2,116 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { getCoords } from '../../../utils/position';
-import { createDragManager } from '../../../utils/drag-manager';
-import { range } from '../../../utils/array';
+import { Wireframe } from './Wireframe';
+import { createDragManager } from '../../../utils/DragManager';
+import { POSITION_UNIT } from '../../../constants';
 
 import './TimeRangeSlider.scss';
 
 const HOUR_WIDTH = 21;
-const HOURS_IN_DAY = 24;
 
 class TimeRangeSlider extends React.Component {
-  constructor(props) {
-    super(props);
-    const {
-      range: { startHour, endHour },
-    } = this.props;
-    this.hoursRange = range(startHour, endHour);
-    this.notIncludingLastHour = endHour;
-    this.hoursCount = this.hoursRange.length;
-  }
+  static Wireframe = Wireframe;
 
   componentDidMount() {
-    const { selectedRange } = this.props;
+    const { range } = this.props;
+    const hoursCount = range.endHour - range.startHour;
+    this.sliderWidth = hoursCount * HOUR_WIDTH; // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
+    this.sliderHandlerWidth = this.startHandler.offsetWidth;
 
-    const sliderCoords = getCoords(this.slider);
-    const sliderWidth = this.hoursCount * HOUR_WIDTH; // NOTE: Not the same as this.slider.getBoundingClientRect().width !!
-    this.sliderHandlerWidth = this.firstHandler.offsetWidth;
-
-    const dragManagerConfig = {
-      dragAlongX: true,
-      dragObjects: [this.firstHandler, this.secondHandler],
-      dragZone: {
-        left: sliderCoords.left - this.sliderHandlerWidth / 2,
-        right: sliderCoords.left + sliderWidth - this.sliderHandlerWidth / 2,
+    const startHandlerDragManagerConfig = {
+      ignoreY: true,
+      draggableObjects: [this.startHandler],
+      dragOnlyZone: {
+        minLeft: -this.sliderHandlerWidth / 2,
+        maxLeft: this.sliderWidth - this.sliderHandlerWidth / 2,
+        minTop: -Infinity,
+        maxTop: Infinity,
       },
-      positioningContainer: this.slider,
-      onObjectDidDrag: this.onSliderHandlerDidDrag,
+      relatedToContainer: this.slider,
+      onObjectDidDrag: this.handleStartHandlerDidDrag,
     };
-    this.dragManager = createDragManager(dragManagerConfig);
 
-    this.dragManager.start();
+    const endHandlerDragManagerConfig = {
+      ...startHandlerDragManagerConfig,
+      draggableObjects: [this.endHandler],
+      onObjectDidDrag: this.handleEndHandlerDidDrag,
+    };
+
+    const selectedRangeHandlerDragManagerConfig = {
+      ...startHandlerDragManagerConfig,
+      draggableObjects: [this.selectedRange],
+      dragOnlyZone: {
+        minLeft: 0,
+        maxLeft: this.sliderWidth - this.selectedRangeLength,
+        minTop: -Infinity,
+        maxTop: Infinity,
+      },
+      onObjectDidDrag: this.handleTrackDidDrag,
+    };
+
+    this.startHandlerDragManager = createDragManager(
+      startHandlerDragManagerConfig,
+    );
+    this.endHandlerDragManager = createDragManager(endHandlerDragManagerConfig);
+    this.selectedRangeDragManager = createDragManager(selectedRangeHandlerDragManagerConfig);
+
+    this.startHandlerDragManager.start();
+    this.endHandlerDragManager.start();
+    this.selectedRangeDragManager.start();
   }
 
   componentWillUnmount() {
-    this.dragManager.stop();
+    this.startHandlerDragManager.stop();
+    this.endHandlerDragManager.stop();
+    this.selectedRangeDragManager.stop();
   }
 
-  onSliderHandlerDidDrag = newHandlersPositions => {
-    const firstHandlerLeft = newHandlersPositions[0].left;
-    const secondHandlerLeft = newHandlersPositions[1].left;
+  handleStartHandlerDidDrag = (object, position) =>
+    this.handleStartHandlerMove(position.left);
 
-    const startHandlerLeft = Math.min(firstHandlerLeft, secondHandlerLeft);
-    const endHandlerLeft = Math.max(firstHandlerLeft, secondHandlerLeft);
+  handleStartHandlerMove = position => {
+    const { selectedRange } = this.props;
     const newSelectedRange = {
-      startHour: Math.round(this.toHour(startHandlerLeft)),
-      endHour: Math.round(this.toHour(endHandlerLeft)),
+      startHour: Math.round(this.toHour(position)),
+      endHour: selectedRange.endHour,
+    };
+
+    const { onSelectedRangeChange } = this.props;
+    onSelectedRangeChange(newSelectedRange);
+  };
+
+  handleEndHandlerDidDrag = (object, position) =>
+    this.handleEndHandlerMove(position.left);
+
+  handleEndHandlerMove = position => {
+    const { selectedRange } = this.props;
+
+    const newSelectedRange = {
+      startHour: selectedRange.startHour,
+      endHour: Math.round(this.toHour(position)),
+    };
+
+    const { onSelectedRangeChange } = this.props;
+    onSelectedRangeChange(newSelectedRange);
+  };
+
+  handleTrackDidDrag = (object, position) =>
+    this.handleTrackMove(position.left);
+
+  handleTrackMove = position => {
+    const {
+      selectedRange: { startHour, endHour },
+    } = this.props;
+
+    const lastStartRangePosition = this.toSliderPosition(startHour);
+    const lastEndRangePosition = this.toSliderPosition(endHour);
+
+    const moveX = position - lastStartRangePosition;
+
+    const newSelectedRange = {
+      startHour: Math.round(this.toHour(lastStartRangePosition + moveX)),
+      endHour: Math.round(this.toHour(lastEndRangePosition + moveX)),
     };
 
     const { onSelectedRangeChange } = this.props;
@@ -64,10 +119,10 @@ class TimeRangeSlider extends React.Component {
   };
 
   toHour = sliderPosition => {
-    const offsetFromStartHour =
+    const offsetFromStartInHours =
       (sliderPosition + this.sliderHandlerWidth / 2) / HOUR_WIDTH;
     const { range } = this.props;
-    return range.startHour + offsetFromStartHour;
+    return range.startHour + offsetFromStartInHours;
   };
 
   toSliderPosition = hour => {
@@ -78,96 +133,53 @@ class TimeRangeSlider extends React.Component {
 
   setSliderRef = slider => (this.slider = slider);
 
-  setFirstHandlerRef = handler => (this.firstHandler = handler);
+  setStartHandlerRef = handler => (this.startHandler = handler);
 
-  setSecondHandlerRef = handler => (this.secondHandler = handler);
+  setEndHandlerRef = handler => (this.endHandler = handler);
 
-  isMarkStep = step => {
-    const { markStep } = this.props;
-    return step % markStep === 0;
-  };
+  setTrackRef = handler => (this.selectedRange = handler);
 
-  isFirstStep = step => {
-    return step === 0;
-  };
-
-  isSelectedHour = hour => {
-    const { selectedRange } = this.props;
-    return hour >= selectedRange.startHour && hour < selectedRange.endHour;
-  };
-
-  isFirstHandlerLeft = () => {
-    const firstHandlerLastPos = this.firstHandler
-      ? parseInt(this.firstHandler.style.left, 10)
-      : 0;
-    const secondHandlerLastPos = this.secondHandler
-      ? parseInt(this.secondHandler.style.left, 10)
-      : Infinity;
-    return firstHandlerLastPos < secondHandlerLastPos;
-  };
-
-  isSecondHandlerLeft = () => {
-    const firstHandlerLastPos = this.firstHandler
-      ? parseInt(this.firstHandler.style.left, 10)
-      : 0;
-    const secondHandlerLastPos = this.secondHandler
-      ? parseInt(this.secondHandler.style.left, 10)
-      : Infinity;
-    return secondHandlerLastPos < firstHandlerLastPos;
-  };
-
-  toBeautifulTimeString = hour =>
-    `${hour < HOURS_IN_DAY ? hour : hour - HOURS_IN_DAY}:00`;
+  componentDidUpdate() {
+    this.selectedRangeDragManager.setDragOnlyZone({
+      minLeft: 0,
+      maxLeft: this.sliderWidth - this.selectedRangeLength,
+      minTop: -Infinity,
+      maxTop: Infinity,
+    });
+  }
 
   render() {
-    const { selectedRange, className } = this.props;
-
+    const { range, selectedRange, markStep, className } = this.props;
     const startHandlerPosition = this.toSliderPosition(selectedRange.startHour);
     const endHandlerPosition = this.toSliderPosition(selectedRange.endHour);
 
-    const firstHandlerPosition = this.isFirstHandlerLeft()
-      ? startHandlerPosition
-      : endHandlerPosition;
-    const secondHandlerPosition = this.isSecondHandlerLeft()
-      ? startHandlerPosition
-      : endHandlerPosition;
+    const selectedRangePosition = startHandlerPosition;
+    this.selectedRangeLength = endHandlerPosition - startHandlerPosition;
 
     return (
       <div ref={this.setSliderRef} className={classNames('slider', className)}>
-        {this.hoursRange.map((hour, step) =>
-          this.isMarkStep(step) ? (
-            <div className='time-interval-with-mark-box'>
-              <p className='mark-label'>{this.toBeautifulTimeString(hour)}</p>
-              <div
-                className={classNames('time-interval with-mark', {
-                  first: this.isFirstStep(step),
-                  selected: this.isSelectedHour(hour),
-                })}
-              />
-            </div>
-          ) : (
-            <div
-              className={classNames('time-interval', {
-                selected: this.isSelectedHour(hour),
-              })}
-            />
-          ),
-        )}
-        <div className='time-interval-with-mark-box'>
-          <p className='mark-label'>
-            {this.toBeautifulTimeString(this.notIncludingLastHour)}
-          </p>
-          <div className={classNames('invisible-time-interval with-mark')} />
-        </div>
         <div
           className='slider-handler'
-          style={{ left: `${firstHandlerPosition}px` }}
-          ref={this.setFirstHandlerRef}
+          ref={this.setStartHandlerRef}
+          style={{ left: startHandlerPosition + POSITION_UNIT }}
         />
         <div
           className='slider-handler'
-          style={{ left: `${secondHandlerPosition}px` }}
-          ref={this.setSecondHandlerRef}
+          ref={this.setEndHandlerRef}
+          style={{ left: endHandlerPosition + POSITION_UNIT }}
+        />
+        <div
+          className='selected-range'
+          ref={this.setTrackRef}
+          style={{
+            left: selectedRangePosition + POSITION_UNIT,
+            width: this.selectedRangeLength + POSITION_UNIT,
+          }}
+        />
+        <TimeRangeSlider.Wireframe
+          markStep={markStep}
+          range={range}
+          selectedRange={selectedRange}
         />
       </div>
     );
