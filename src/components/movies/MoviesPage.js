@@ -48,10 +48,11 @@ function MoviesPage({ selectedDate, selectedMovies }) {
     [today]: TODAY_LABEL,
     [tomorrow]: TOMORROW_LABEL,
   };
-  const getDateLabel = date => {
+
+  function getDateLabel(date) {
     if (date in datesLabels) return datesLabels[date];
     return toMoment(date).format('dd, DD MMMM');
-  };
+  }
 
   const minDate = today;
   const maxDate = getEndDateOfSixthMonthFromCurrent();
@@ -61,6 +62,12 @@ function MoviesPage({ selectedDate, selectedMovies }) {
     startHour: 10,
     endHour: 26,
   });
+  function handleSelectedRangeChange({ startHour, endHour }, handlersCrossed) {
+    setSelectedRange({
+      startHour: !handlersCrossed ? startHour : endHour,
+      endHour: !handlersCrossed ? endHour : startHour,
+    });
+  }
 
   return (
     <>
@@ -92,7 +99,7 @@ function MoviesPage({ selectedDate, selectedMovies }) {
         <TimeRangeSlider
           range={TIME_SLIDER_RANGE}
           selectedRange={selectedRange}
-          onSelectedRangeChange={setSelectedRange}
+          onSelectedRangeChange={handleSelectedRangeChange}
           className='time-range-slider'
         />
       </div>
