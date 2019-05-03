@@ -9,6 +9,8 @@
 
     font-size: 15px;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    border: 1px solid rgb(181, 181, 181);
+    border-radius: 2px;
 
     &:focus {
       outline: 2px solid #FFDB4D;
