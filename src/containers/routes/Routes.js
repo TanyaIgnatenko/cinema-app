@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import { NotImplementedPage } from '../../components/common/NotImplementedPage';

@@ -11,7 +11,7 @@ const RUSSIAN_CURRENCY_SYMBOL = '\u20BD';
 function Movie({ name, genres, poster, seances, className, ...props }) {
   return (
     <div className={classNames('movie-box', className)} {...props}>
-      <img className='poster' src={poster} />
+      <img alt='movie poster' className='poster' src={poster} />
       <div className='main-info'>
         <p className='genres'>{genres.join(', ')}</p>
         <p className='title'>{name}</p>
@@ -20,7 +20,7 @@ function Movie({ name, genres, poster, seances, className, ...props }) {
         {Object.keys(seances).map(
           technology =>
             seances[technology].length && (
-              <div>
+              <div key={technology}>
                 <p className='technology'>{technology}</p>
                 <div className='tech-seances'>
                   {seances[technology].map(seance => (
@@ -59,13 +59,13 @@ Movie.propTypes = {
   ).isRequired,
   poster: PropTypes.string.isRequired,
   seances: PropTypes.shape({
-    '2d': PropTypes.arrayOf(
+    '2D': PropTypes.arrayOf(
       PropTypes.shape({
         startTime: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
       }),
     ).isRequired,
-    '3d': PropTypes.arrayOf(
+    '3D': PropTypes.arrayOf(
       PropTypes.shape({
         startTime: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,

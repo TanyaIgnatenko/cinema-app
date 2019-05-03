@@ -15,7 +15,7 @@ function SliderWireframe({ range, timeUnitMinutes, formatLabel, markStep }) {
     <>
       {timeUnitsRange.map((timeUnit, step) =>
         isMarkStep(step) ? (
-          <div className='time-interval-with-mark-box'>
+          <div className='time-interval-with-mark-box' key={step}>
             <p className={classNames('mark-label', { first: isFirstStep(step) })}>
               {formatLabel(timeUnit)}
             </p>
@@ -26,7 +26,7 @@ function SliderWireframe({ range, timeUnitMinutes, formatLabel, markStep }) {
             />
           </div>
         ) : (
-          <div className={classNames('time-interval')} />
+          <div className={classNames('time-interval')} key={step} />
         ),
       )}
       <div className='invisible-time-interval-with-mark-box'>

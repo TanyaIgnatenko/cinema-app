@@ -11,12 +11,7 @@ import { fetchMoviesRequest } from '../../ducks/movies/actions';
 import { selectDate } from '../../ducks/date/actions';
 import { GENRE } from '../../constants';
 
-function MoviesPageContainer({
-  movies,
-  selectedDate,
-  selectDate,
-  fetchMovies,
-}) {
+function MoviesPageContainer({ movies, selectedDate, selectDate, fetchMovies }) {
   useEffect(() => {
     const today = toAppDateFormat(moment());
     selectDate(today);
@@ -58,18 +53,18 @@ MoviesPageContainer.propTypes = {
       ).isRequired,
       poster: PropTypes.string.isRequired,
       seances: PropTypes.shape({
-        '2d': PropTypes.arrayOf(
+        '2D': PropTypes.arrayOf(
           PropTypes.shape({
             startTime: PropTypes.string.isRequired,
             price: PropTypes.string.isRequired,
           }),
         ).isRequired,
-        '3d': PropTypes.arrayOf(
+        '3D': PropTypes.arrayOf(
           PropTypes.shape({
             startTime: PropTypes.string.isRequired,
             price: PropTypes.string.isRequired,
           }),
-        ),
+        ).isRequired,
       }).isRequired,
     }),
   ),

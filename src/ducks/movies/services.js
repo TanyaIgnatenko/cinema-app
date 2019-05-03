@@ -10,6 +10,7 @@ export { fetchMovies };
 
 const mockMovies = [
   {
+    id: 0,
     name: 'Властелин колец',
     genres: [GENRE.FANTASY, GENRE.ADVENTURES],
     poster: lordOfTheRingsPoster,
@@ -28,11 +29,11 @@ const mockMovies = [
           price: '270',
         },
         {
-          startTime: '14 30',
+          startTime: '17 50',
           price: '250',
         },
         {
-          startTime: '16 50',
+          startTime: '19 20',
           price: '270',
         },
       ],
@@ -50,25 +51,26 @@ const mockMovies = [
           price: '200',
         },
         {
-          startTime: '12 40',
+          startTime: '15 20',
           price: '180',
         },
         {
-          startTime: '14 00',
+          startTime: '16 50',
           price: '200',
         },
         {
-          startTime: '12 40',
+          startTime: '18 30',
           price: '180',
         },
         {
-          startTime: '14 00',
+          startTime: '20 10',
           price: '200',
         },
       ],
     },
   },
   {
+    id: 1,
     name: 'Властелин колец',
     genres: [GENRE.FANTASY, GENRE.ADVENTURES],
     poster: lordOfTheRingsPoster,
@@ -87,11 +89,11 @@ const mockMovies = [
           price: '270',
         },
         {
-          startTime: '14 30',
+          startTime: '17 20',
           price: '250',
         },
         {
-          startTime: '16 50',
+          startTime: '19 50',
           price: '270',
         },
       ],
@@ -109,25 +111,26 @@ const mockMovies = [
           price: '200',
         },
         {
-          startTime: '12 40',
+          startTime: '15 20',
           price: '180',
         },
         {
-          startTime: '14 00',
+          startTime: '16 50',
           price: '200',
         },
         {
-          startTime: '12 40',
+          startTime: '18 30',
           price: '180',
         },
         {
-          startTime: '14 00',
+          startTime: '20 10',
           price: '200',
         },
       ],
     },
   },
   {
+    id: 2,
     name: 'Властелин колец',
     genres: [GENRE.FANTASY, GENRE.ADVENTURES],
     poster: lordOfTheRingsPoster,
@@ -146,11 +149,11 @@ const mockMovies = [
           price: '270',
         },
         {
-          startTime: '14 30',
+          startTime: '17 20',
           price: '250',
         },
         {
-          startTime: '16 50',
+          startTime: '19 50',
           price: '270',
         },
       ],
@@ -168,25 +171,26 @@ const mockMovies = [
           price: '200',
         },
         {
-          startTime: '12 40',
+          startTime: '15 20',
           price: '180',
         },
         {
-          startTime: '14 00',
+          startTime: '16 50',
           price: '200',
         },
         {
-          startTime: '12 40',
+          startTime: '18 30',
           price: '180',
         },
         {
-          startTime: '14 00',
+          startTime: '20 10',
           price: '200',
         },
       ],
     },
   },
   {
+    id: 3,
     name: 'Властелин колец',
     genres: [GENRE.FANTASY, GENRE.ADVENTURES],
     poster: lordOfTheRingsPoster,
@@ -205,11 +209,11 @@ const mockMovies = [
           price: '270',
         },
         {
-          startTime: '14 30',
+          startTime: '17 20',
           price: '250',
         },
         {
-          startTime: '16 50',
+          startTime: '19 50',
           price: '270',
         },
       ],
@@ -227,19 +231,19 @@ const mockMovies = [
           price: '200',
         },
         {
-          startTime: '12 40',
+          startTime: '15 20',
           price: '180',
         },
         {
-          startTime: '14 00',
+          startTime: '16 50',
           price: '200',
         },
         {
-          startTime: '12 40',
+          startTime: '18 30',
           price: '180',
         },
         {
-          startTime: '14 00',
+          startTime: '20 10',
           price: '200',
         },
       ],

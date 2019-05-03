@@ -93,7 +93,7 @@ function MoviesPage({ selectedDate, selectedMovies }) {
       <ul className='movie-list'>
         {selectedMovies.map(movie => (
           <Movie
-            key={movie.name}
+            key={movie.id}
             name={movie.name}
             genres={movie.genres}
             poster={movie.poster}
@@ -125,13 +125,13 @@ MoviesPage.propTypes = {
       ).isRequired,
       poster: PropTypes.string.isRequired,
       seances: PropTypes.shape({
-        '2d': PropTypes.arrayOf(
+        '2D': PropTypes.arrayOf(
           PropTypes.shape({
             startTime: PropTypes.string.isRequired,
             price: PropTypes.string.isRequired,
           }),
         ).isRequired,
-        '3d': PropTypes.arrayOf(
+        '3D': PropTypes.arrayOf(
           PropTypes.shape({
             startTime: PropTypes.string.isRequired,
             price: PropTypes.string.isRequired,
