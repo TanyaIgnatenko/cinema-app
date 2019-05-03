@@ -5,6 +5,7 @@ import { Movie } from './Movie';
 import { Search } from './Search';
 import { DateFilter } from './DateFilter';
 import { TimeRangeSlider } from './TimeRangeSlider';
+import { MINUTES_IN_HOUR, toTimeLabel } from '../../utils/time';
 import { GENRE } from '../../constants';
 
 import {
@@ -23,20 +24,16 @@ const TOMORROW_LABEL = 'Завтра';
 const DEFAULT_DATE_INPUT_LABEL = 'Выбрать день';
 const MOVIE_SEARCH_PLACEHOLDER = 'Название';
 
-const MIN_HOUR = 10;
-const MAX_HOUR = 26;
 const TIME_SLIDER_RANGE = {
-  startHour: MIN_HOUR,
-  endHour: MAX_HOUR,
+  start: 10 * MINUTES_IN_HOUR,
+  end: 26 * MINUTES_IN_HOUR,
 };
 
 function MoviesPage({ selectedDate, selectedMovies }) {
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
   const dayAfterTomorrow = getDateAfterTomorrow();
-  const DAY_AFTER_TOMORROW_LABEL = toMoment(dayAfterTomorrow).format(
-    'dd, DD MMMM',
-  );
+  const DAY_AFTER_TOMORROW_LABEL = toMoment(dayAfterTomorrow).format('dd, DD MMMM');
 
   const shouldShowSelectedDateOnDateInput =
     selectedDate &&
@@ -58,10 +55,7 @@ function MoviesPage({ selectedDate, selectedMovies }) {
   const maxDate = getEndDateOfSixthMonthFromCurrent();
 
   const [movieHint, setMovieHint] = useState('');
-  const [selectedRange, setSelectedRange] = useState({
-    startHour: 10,
-    endHour: 26,
-  });
+  const [selectedRange, setSelectedRange] = useState(TIME_SLIDER_RANGE);
 
   return (
     <>
@@ -69,10 +63,7 @@ function MoviesPage({ selectedDate, selectedMovies }) {
       <DateFilter className='date-filter horizontal'>
         <DateFilter.FrequentDateButton date={today} label={TODAY_LABEL} />
         <DateFilter.FrequentDateButton date={tomorrow} label={TOMORROW_LABEL} />
-        <DateFilter.FrequentDateButton
-          date={dayAfterTomorrow}
-          label={DAY_AFTER_TOMORROW_LABEL}
-        />
+        <DateFilter.FrequentDateButton date={dayAfterTomorrow} label={DAY_AFTER_TOMORROW_LABEL} />
         <DateFilter.DateInput
           defaultLabel={DEFAULT_DATE_INPUT_LABEL}
           getDateLabel={getDateLabel}
@@ -92,8 +83,10 @@ function MoviesPage({ selectedDate, selectedMovies }) {
         />
         <TimeRangeSlider
           range={TIME_SLIDER_RANGE}
+          timeUnitMinutes={60}
           selectedRange={selectedRange}
           onSelectedRangeChange={setSelectedRange}
+          formatLabel={toTimeLabel}
           className='time-range-slider'
         />
       </div>

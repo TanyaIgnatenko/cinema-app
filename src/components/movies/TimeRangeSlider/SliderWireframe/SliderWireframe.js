@@ -4,24 +4,21 @@ import classNames from 'classnames';
 
 import { range as makeRange } from '../../../../utils/array';
 
-const HOURS_IN_DAY = 24;
-
-const toBeautifulTimeString = hour =>
-  `${hour < HOURS_IN_DAY ? hour : hour - HOURS_IN_DAY}:00`;
-
-function Wireframe({ range, markStep }) {
-  const hoursRange = makeRange(range.startHour, range.endHour);
-  const lastHour = hoursRange[hoursRange.length - 1];
+function SliderWireframe({ range, timeUnitMinutes, formatLabel, markStep }) {
+  const timeUnitsRange = makeRange(range.start, range.end, timeUnitMinutes);
+  const lastTimeUnit = range.end;
 
   const isMarkStep = step => step % markStep === 0;
   const isFirstStep = step => step === 0;
 
   return (
     <>
-      {hoursRange.map((hour, step) =>
+      {timeUnitsRange.map((timeUnit, step) =>
         isMarkStep(step) ? (
           <div className='time-interval-with-mark-box'>
-            <p className='mark-label'>{toBeautifulTimeString(hour)}</p>
+            <p className={classNames('mark-label', { first: isFirstStep(step) })}>
+              {formatLabel(timeUnit)}
+            </p>
             <div
               className={classNames('time-interval with-mark', {
                 first: isFirstStep(step),
@@ -32,24 +29,26 @@ function Wireframe({ range, markStep }) {
           <div className={classNames('time-interval')} />
         ),
       )}
-      <div className='time-interval-with-mark-box'>
-        <p className='mark-label'>{toBeautifulTimeString(lastHour + 1)}</p>
+      <div className='invisible-time-interval-with-mark-box'>
+        <p className='mark-label last'>{formatLabel(lastTimeUnit)}</p>
         <div className={classNames('invisible-time-interval with-mark')} />
       </div>
     </>
   );
 }
 
-Wireframe.propTypes = {
+SliderWireframe.propTypes = {
   range: PropTypes.shape({
-    startHour: PropTypes.number.isRequired,
-    endHour: PropTypes.number.isRequired,
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
   }).isRequired,
+  timeUnitMinutes: PropTypes.number.isRequired,
+  formatLabel: PropTypes.func.isRequired,
   markStep: PropTypes.number,
 };
 
-Wireframe.defaultProps = {
+SliderWireframe.defaultProps = {
   markStep: 4,
 };
 
-export default Wireframe;
+export default SliderWireframe;
