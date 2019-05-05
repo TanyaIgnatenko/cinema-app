@@ -1,24 +1,30 @@
 /* eslint-disable no-use-before-define */
-import moment from 'moment';
-import { getTodayDate, getTomorrowDate } from '../../utils/date';
+import {getTodayDate, getTodayStartMoment, getTomorrowDate} from '../../utils/date';
 
-import lordOfTheRingsPoster from '../../assets/images/lord-of-the-rings.jpg';
-
-function fetchMovies(date) {
+function getMovies(date) {
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
 
   switch (date) {
     case today:
+      console.log('today');
       return todayMovies;
     case tomorrow:
+      console.log('tomorrow', tomorrowMovies.length);
       return tomorrowMovies;
     default:
+      console.log('default');
       return [];
   }
 }
 
-export { fetchMovies };
+function fetchMovies(date) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(getMovies(date)), 1000);
+  });
+}
+
+export {fetchMovies};
 
 const todayMovies = [
   {
@@ -40,7 +46,7 @@ const todayMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -48,7 +54,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -56,7 +62,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -64,7 +70,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -72,7 +78,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -82,7 +88,7 @@ const todayMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -90,7 +96,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -98,7 +104,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -106,7 +112,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -114,7 +120,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -122,7 +128,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -130,9 +136,9 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
-            .hours(0)
-            .minutes(10)
+          startTime: getTodayStartMoment()
+            .hours(26)
+            .minutes(0)
             .seconds(0)
             .unix(),
           price: '270',
@@ -184,7 +190,7 @@ const todayMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -192,7 +198,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -200,7 +206,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -208,7 +214,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -216,7 +222,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -226,7 +232,7 @@ const todayMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -234,7 +240,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -242,7 +248,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -250,7 +256,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -258,7 +264,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -266,7 +272,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -274,7 +280,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(0)
             .minutes(10)
             .seconds(0)
@@ -327,7 +333,7 @@ const todayMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -335,7 +341,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -343,7 +349,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -351,7 +357,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -359,9 +365,9 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
-            .minutes(20)
+            .minutes(0)
             .seconds(0)
             .unix(),
           price: '270',
@@ -369,7 +375,7 @@ const todayMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -377,7 +383,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -385,7 +391,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -393,7 +399,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -401,7 +407,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -409,7 +415,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -417,7 +423,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(0)
             .minutes(10)
             .seconds(0)
@@ -470,7 +476,7 @@ const todayMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -478,7 +484,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -486,7 +492,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -494,7 +500,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -502,7 +508,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -512,7 +518,7 @@ const todayMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -520,7 +526,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -528,7 +534,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -536,7 +542,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -544,7 +550,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -552,7 +558,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -560,7 +566,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(0)
             .minutes(10)
             .seconds(0)
@@ -613,7 +619,7 @@ const todayMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -621,7 +627,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -629,7 +635,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -637,7 +643,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -645,7 +651,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -655,7 +661,7 @@ const todayMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -663,7 +669,7 @@ const todayMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -671,7 +677,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -679,7 +685,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -687,7 +693,7 @@ const todayMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -695,7 +701,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -703,7 +709,7 @@ const todayMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
             .hours(0)
             .minutes(10)
             .seconds(0)
@@ -758,7 +764,8 @@ const tomorrowMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -766,7 +773,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -774,7 +782,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -782,7 +791,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -790,7 +800,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -800,7 +811,8 @@ const tomorrowMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -808,7 +820,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -816,7 +829,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -824,7 +838,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -832,7 +847,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -840,7 +856,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -848,7 +865,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(0)
             .minutes(10)
             .seconds(0)
@@ -902,7 +920,8 @@ const tomorrowMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -910,7 +929,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -918,7 +938,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -926,7 +947,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -934,7 +956,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -944,7 +967,8 @@ const tomorrowMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -952,7 +976,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -960,7 +985,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -968,7 +994,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -976,7 +1003,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -984,7 +1012,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -992,7 +1021,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(0)
             .minutes(10)
             .seconds(0)
@@ -1045,7 +1075,8 @@ const tomorrowMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -1053,7 +1084,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -1061,7 +1093,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -1069,7 +1102,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -1077,7 +1111,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -1087,7 +1122,8 @@ const tomorrowMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -1095,7 +1131,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -1103,7 +1140,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -1111,7 +1149,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -1119,7 +1158,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -1127,7 +1167,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -1135,7 +1176,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(0)
             .minutes(10)
             .seconds(0)
@@ -1191,7 +1233,8 @@ const tomorrowMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -1199,7 +1242,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -1207,7 +1251,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -1215,7 +1260,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -1223,7 +1269,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -1233,7 +1280,8 @@ const tomorrowMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -1241,7 +1289,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -1249,7 +1298,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -1257,7 +1307,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -1265,7 +1316,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -1273,7 +1325,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -1281,7 +1334,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(0)
             .minutes(10)
             .seconds(0)
@@ -1337,7 +1391,8 @@ const tomorrowMovies = [
     seances: {
       '3D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(30)
             .seconds(0)
@@ -1345,7 +1400,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(14)
             .minutes(30)
             .seconds(0)
@@ -1353,7 +1409,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(16)
             .minutes(50)
             .seconds(0)
@@ -1361,7 +1418,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(50)
             .seconds(0)
@@ -1369,7 +1427,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -1379,7 +1438,8 @@ const tomorrowMovies = [
       ],
       '2D': [
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(12)
             .minutes(40)
             .seconds(0)
@@ -1387,7 +1447,8 @@ const tomorrowMovies = [
           price: '200',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(15)
             .minutes(10)
             .seconds(0)
@@ -1395,7 +1456,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(17)
             .minutes(20)
             .seconds(0)
@@ -1403,7 +1465,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(19)
             .minutes(20)
             .seconds(0)
@@ -1411,7 +1474,8 @@ const tomorrowMovies = [
           price: '250',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(21)
             .minutes(30)
             .seconds(0)
@@ -1419,7 +1483,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(22)
             .minutes(30)
             .seconds(0)
@@ -1427,7 +1492,8 @@ const tomorrowMovies = [
           price: '270',
         },
         {
-          startTime: moment()
+          startTime: getTodayStartMoment()
+            .add(1, 'days')
             .hours(0)
             .minutes(10)
             .seconds(0)

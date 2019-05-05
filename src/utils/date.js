@@ -6,11 +6,13 @@ const toMoment = date => moment(date, APP_DATE_FORMAT, true);
 
 const toAppDateFormat = momentDate => momentDate.format(APP_DATE_FORMAT);
 
-const getTodayDate = () => toAppDateFormat(moment());
+const getTodayStartMoment = () => moment().startOf('day');
 
-const getTomorrowDate = () => toAppDateFormat(moment().add(1, 'days'));
+const getTodayDate = () => toAppDateFormat(getTodayStartMoment());
 
-const getDateAfterTomorrow = () => toAppDateFormat(moment().add(2, 'days'));
+const getTomorrowDate = () => toAppDateFormat(getTodayStartMoment().add(1, 'days'));
+
+const getDateAfterTomorrow = () => toAppDateFormat(getTodayStartMoment().add(2, 'days'));
 
 const getEndDateOfSixthMonthFromCurrent = () =>
   toAppDateFormat(
@@ -32,6 +34,7 @@ const dateRange = (startDate, endDate) => {
 export {
   toAppDateFormat,
   toMoment,
+  getTodayStartMoment,
   getTodayDate,
   getTomorrowDate,
   getDateAfterTomorrow,
