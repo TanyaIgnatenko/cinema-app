@@ -17,3 +17,15 @@
 .movie-list {
   margin-top: 20px;
 }
+
+
+.movies-info-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .movies-info {
+    font-size: 1.6rem;
+  }
+}

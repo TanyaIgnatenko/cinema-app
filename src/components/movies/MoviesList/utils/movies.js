@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment/moment';
 
 function keepSeancesAt(date, timeRange, seances) {
   let hasAtLeastOneSeance = false;

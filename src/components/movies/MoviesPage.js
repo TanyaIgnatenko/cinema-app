@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Movie } from './Movie';
 import { Search } from './Search';
+import { MoviesList } from './MoviesList';
 import { DateFilter } from './DateFilter';
 import { TimeRangeSlider } from './TimeRangeSlider';
 import { MINUTES_IN_HOUR, toTimeLabel } from '../../utils/time';
@@ -11,7 +11,6 @@ import { fetchMoviesRequest } from '../../ducks/movies/actions';
 import { selectSelectedDate } from '../../ducks/date/selectors';
 import { selectMovies } from '../../ducks/movies/selectors';
 import { selectDate } from '../../ducks/date/actions';
-import { keepSeancesAt } from './utils/movies';
 
 import {
   toMoment,
@@ -72,18 +71,6 @@ function MoviesPage({ movies, selectedDate, fetchMovies, selectDate }) {
   const [movieHint, setMovieHint] = useState('');
   const [selectedRange, setSelectedRange] = useState(TIME_SLIDER_RANGE);
 
-  const selectedMovies = useMemo(
-    () =>
-      movies
-        .filter(movie => movie.name.toLowerCase().includes(movieHint.toLowerCase().trim()))
-        .map(movie => ({
-          ...movie,
-          seances: keepSeancesAt(selectedDate, selectedRange, movie.seances),
-        }))
-        .filter(movie => movie.seances),
-    [movies, movieHint, selectedRange],
-  );
-
   return (
     <>
       <h1 className='pageTitle'>Расписание</h1>
@@ -117,19 +104,12 @@ function MoviesPage({ movies, selectedDate, fetchMovies, selectDate }) {
           className='time-range-slider'
         />
       </div>
-      {selectedMovies && (
-        <ul className='movie-list'>
-          {selectedMovies.map(movie => (
-            <Movie
-              key={movie.id}
-              name={movie.name}
-              genres={movie.genres}
-              poster={movie.poster}
-              seances={movie.seances}
-            />
-          ))}
-        </ul>
-      )}
+      <MoviesList
+        movies={movies}
+        movieHint={movieHint}
+        selectedRange={selectedRange}
+        selectedDate={selectedDate}
+      />
     </>
   );
 }
