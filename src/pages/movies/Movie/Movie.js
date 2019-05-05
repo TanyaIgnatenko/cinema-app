@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import moment from 'moment';
+
+import { ROUTE } from '../../../constants';
+import { createRoute } from '../../../utils/routes';
 
 import './Movie.scss';
-import moment from 'moment';
 
 const RUSSIAN_CURRENCY_SYMBOL = '\u20BD';
 
-function Movie({ name, genres, poster, seances, className, ...props }) {
+function Movie({ id, name, genres, poster, seances, className, history,...props }) {
+  const goToMoviePage = () => history.push(createRoute(ROUTE.MOVIE, { id }));
+
   return (
-    <div className={classNames('movie-box', className)} {...props}>
+    <div onClick={goToMoviePage} className={classNames('movie-box', className)} {...props}>
       <img alt='movie poster' className='poster' src={poster} />
       <div className='main-info'>
         <p className='genres'>{genres.join(', ')}</p>
@@ -36,7 +41,7 @@ function Movie({ name, genres, poster, seances, className, ...props }) {
                   })}
                 </div>
               </div>
-            ),
+            )
         )}
       </div>
     </div>
@@ -44,6 +49,7 @@ function Movie({ name, genres, poster, seances, className, ...props }) {
 }
 
 Movie.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   poster: PropTypes.string.isRequired,

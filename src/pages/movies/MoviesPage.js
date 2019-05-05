@@ -22,6 +22,7 @@ import {
 
 import './MoviesPage.scss';
 import '../../assets/scss/main.scss';
+import Gallery from '../movie/Gallery/Gallery';
 
 const TODAY_LABEL = 'Сегодня';
 const TOMORROW_LABEL = 'Завтра';
@@ -73,7 +74,7 @@ function MoviesPage({ movies, selectedDate, fetchMovies, selectDate }) {
 
   return (
     <>
-      <h1 className='pageTitle'>Расписание</h1>
+      <h1 className='page-title'>Расписание</h1>
       <DateFilter className='date-filter horizontal'>
         <DateFilter.FrequentDateButton date={today} label={TODAY_LABEL} />
         <DateFilter.FrequentDateButton date={tomorrow} label={TOMORROW_LABEL} />
@@ -110,6 +111,7 @@ function MoviesPage({ movies, selectedDate, fetchMovies, selectDate }) {
         selectedRange={selectedRange}
         selectedDate={selectedDate}
       />
+      {movies && <Gallery items={movies[1].frames}/>}
     </>
   );
 }

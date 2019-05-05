@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { NavBar } from '../../components/navbar';
+import { NavBar } from '../../pages/navbar';
 import { Routes } from '../routes';
 
 import '../../assets/scss/main.scss';
