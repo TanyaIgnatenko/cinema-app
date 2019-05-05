@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { Movie } from './Movie';
 import { Search } from './Search';
 import { DateFilter } from './DateFilter';
 import { TimeRangeSlider } from './TimeRangeSlider';
 import { MINUTES_IN_HOUR, toTimeLabel } from '../../utils/time';
-import { GENRE } from '../../constants';
+import { fetchMoviesRequest } from '../../ducks/movies/actions';
+import { selectSelectedDate } from '../../ducks/date/selectors';
+import { selectMovies } from '../../ducks/movies/selectors';
+import { selectDate } from '../../ducks/date/actions';
+import { keepSeancesAt } from './utils/movies';
 
 import {
   toMoment,
@@ -29,7 +34,7 @@ const TIME_SLIDER_RANGE = {
   end: 26 * MINUTES_IN_HOUR,
 };
 
-function MoviesPage({ selectedDate, selectedMovies }) {
+function MoviesPage({ movies, selectedDate, fetchMovies, selectDate }) {
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
   const dayAfterTomorrow = getDateAfterTomorrow();
@@ -54,8 +59,30 @@ function MoviesPage({ selectedDate, selectedMovies }) {
   const minDate = today;
   const maxDate = getEndDateOfSixthMonthFromCurrent();
 
+  useEffect(() => {
+    selectDate(today);
+  }, []);
+
+  useEffect(() => {
+    if (selectedDate) {
+      fetchMovies(selectedDate);
+    }
+  }, [selectedDate]);
+
   const [movieHint, setMovieHint] = useState('');
   const [selectedRange, setSelectedRange] = useState(TIME_SLIDER_RANGE);
+
+  const selectedMovies = useMemo(
+    () =>
+      movies
+        .filter(movie => movie.name.toLowerCase().includes(movieHint.toLowerCase().trim()))
+        .map(movie => ({
+          ...movie,
+          seances: keepSeancesAt(selectedDate, selectedRange, movie.seances),
+        }))
+        .filter(movie => movie.seances),
+    [movies, movieHint, selectedRange],
+  );
 
   return (
     <>
@@ -90,60 +117,61 @@ function MoviesPage({ selectedDate, selectedMovies }) {
           className='time-range-slider'
         />
       </div>
-      <ul className='movie-list'>
-        {selectedMovies.map(movie => (
-          <Movie
-            key={movie.id}
-            name={movie.name}
-            genres={movie.genres}
-            poster={movie.poster}
-            seances={movie.seances}
-          />
-        ))}
-      </ul>
+      {selectedMovies && (
+        <ul className='movie-list'>
+          {selectedMovies.map(movie => (
+            <Movie
+              key={movie.id}
+              name={movie.name}
+              genres={movie.genres}
+              poster={movie.poster}
+              seances={movie.seances}
+            />
+          ))}
+        </ul>
+      )}
     </>
   );
 }
 
 MoviesPage.propTypes = {
   selectedDate: PropTypes.string,
-  selectedMovies: PropTypes.arrayOf(
+  movies: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      genres: PropTypes.arrayOf(
-        PropTypes.oneOf([
-          GENRE.COMEDY,
-          GENRE.ACTION,
-          GENRE.HORROR,
-          GENRE.TRILLER,
-          GENRE.DETECTIV,
-          GENRE.MELODRAMA,
-          GENRE.FANTASY,
-          GENRE.ADVENTURES,
-          GENRE.BIOGRAPHY,
-        ]),
-      ).isRequired,
+      genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
       poster: PropTypes.string.isRequired,
-      seances: PropTypes.shape({
-        '2D': PropTypes.arrayOf(
+      seances: PropTypes.objectOf(
+        PropTypes.arrayOf(
           PropTypes.shape({
-            startTime: PropTypes.string.isRequired,
-            price: PropTypes.string.isRequired,
-          }),
-        ).isRequired,
-        '3D': PropTypes.arrayOf(
-          PropTypes.shape({
-            startTime: PropTypes.string.isRequired,
+            startTime: PropTypes.number.isRequired,
             price: PropTypes.string.isRequired,
           }),
         ),
-      }).isRequired,
+      ).isRequired,
     }),
-  ).isRequired,
+  ),
+  selectDate: PropTypes.func.isRequired,
+  fetchMovies: PropTypes.func.isRequired,
 };
 
 MoviesPage.defaultProps = {
   selectedDate: null,
+  movies: null,
 };
 
-export default MoviesPage;
+const mapStateToProps = state => ({
+  movies: selectMovies(state),
+  selectedDate: selectSelectedDate(state),
+});
+
+const mapDispatchToProps = {
+  selectDate,
+  fetchMovies: fetchMoviesRequest,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MoviesPage);

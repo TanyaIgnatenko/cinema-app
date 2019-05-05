@@ -4,9 +4,9 @@ import { fetchMoviesError, fetchMoviesSuccess } from './actions';
 import { FETCH_MOVIES } from './action-types';
 import * as services from './services';
 
-function* fetchMovies() {
+function* fetchMovies({ date }) {
   try {
-    const movies = yield call(services.fetchMovies);
+    const movies = yield call(services.fetchMovies, date);
     yield put(fetchMoviesSuccess(movies));
   } catch (e) {
     yield put(fetchMoviesError(e));

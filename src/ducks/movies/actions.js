@@ -1,7 +1,8 @@
 import { FETCH_MOVIES } from './action-types';
 
-const fetchMoviesRequest = () => ({
+const fetchMoviesRequest = date => ({
   type: FETCH_MOVIES.REQUEST,
+  date,
 });
 
 const fetchMoviesSuccess = movies => ({

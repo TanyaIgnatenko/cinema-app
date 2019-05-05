@@ -241,19 +241,18 @@ class TimeRangeSlider extends React.PureComponent {
     this.minHandlePos = -this.handleWidth / 2;
     this.maxHandlePos = this.sliderWidth - this.handleWidth / 2;
     this.minSelectedRangePos = this.minHandlePos;
-    this.maxSelectedRangePos = this.sliderWidth - this.selectedRangeLength;
+    this.maxSelectedRangePos = this.sliderWidth - this.selectedRangeLength - this.handleWidth / 2;
   }
 
   measureElementsSize() {
-    const { width, left } = this.slider.getBoundingClientRect();
-    this.sliderWidth = width;
-    this.sliderPageLeftOffset = left;
+    this.sliderWidth = this.slider.offsetWidth;
+    this.sliderPageLeftOffset = this.slider.offsetLeft;
 
     const { range, timeUnitMinutes } = this.props;
     const timeUnitsCount = (range.end - range.start) / timeUnitMinutes;
     this.setState({ timeUnitWidth: this.sliderWidth / timeUnitsCount });
 
-    this.handleWidth = this.startHandle.getBoundingClientRect().width;
+    this.handleWidth = this.startHandle.offsetWidth;
   }
 
   setSliderRef = slider => (this.slider = slider);
@@ -285,7 +284,7 @@ class TimeRangeSlider extends React.PureComponent {
         ? this.getHandlesPositionsFromProps()
         : this.getHandlesPositionsFromState();
 
-    const selectedRangePosition = startHandlePosition;
+    const selectedRangePosition = startHandlePosition + this.handleWidth / 2;
     this.selectedRangeLength = endHandlePosition - startHandlePosition;
 
     return (

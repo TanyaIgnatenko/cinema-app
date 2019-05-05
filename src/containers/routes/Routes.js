@@ -2,30 +2,15 @@ import React from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import { NotImplementedPage } from '../../components/common/NotImplementedPage';
-import { MoviesPageContainer } from '../movies';
+import { MoviesPage } from '../../components/movies';
 import { ROUTE } from '../../constants';
 
 function Routes(location) {
   return (
     <Switch>
-      <Route
-        location={location}
-        exact
-        path={ROUTE.MOVIES}
-        component={MoviesPageContainer}
-      />
-      <Route
-        location={location}
-        exact
-        path={ROUTE.SOON_MOVIES}
-        component={NotImplementedPage}
-      />
-      <Route
-        location={location}
-        exact
-        path={ROUTE.BEST_DEALS}
-        component={NotImplementedPage}
-      />
+      <Route location={location} exact path={ROUTE.MOVIES} component={MoviesPage} />
+      <Route location={location} exact path={ROUTE.SOON_MOVIES} component={NotImplementedPage} />
+      <Route location={location} exact path={ROUTE.BEST_DEALS} component={NotImplementedPage} />
       <Redirect to={ROUTE.MOVIES} />
     </Switch>
   );

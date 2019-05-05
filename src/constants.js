@@ -4,18 +4,6 @@ const ROUTE = {
   BEST_DEALS: '/best-deals',
 };
 
-const GENRE = {
-  COMEDY: 'Комедия',
-  ACTION: 'Боевик',
-  HORROR: 'Ужасы',
-  TRILLER: 'Триллер',
-  MELODRAMA: 'Мелодрама',
-  DETECTIV: 'Детектив',
-  FANTASY: 'Фэнтези',
-  ADVENTURES: 'Приключения',
-  BIOGRAPHY: 'Биография',
-};
-
 const APP_DATE_FORMAT = 'YYYY-MM-DD';
 
-export { ROUTE, APP_DATE_FORMAT, GENRE };
+export { ROUTE, APP_DATE_FORMAT };
