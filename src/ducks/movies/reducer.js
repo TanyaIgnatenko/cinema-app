@@ -1,7 +1,8 @@
-import { FETCH_MOVIES } from './action-types';
+import { FETCH_MOVIE, FETCH_MOVIES } from './action-types';
 
 const initialState = {
   movies: null,
+  selectedMovie: null,
 };
 
 export const movies = (state = initialState, action) => {
@@ -16,6 +17,19 @@ export const movies = (state = initialState, action) => {
       return {
         ...state,
         movies: action.movies,
+      };
+    }
+    case FETCH_MOVIE.SUCCESS: {
+      return {
+        ...state,
+        selectedMovie: action.movie,
+      };
+    }
+    case FETCH_MOVIES.ERROR:
+    case FETCH_MOVIE.ERROR: {
+      return {
+        ...state,
+        error: action.error,
       };
     }
     default: {

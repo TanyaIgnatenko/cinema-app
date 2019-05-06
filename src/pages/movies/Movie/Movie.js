@@ -7,10 +7,11 @@ import { ROUTE } from '../../../constants';
 import { createRoute } from '../../../utils/routes';
 
 import './Movie.scss';
+import { withRouter } from 'react-router-dom';
 
 const RUSSIAN_CURRENCY_SYMBOL = '\u20BD';
 
-function Movie({ id, name, genres, poster, seances, className, history,...props }) {
+function Movie({ id, name, genres, poster, seances, className, history, ...props }) {
   const goToMoviePage = () => history.push(createRoute(ROUTE.MOVIE, { id }));
 
   return (
@@ -41,7 +42,7 @@ function Movie({ id, name, genres, poster, seances, className, history,...props 
                   })}
                 </div>
               </div>
-            )
+            ),
         )}
       </div>
     </div>
@@ -61,6 +62,7 @@ Movie.propTypes = {
       }),
     ),
   ).isRequired,
+  history: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
@@ -68,4 +70,4 @@ Movie.defaultProps = {
   className: '',
 };
 
-export default Movie;
+export default withRouter(Movie);

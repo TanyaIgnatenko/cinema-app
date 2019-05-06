@@ -4,4 +4,10 @@ const FETCH_MOVIES = {
   ERROR: '@@movies/FETCH_MOVIES_ERROR',
 };
 
-export { FETCH_MOVIES };
+const FETCH_MOVIE = {
+  REQUEST: '@@movies/FETCH_MOVIE_REQUEST',
+  SUCCESS: '@@movies/FETCH_MOVIE_SUCCESS',
+  ERROR: '@@movies/FETCH_MOVIE_ERROR',
+};
+
+export { FETCH_MOVIES, FETCH_MOVIE };

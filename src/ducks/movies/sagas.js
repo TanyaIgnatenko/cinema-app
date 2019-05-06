@@ -1,7 +1,7 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 
-import { fetchMoviesError, fetchMoviesSuccess } from './actions';
-import { FETCH_MOVIES } from './action-types';
+import { fetchMovieError, fetchMoviesError, fetchMoviesSuccess, fetchMovieSuccess } from './actions';
+import { FETCH_MOVIE, FETCH_MOVIES } from './action-types';
 import * as services from './services';
 
 function* fetchMovies({ date }) {
@@ -13,6 +13,18 @@ function* fetchMovies({ date }) {
   }
 }
 
+function* fetchMovie({ id }) {
+  try {
+    const movie = yield call(services.fetchMovie, id);
+    yield put(fetchMovieSuccess(movie));
+  } catch (e) {
+    yield put(fetchMovieError(e.message));
+  }
+}
+
 export function* watchMoviesRequests() {
-  yield all([takeLatest(FETCH_MOVIES.REQUEST, fetchMovies)]);
+  yield all([
+    takeLatest(FETCH_MOVIES.REQUEST, fetchMovies),
+    takeLatest(FETCH_MOVIE.REQUEST, fetchMovie),
+  ]);
 }

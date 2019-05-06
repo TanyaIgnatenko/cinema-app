@@ -22,7 +22,6 @@ import {
 
 import './MoviesPage.scss';
 import '../../assets/scss/main.scss';
-import Gallery from '../movie/Gallery/Gallery';
 
 const TODAY_LABEL = 'Сегодня';
 const TOMORROW_LABEL = 'Завтра';
@@ -111,7 +110,6 @@ function MoviesPage({ movies, selectedDate, fetchMovies, selectDate }) {
         selectedRange={selectedRange}
         selectedDate={selectedDate}
       />
-      {movies && <Gallery items={movies[1].frames} />}
     </>
   );
 }

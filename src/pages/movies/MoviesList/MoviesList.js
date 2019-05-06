@@ -64,6 +64,7 @@ function MoviesList({ movies, movieHint, selectedRange, selectedDate }) {
           {selectedMovies.map(movie => (
             <Movie
               key={movie.id}
+              id={movie.id}
               name={movie.name}
               genres={movie.genres}
               poster={movie.poster}

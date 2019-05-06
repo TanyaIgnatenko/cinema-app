@@ -1,21 +1,36 @@
 /* eslint-disable no-use-before-define */
 import { getTodayDate, getTodayStartMoment, getTomorrowDate } from '../../utils/date';
 
+class NotFoundError extends Error {
+  constructor(message) {
+    super();
+    this.name = 'NotFoundError';
+    this.message = message;
+  }
+}
+
 function getMovies(date) {
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
 
   switch (date) {
     case today:
-      console.log('today');
       return todayMovies;
     case tomorrow:
-      console.log('tomorrow', tomorrowMovies.length);
       return tomorrowMovies;
     default:
-      console.log('default');
       return [];
   }
+}
+
+function getMovie(id) {
+  let movie = todayMovies.find(movie => movie.id === id);
+  if (movie) return movie;
+
+  movie = tomorrowMovies.find(movie => movie.id === id);
+  if (movie) return movie;
+
+  return new NotFoundError('Movie with given id is not found');
 }
 
 function fetchMovies(date) {
@@ -24,7 +39,13 @@ function fetchMovies(date) {
   });
 }
 
-export { fetchMovies };
+function fetchMovie(id) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(getMovie(id)), 1000);
+  });
+}
+
+export { fetchMovies, fetchMovie };
 
 const todayMovies = [
   {
@@ -40,7 +61,33 @@ const todayMovies = [
     frames: [
       {
         description: 'Битва на черноводной',
-        url: '',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+      },
+      {
+        description: 'Битва на черноводной',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+      },
+      {
+        description: 'Битва на черноводной',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+      },
+      {
+        description: 'Битва на черноводной',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+      },
+      {
+        description: 'Битва на черноводной',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+      },
+      {
+        description: 'Битва на черноводной',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
       },
     ],
     seances: {
