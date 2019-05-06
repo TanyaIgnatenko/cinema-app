@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './GalleryViewer.scss';
 
-import crossIcon from '../../../../assets/images/cross-icon.svg';
+import crossIcon from '../../../../../../assets/images/cross-icon.svg';
 
 function GalleryViewer({ items, selectedItemIdx, selectItem, closeViewer }) {
   const handleNextItemClick = () => selectItem((selectedItemIdx + 1) % items.length);

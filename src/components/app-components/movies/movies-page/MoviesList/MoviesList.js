@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Movie } from '../Movie';
 import { keepSeancesAt } from '../../utils/movies';
+import { NotFoundComponent } from '../../../common/NotFoundComponent';
+import { NoScheduleComponent } from '../../../common/NoScheduleComponent';
+import Spinner from '../../../common/Spinner/Spinner';
 
 const MOVIES_STATE = {
   LOADING: 0,
@@ -11,7 +14,7 @@ const MOVIES_STATE = {
   FOUND: 3,
 };
 
-function MoviesList({ movies, movieHint, selectedRange, selectedDate }) {
+function MoviesList({ movies, movieHint, selectedRange, selectedDate, resetFiltersSettings }) {
   const selectedMovies = useMemo(
     () =>
       movies
@@ -39,25 +42,11 @@ function MoviesList({ movies, movieHint, selectedRange, selectedDate }) {
 
   switch (moviesState) {
     case MOVIES_STATE.LOADING:
-      return (
-        <div className='movies-info-box'>
-          <div className='movies-info loading'>Загружаются</div>
-        </div>
-      );
+      return <Spinner />;
     case MOVIES_STATE.SCHEDULE_NOT_EXIST:
-      return (
-        <div className='movies-info-box'>
-          <div className='movies-info no-schedule'>Расписание на этот день не найдено</div>
-        </div>
-      );
+      return <NoScheduleComponent />;
     case MOVIES_STATE.NOT_FOUND:
-      return (
-        <div className='movies-info-box'>
-          <div className='movies-info no-found'>
-            По вашему запросу не нашлись сеансы. Сбросьте настройки.
-          </div>
-        </div>
-      );
+      return <NotFoundComponent resetSettings={resetFiltersSettings} />;
     case MOVIES_STATE.FOUND:
       return (
         <ul className='movie-list'>
@@ -99,6 +88,7 @@ MoviesList.propTypes = {
     end: PropTypes.number.isRequired,
   }).isRequired,
   selectedDate: PropTypes.string.isRequired,
+  resetFiltersSettings: PropTypes.func.isRequired,
 };
 
 MoviesList.defaultProps = {

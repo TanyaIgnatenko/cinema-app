@@ -1,0 +1,25 @@
+@import "../../../../assets/scss/main";
+
+.info-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .info {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 2.7rem;
+    text-align: center;
+
+    .reset-request {
+      font-size: 1.6rem;
+      font-weight: normal;
+
+      .reset-settings-link {
+        @extend %link;
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+

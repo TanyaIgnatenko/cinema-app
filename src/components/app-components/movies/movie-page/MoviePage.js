@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { Gallery } from './Gallery';
 import { SeancesList } from './SeancesList';
 import { DateFilter } from '../movies-page/DateFilter';
-import { ErrorPage } from '../../../base-components/ErrorPage';
-import { NotFoundPage } from '../../../base-components/NotFoundPage';
+import { ErrorPage } from '../../common/ErrorPage';
+import { NotFoundPage } from '../../common/NotFoundPage';
 import { TimeRangeSlider } from '../movies-page/TimeRangeSlider';
 import { fetchMovieRequest, fetchSeancesRequest } from '../../../../ducks/movies/actions';
 import { TIME_SLIDER_RANGE } from '../movies-page/TimeRangeSlider/TimeRangeSlider';
@@ -26,7 +26,11 @@ function MoviePage({ movie, seances, fetchMovie, fetchSeances, match, error }) {
   }
 
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
+
   const [selectedRange, setSelectedRange] = useState(TIME_SLIDER_RANGE);
+  const handleResetFiltersSettings = () => {
+    setSelectedRange(TIME_SLIDER_RANGE);
+  };
 
   const movieId = parseInt(match.params.id, 10);
   useEffect(() => {
@@ -70,7 +74,12 @@ function MoviePage({ movie, seances, fetchMovie, fetchSeances, match, error }) {
             selectRange={setSelectedRange}
           />
         </div>
-        <SeancesList seances={seances} selectedDate={selectedDate} selectedRange={selectedRange} />
+        <SeancesList
+          seances={seances}
+          selectedDate={selectedDate}
+          selectedRange={selectedRange}
+          resetFiltersSettings={handleResetFiltersSettings}
+        />
       </div>
     </>
   ) : (

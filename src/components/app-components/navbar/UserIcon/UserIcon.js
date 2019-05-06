@@ -2,7 +2,7 @@ import React from 'react';
 
 import './UserIcon.scss';
 
-import userIcon from '../../../assets/images/user-icon.svg';
+import userIcon from '../../../../assets/images/user-icon.svg';
 
 function UserIcon() {
   return (

@@ -13,7 +13,7 @@ import { TIME_SLIDER_RANGE } from './TimeRangeSlider/TimeRangeSlider';
 import { getTodayDate } from '../../../../utils/date';
 
 import './MoviesPage.scss';
-import '../../assets/scss/main.scss';
+import '../../../../assets/scss/main.scss';
 
 const MOVIE_SEARCH_PLACEHOLDER = 'Название';
 
@@ -27,6 +27,11 @@ function MoviesPage({ movies, fetchMovies }) {
       fetchMovies(selectedDate);
     }
   }, [selectedDate]);
+
+  const handleResetFiltersSettings = () => {
+    setMovieHint('');
+    setSelectedRange(TIME_SLIDER_RANGE);
+  };
 
   return (
     <>
@@ -51,6 +56,7 @@ function MoviesPage({ movies, fetchMovies }) {
         movieHint={movieHint}
         selectedRange={selectedRange}
         selectedDate={selectedDate}
+        resetFiltersSettings={handleResetFiltersSettings}
       />
     </>
   );

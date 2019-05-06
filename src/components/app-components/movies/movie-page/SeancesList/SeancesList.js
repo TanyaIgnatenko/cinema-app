@@ -6,6 +6,9 @@ import { Seances } from '../../common/Seances';
 import { keepSeancesAt } from '../../utils/movies';
 
 import './SeancesList.scss';
+import { Spinner } from '../../../common/Spinner';
+import { NoScheduleComponent } from '../../../common/NoScheduleComponent';
+import { NotFoundComponent } from '../../../common/NotFoundComponent';
 
 const SEANCES_STATE = {
   LOADING: 0,
@@ -14,7 +17,7 @@ const SEANCES_STATE = {
   FOUND: 3,
 };
 
-function SeancesList({ seances, selectedRange, selectedDate }) {
+function SeancesList({ seances, selectedRange, selectedDate, resetFiltersSettings }) {
   const selectedSeances = useMemo(
     () => (seances ? keepSeancesAt(selectedDate, selectedRange, seances) : null),
     [seances, selectedRange],
@@ -33,25 +36,11 @@ function SeancesList({ seances, selectedRange, selectedDate }) {
 
   switch (seancesState) {
     case SEANCES_STATE.LOADING:
-      return (
-        <div className='seances-info-box'>
-          <div className='seances-info loading'>Загружаются</div>
-        </div>
-      );
+      return <Spinner />;
     case SEANCES_STATE.SCHEDULE_NOT_EXIST:
-      return (
-        <div className='seances-info-box'>
-          <div className='seances-info no-schedule'>Расписание на этот день не найдено</div>
-        </div>
-      );
+      return <NoScheduleComponent />;
     case SEANCES_STATE.NOT_FOUND:
-      return (
-        <div className='seances-info-box'>
-          <div className='seances-info no-found'>
-            По вашему запросу не нашлись сеансы. Сбросьте настройки.
-          </div>
-        </div>
-      );
+      return <NotFoundComponent resetSettings={resetFiltersSettings} />;
     case SEANCES_STATE.FOUND:
       return (
         <div className='seances-list'>
@@ -75,6 +64,7 @@ SeancesList.propTypes = {
     end: PropTypes.number.isRequired,
   }).isRequired,
   selectedDate: PropTypes.string.isRequired,
+  resetFiltersSettings: PropTypes.func.isRequired,
 };
 
 SeancesList.defaultProps = {

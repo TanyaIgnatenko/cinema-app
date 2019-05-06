@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
-import { NotImplementedPage } from '../../base-components/NotImplementedPage';
+import { NotImplementedPage } from '../common/NotImplementedPage';
 import { MoviePage } from '../movies/movie-page';
 import { MoviesPage } from '../movies/movies-page';
 import { ROUTE } from '../../../constants';
