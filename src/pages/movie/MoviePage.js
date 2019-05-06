@@ -3,19 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Gallery } from './Gallery';
+import { SeancesList } from './SeancesList';
+import { DateFilter } from '../movies/DateFilter';
 import { ErrorPage } from '../common/ErrorPage';
 import { NotFoundPage } from '../common/NotFoundPage';
-
-import { DateFilter } from '../movies/DateFilter';
 import { TimeRangeSlider } from '../movies/TimeRangeSlider';
-import { fetchMovieRequest } from '../../ducks/movies/actions';
-import { selectMoviesError, selectSelectedMovie } from '../../ducks/movies/selectors';
+import { fetchMovieRequest, fetchSeancesRequest } from '../../ducks/movies/actions';
 import { TIME_SLIDER_RANGE } from '../movies/TimeRangeSlider/TimeRangeSlider';
 import { getTodayDate } from '../../utils/date';
 
+import {
+  selectMoviesError,
+  selectSeances,
+  selectSelectedMovie,
+} from '../../ducks/movies/selectors';
+
 import './MoviePage.scss';
 
-function MoviePage({ movie, fetchMovie, match, error }) {
+function MoviePage({ movie, seances, fetchMovie, fetchSeances, match, error }) {
   if (error) {
     return error.name === 'NotFoundError' ? <NotFoundPage /> : <ErrorPage />;
   }
@@ -27,6 +32,10 @@ function MoviePage({ movie, fetchMovie, match, error }) {
   useEffect(() => {
     fetchMovie(movieId);
   }, []);
+
+  useEffect(() => {
+    fetchSeances(movieId, selectedDate);
+  }, [selectedDate]);
 
   return movie ? (
     <>
@@ -61,6 +70,7 @@ function MoviePage({ movie, fetchMovie, match, error }) {
             selectRange={setSelectedRange}
           />
         </div>
+        <SeancesList seances={seances} selectedDate={selectedDate} selectedRange={selectedRange} />
       </div>
     </>
   ) : (
@@ -75,16 +85,17 @@ MoviePage.propTypes = {
     genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     duration: PropTypes.number.isRequired,
     frames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    seances: PropTypes.objectOf(
-      PropTypes.arrayOf(
-        PropTypes.shape({
-          startTime: PropTypes.number.isRequired,
-          price: PropTypes.string.isRequired,
-        }),
-      ),
-    ).isRequired,
   }),
+  seances: PropTypes.objectOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        startTime: PropTypes.number.isRequired,
+        price: PropTypes.string.isRequired,
+      }),
+    ),
+  ),
   fetchMovie: PropTypes.func.isRequired,
+  fetchSeances: PropTypes.func.isRequired,
   error: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
@@ -93,16 +104,19 @@ MoviePage.propTypes = {
 
 MoviePage.defaultProps = {
   movie: null,
+  seances: null,
   error: null,
 };
 
 const mapStateToProps = state => ({
   movie: selectSelectedMovie(state),
+  seances: selectSeances(state),
   error: selectMoviesError(state),
 });
 
 const mapDispatchToProps = {
   fetchMovie: fetchMovieRequest,
+  fetchSeances: fetchSeancesRequest,
 };
 
 export default connect(

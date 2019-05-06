@@ -98,12 +98,11 @@ MoviesList.propTypes = {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
   }).isRequired,
-  selectedDate: PropTypes.string,
+  selectedDate: PropTypes.string.isRequired,
 };
 
 MoviesList.defaultProps = {
   movies: null,
-  selectedDate: null,
 };
 
 export default MoviesList;

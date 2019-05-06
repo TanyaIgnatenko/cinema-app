@@ -30,7 +30,21 @@ function getMovie(id) {
   movie = tomorrowMovies.find(movie => movie.id === id);
   if (movie) return movie;
 
-  return new NotFoundError('Movie with given id is not found');
+  throw new NotFoundError('Movie with given id is not found');
+}
+
+function getSeances(movieId, date) {
+  const today = getTodayDate();
+  const tomorrow = getTomorrowDate();
+
+  switch (date) {
+    case today:
+      return todaySeances;
+    case tomorrow:
+      return tomorrowSeances;
+    default:
+      return {};
+  }
 }
 
 function fetchMovies(date) {
@@ -45,7 +59,213 @@ function fetchMovie(id) {
   });
 }
 
-export { fetchMovies, fetchMovie };
+function fetchSeances(movieId, date) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(getSeances(movieId, date)), 1000);
+  });
+}
+
+export { fetchMovies, fetchMovie, fetchSeances };
+
+const todaySeances = {
+  '3D': [
+    {
+      startTime: getTodayStartMoment()
+        .hours(12)
+        .minutes(30)
+        .seconds(0)
+        .unix(),
+      price: '200',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(14)
+        .minutes(30)
+        .seconds(0)
+        .unix(),
+      price: '250',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(16)
+        .minutes(50)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(17)
+        .minutes(50)
+        .seconds(0)
+        .unix(),
+      price: '250',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(19)
+        .minutes(20)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+  ],
+  '2D': [
+    {
+      startTime: getTodayStartMoment()
+        .hours(12)
+        .minutes(40)
+        .seconds(0)
+        .unix(),
+      price: '200',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(15)
+        .minutes(10)
+        .seconds(0)
+        .unix(),
+      price: '250',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(17)
+        .minutes(20)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(19)
+        .minutes(20)
+        .seconds(0)
+        .unix(),
+      price: '250',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(21)
+        .minutes(30)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(22)
+        .minutes(30)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .hours(26)
+        .minutes(0)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+  ],
+};
+
+const tomorrowSeances = {
+  '3D': [
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(10)
+        .minutes(30)
+        .seconds(0)
+        .unix(),
+      price: '200',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(14)
+        .minutes(30)
+        .seconds(0)
+        .unix(),
+      price: '250',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(16)
+        .minutes(50)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(17)
+        .minutes(50)
+        .seconds(0)
+        .unix(),
+      price: '250',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(19)
+        .minutes(20)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+  ],
+  '2D': [
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(12)
+        .minutes(40)
+        .seconds(0)
+        .unix(),
+      price: '200',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(15)
+        .minutes(10)
+        .seconds(0)
+        .unix(),
+      price: '250',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(17)
+        .minutes(20)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(19)
+        .minutes(20)
+        .seconds(0)
+        .unix(),
+      price: '250',
+    },
+    {
+      startTime: getTodayStartMoment()
+        .add(1, 'd')
+        .hours(21)
+        .minutes(30)
+        .seconds(0)
+        .unix(),
+      price: '270',
+    },
+  ],
+};
 
 const todayMovies = [
   {

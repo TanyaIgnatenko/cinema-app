@@ -6,6 +6,7 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.4.0",
     "history": "^4.9.0",
+    "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
     "node-sass": "^4.11.0",

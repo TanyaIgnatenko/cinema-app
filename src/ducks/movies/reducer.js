@@ -1,8 +1,9 @@
-import { FETCH_MOVIE, FETCH_MOVIES } from './action-types';
+import { FETCH_MOVIE, FETCH_MOVIES, FETCH_SEANCES } from './action-types';
 
 const initialState = {
   movies: null,
   selectedMovie: null,
+  movieSeances: null,
 };
 
 export const movies = (state = initialState, action) => {
@@ -11,6 +12,18 @@ export const movies = (state = initialState, action) => {
       return {
         ...state,
         movies: null,
+      };
+    }
+    case FETCH_MOVIE.REQUEST: {
+      return {
+        ...state,
+        selectedMovie: null,
+      };
+    }
+    case FETCH_SEANCES.REQUEST: {
+      return {
+        ...state,
+        movieSeances: null,
       };
     }
     case FETCH_MOVIES.SUCCESS: {
@@ -23,6 +36,12 @@ export const movies = (state = initialState, action) => {
       return {
         ...state,
         selectedMovie: action.movie,
+      };
+    }
+    case FETCH_SEANCES.SUCCESS: {
+      return {
+        ...state,
+        movieSeances: action.seances,
       };
     }
     case FETCH_MOVIES.ERROR:

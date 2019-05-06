@@ -9,10 +9,11 @@ import { TimeRangeSlider } from './TimeRangeSlider';
 import { fetchMoviesRequest } from '../../ducks/movies/actions';
 import { selectMovies } from '../../ducks/movies/selectors';
 
+import { TIME_SLIDER_RANGE } from './TimeRangeSlider/TimeRangeSlider';
+import { getTodayDate } from '../../utils/date';
+
 import './MoviesPage.scss';
 import '../../assets/scss/main.scss';
-import { getTodayDate } from '../../utils/date';
-import { TIME_SLIDER_RANGE } from './TimeRangeSlider/TimeRangeSlider';
 
 const MOVIE_SEARCH_PLACEHOLDER = 'Название';
 

@@ -1,4 +1,4 @@
-import { FETCH_MOVIE, FETCH_MOVIES } from './action-types';
+import { FETCH_MOVIE, FETCH_MOVIES, FETCH_SEANCES } from './action-types';
 
 const fetchMoviesRequest = date => ({
   type: FETCH_MOVIES.REQUEST,
@@ -30,6 +30,22 @@ const fetchMovieError = error => ({
   error,
 });
 
+const fetchSeancesRequest = (movieId, date) => ({
+  type: FETCH_SEANCES.REQUEST,
+  movieId,
+  date,
+});
+
+const fetchSeancesSuccess = seances => ({
+  type: FETCH_SEANCES.SUCCESS,
+  seances,
+});
+
+const fetchSeancesError = error => ({
+  type: FETCH_SEANCES.ERROR,
+  error,
+});
+
 export {
   fetchMoviesRequest,
   fetchMoviesSuccess,
@@ -37,4 +53,7 @@ export {
   fetchMovieRequest,
   fetchMovieSuccess,
   fetchMovieError,
+  fetchSeancesRequest,
+  fetchSeancesSuccess,
+  fetchSeancesError,
 };
