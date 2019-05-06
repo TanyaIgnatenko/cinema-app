@@ -53,7 +53,11 @@ function SeancesList({ seances, selectedRange, selectedDate }) {
         </div>
       );
     case SEANCES_STATE.FOUND:
-      return <Seances seances={selectedSeances} className='seances' />;
+      return (
+        <div className='seances-list'>
+          <Seances seances={selectedSeances} className='seances' />
+        </div>
+      );
   }
 }
 

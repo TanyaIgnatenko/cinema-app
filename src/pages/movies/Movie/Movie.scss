@@ -8,6 +8,7 @@
   .poster{
     height: 180px;
     width: 120px;
+
     cursor: pointer;
   }
 
@@ -33,5 +34,9 @@
         color: hsl(0, 100%, 45%);
       }
     }
+  }
+
+  .seances {
+    flex-basis: 40%;
   }
 }

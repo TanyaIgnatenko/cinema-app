@@ -19,7 +19,7 @@ function Movie({ id, name, genres, poster, seances, className, history, ...props
         <p className='genres'>{genres.join(', ')}</p>
         <p className='title'>{name}</p>
       </div>
-      <Seances seances={seances} />
+      <Seances seances={seances} className='seances'/>
     </div>
   );
 }
