@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './GalleryViewer.scss';
+
 import crossIcon from '../../../../assets/images/cross-icon.svg';
 
 function GalleryViewer({ items, selectedItemIdx, selectItem, closeViewer }) {
