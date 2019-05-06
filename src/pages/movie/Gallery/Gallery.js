@@ -18,7 +18,7 @@ function Gallery({ items }) {
   const hiddenItems = items.slice(itemsWithPreviewsCount + 1);
   const hasAtLeastOneHiddenItem = Boolean(hiddenItems.length);
 
-  const [selectedItem, setSelectedItem] = useState(0);
+  const [selectedItemIdx, setSelectedItem] = useState(0);
   const [showItem, setShowItem] = useState(false);
 
   const handleItemClick = itemIdx => {
@@ -62,7 +62,7 @@ function Gallery({ items }) {
         {showItem && (
           <GalleryViewer
             items={items}
-            selectedItem={selectedItem}
+            selectedItemIdx={selectedItemIdx}
             selectItem={setSelectedItem}
             closeViewer={closeViewer}
           />
