@@ -4,7 +4,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import moment from 'moment';
 
-import { App } from './containers/app';
+import { App } from './components/app-components/app';
 import { history } from './store/rootReducer';
 import { store } from './store/store';
 

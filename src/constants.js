@@ -1,7 +1,7 @@
 const ROUTE = {
-  MOVIES: '/movies',
-  MOVIE: '/movie/:id',
-  SOON_MOVIES: '/soon-movies',
+  MOVIES: '/movies-page',
+  MOVIE: '/movie-page/:id',
+  SOON_MOVIES: '/soon-movies-page',
   BEST_DEALS: '/best-deals',
 };
 
