@@ -111,7 +111,7 @@ function MoviesPage({ movies, selectedDate, fetchMovies, selectDate }) {
         selectedRange={selectedRange}
         selectedDate={selectedDate}
       />
-      {movies && <Gallery items={movies[1].frames}/>}
+      {movies && <Gallery items={movies[1].frames} />}
     </>
   );
 }

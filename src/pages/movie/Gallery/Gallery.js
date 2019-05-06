@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+
+import { GalleryViewer } from './GalleryViewer';
 
 import './Gallery.scss';
-
-import crossIcon from '../../../assets/images/cross-icon.svg';
 
 const MAX_PREVIEWS_COUNT = 4;
 
@@ -27,14 +26,9 @@ function Gallery({ items }) {
     setShowItem(true);
   };
 
-  const closeGalleryPopup = () => {
+  const closeViewer = () => {
     setShowItem(false);
   };
-
-  const handleNextItemClick = () => setSelectedItem((selectedItem + 1) % items.length);
-  const handlePreviousItemClick = () =>
-    setSelectedItem((items.length + selectedItem - 1) % items.length);
-  console.log('selectedItem: ', selectedItem);
 
   return (
     hasAtLeastOneItem && (
@@ -65,20 +59,14 @@ function Gallery({ items }) {
             </>
           </div>
         )}
-        <div className={classNames('gallery-popup', showItem ? 'not-hidden' : 'hidden')}>
-          <div className='popup-header'>
-            <p className='item-number-info'>{`${selectedItem + 1} из ${items.length}`}</p>
-            <img className='close-icon' src={crossIcon} onClick={closeGalleryPopup} />
-          </div>
-          <div className='popup-content'>
-            <img className='item-content' src={items[selectedItem].url} />
-            <div className='btn-prev' onClick={handlePreviousItemClick} />
-            <div className='btn-next' onClick={handleNextItemClick} />
-          </div>
-          <div className='popup-footer'>
-            <p className='item-description'>{items[selectedItem].description}</p>
-          </div>
-        </div>
+        {showItem && (
+          <GalleryViewer
+            items={items}
+            selectedItem={selectedItem}
+            selectItem={setSelectedItem}
+            closeViewer={closeViewer}
+          />
+        )}
       </div>
     )
   );

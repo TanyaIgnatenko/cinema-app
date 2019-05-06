@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import {getTodayDate, getTodayStartMoment, getTomorrowDate} from '../../utils/date';
+import { getTodayDate, getTodayStartMoment, getTomorrowDate } from '../../utils/date';
 
 function getMovies(date) {
   const today = getTodayDate();
@@ -24,7 +24,7 @@ function fetchMovies(date) {
   });
 }
 
-export {fetchMovies};
+export { fetchMovies };
 
 const todayMovies = [
   {
