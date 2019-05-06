@@ -7,7 +7,8 @@
   }
 
 .movie-extra-info {
-  margin-top: 0.5rem;
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
 
   line-height: 1.5;
 
@@ -25,4 +26,27 @@
       color: black;
       font-size: 1.4rem;
     }
+}
+
+.schedule-container {
+  margin-top: 3rem;
+
+  .schedule-title {
+    margin-bottom: 1.5rem;
+
+    color: #222;
+    font-size: 2.2rem;
+  }
+
+  .filters-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2.5rem;
+
+    background-color: #F5F5F5;
+
+    .date-filter {
+      width: 800px;
+    }
+  }
 }

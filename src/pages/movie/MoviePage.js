@@ -47,12 +47,21 @@ function MoviePage({ movie, fetchMovie, match, error }) {
           <p id='duration'>{`${movie.duration} мин.`}</p>
         </li>
       </div>
-      <DateFilter selectedDate={selectedDate} selectDate={setSelectedDate} />
-      <TimeRangeSlider
-        className='time-range-slider'
-        selectedRange={selectedRange}
-        selectRange={setSelectedRange}
-      />
+      <div className='schedule-container'>
+        <h2 className='schedule-title'>Расписание</h2>
+        <div className='filters-container'>
+          <DateFilter
+            className='date-filter'
+            selectedDate={selectedDate}
+            selectDate={setSelectedDate}
+          />
+          <TimeRangeSlider
+            className='time-range-slider'
+            selectedRange={selectedRange}
+            selectRange={setSelectedRange}
+          />
+        </div>
+      </div>
     </>
   ) : (
     <p>Загружается...</p>
