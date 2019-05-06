@@ -36,11 +36,11 @@ function SeancesList({ seances, selectedRange, selectedDate, resetFiltersSetting
 
   switch (seancesState) {
     case SEANCES_STATE.LOADING:
-      return <Spinner />;
+      return <Spinner className='info-box' />;
     case SEANCES_STATE.SCHEDULE_NOT_EXIST:
-      return <NoScheduleComponent />;
+      return <NoScheduleComponent className='info-box' />;
     case SEANCES_STATE.NOT_FOUND:
-      return <NotFoundComponent resetSettings={resetFiltersSettings} />;
+      return <NotFoundComponent className='info-box' resetSettings={resetFiltersSettings} />;
     case SEANCES_STATE.FOUND:
       return (
         <div className='seances-list'>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { Gallery } from './Gallery';
 import { SeancesList } from './SeancesList';
+import { Spinner } from '../../common/Spinner';
 import { DateFilter } from '../movies-page/DateFilter';
 import { ErrorPage } from '../../common/ErrorPage';
 import { NotFoundPage } from '../../common/NotFoundPage';
@@ -83,7 +84,7 @@ function MoviePage({ movie, seances, fetchMovie, fetchSeances, match, error }) {
       </div>
     </>
   ) : (
-    <p>Загружается...</p>
+    <Spinner className='page-spinner-container' />
   );
 }
 

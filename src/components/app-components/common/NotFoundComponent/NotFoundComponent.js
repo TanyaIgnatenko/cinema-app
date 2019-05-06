@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './NotFoundComponent.scss';
 
-function NotFoundComponent({ resetSettings }) {
+function NotFoundComponent({ resetSettings, className }) {
   return (
-    <div className='info-box'>
+    <div className={classNames('info-box', className)}>
       <div className='info no-found'>
         По вашему запросу ничего нет
         <br />
@@ -22,6 +23,11 @@ function NotFoundComponent({ resetSettings }) {
 
 NotFoundComponent.propTypes = {
   resetSettings: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+NotFoundComponent.defaultProps = {
+  className: '',
 };
 
 export default NotFoundComponent;

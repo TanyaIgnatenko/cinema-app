@@ -5,7 +5,9 @@ import { Movie } from '../Movie';
 import { keepSeancesAt } from '../../utils/movies';
 import { NotFoundComponent } from '../../../common/NotFoundComponent';
 import { NoScheduleComponent } from '../../../common/NoScheduleComponent';
-import Spinner from '../../../common/Spinner/Spinner';
+import { Spinner } from '../../../common/Spinner';
+
+import './MoviesList.scss';
 
 const MOVIES_STATE = {
   LOADING: 0,
@@ -42,11 +44,11 @@ function MoviesList({ movies, movieHint, selectedRange, selectedDate, resetFilte
 
   switch (moviesState) {
     case MOVIES_STATE.LOADING:
-      return <Spinner />;
+      return <Spinner className='info-box' />;
     case MOVIES_STATE.SCHEDULE_NOT_EXIST:
-      return <NoScheduleComponent />;
+      return <NoScheduleComponent className='info-box' />;
     case MOVIES_STATE.NOT_FOUND:
-      return <NotFoundComponent resetSettings={resetFiltersSettings} />;
+      return <NotFoundComponent className='info-box' resetSettings={resetFiltersSettings} />;
     case MOVIES_STATE.FOUND:
       return (
         <ul className='movie-list'>
