@@ -21,4 +21,9 @@ function keepSeancesAt(date, timeRange, seances) {
   return hasAtLeastOneSeance ? filteredSeances : null;
 }
 
-export { keepSeancesAt };
+function hasStarted(seance) {
+  const now = moment();
+  return moment.unix(seance.startTime).isSameOrBefore(now);
+}
+
+export { keepSeancesAt, hasStarted };
