@@ -8,6 +8,8 @@ import { NotFoundPage } from '../common/NotFoundPage';
 import { fetchMovieRequest } from '../../ducks/movies/actions';
 import { selectMoviesError, selectSelectedMovie } from '../../ducks/movies/selectors';
 
+import './MoviePage.scss';
+
 function MoviePage({ movie, fetchMovie, match, error }) {
   const movieId = parseInt(match.params.id, 10);
   useEffect(() => {
@@ -22,6 +24,21 @@ function MoviePage({ movie, fetchMovie, match, error }) {
     <>
       <h1 className='page-title'>{movie.name}</h1>
       <Gallery items={movie.frames} />
+      <p className='movie-description'>{movie.description}</p>
+      <div className='movie-extra-info'>
+        <li>
+          <label className='label' htmlFor='genres'>
+            Жанры:
+          </label>
+          <p id='genres'>{movie.genres.join(', ')}</p>
+        </li>
+        <li>
+          <label className='label' htmlFor='duration'>
+            Длительность:
+          </label>
+          <p id='duration'>{`${movie.duration} мин.`}</p>
+        </li>
+      </div>
     </>
   ) : (
     <p>Загружается...</p>
@@ -52,6 +69,7 @@ MoviePage.propTypes = {
 };
 
 MoviePage.defaultProps = {
+  movie: null,
   error: null,
 };
 

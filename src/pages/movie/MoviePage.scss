@@ -1,0 +1,28 @@
+  .movie-description {
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
+
+    font-size: 1.6rem;
+    white-space: pre-wrap;
+  }
+
+.movie-extra-info {
+  margin-top: 0.5rem;
+
+  line-height: 1.5;
+
+  .label {
+    display: inline-block;
+    width: 13rem;
+
+    color: #7f7f7f;
+    font-size: 1.4rem;
+  }
+
+    p {
+      display: inline;
+
+      color: black;
+      font-size: 1.4rem;
+    }
+}
