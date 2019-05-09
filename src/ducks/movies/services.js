@@ -1,6 +1,8 @@
 /* eslint-disable no-use-before-define */
 import { getTodayDate, getTodayStartMoment, getTomorrowDate } from '../../utils/date';
 
+import auditoriumLayout from '../../assets/images/hall.svg';
+
 class NotFoundError extends Error {
   constructor(message) {
     super();
@@ -76,6 +78,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '200',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 77, 100],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -84,6 +93,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '250',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 32, 112, 117],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -92,6 +108,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [91, 92, 93, 97, 102],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -100,6 +123,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '250',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -108,6 +138,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
   ],
   '2D': [
@@ -118,6 +155,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '200',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -126,6 +170,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '250',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -134,6 +185,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -142,6 +200,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '250',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -150,6 +215,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -158,6 +230,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -166,6 +245,13 @@ const todaySeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
   ],
 };
@@ -180,6 +266,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '200',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -189,6 +282,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '250',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -198,6 +298,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -207,6 +314,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '250',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -216,6 +330,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
   ],
   '2D': [
@@ -227,6 +348,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '200',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -236,6 +364,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '250',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -245,6 +380,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -254,6 +396,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '250',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
     {
       startTime: getTodayStartMoment()
@@ -263,6 +412,13 @@ const tomorrowSeances = {
         .seconds(0)
         .unix(),
       price: '270',
+      auditorium: {
+        layout: auditoriumLayout,
+        name: 'Средний зал',
+        seats: {
+          taken: [1, 2, 3, 17, 22],
+        },
+      },
     },
   ],
 };
@@ -319,6 +475,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -327,6 +490,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -335,6 +505,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -343,6 +520,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -351,6 +535,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -361,6 +552,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -369,6 +567,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -377,6 +582,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -385,6 +597,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -393,6 +612,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -401,6 +627,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -409,6 +642,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -463,6 +703,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -471,6 +718,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -479,6 +733,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -487,6 +748,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -495,6 +763,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -505,6 +780,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -513,6 +795,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -521,6 +810,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -529,6 +825,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -537,6 +840,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -545,6 +855,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -553,6 +870,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -606,6 +930,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -614,6 +945,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -622,6 +960,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -630,6 +975,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -638,6 +990,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -648,6 +1007,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -656,6 +1022,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -664,6 +1037,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -672,6 +1052,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -680,6 +1067,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -688,6 +1082,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -696,6 +1097,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -749,6 +1157,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -757,6 +1172,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -765,6 +1187,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -773,6 +1202,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -781,6 +1217,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -791,6 +1234,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -799,6 +1249,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -807,6 +1264,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -815,6 +1279,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -823,6 +1294,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -831,6 +1309,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -839,6 +1324,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -892,6 +1384,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -900,6 +1399,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -908,6 +1414,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -916,6 +1429,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -924,6 +1444,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -934,6 +1461,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -942,6 +1476,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -950,6 +1491,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -958,6 +1506,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -966,6 +1521,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -974,6 +1536,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -982,6 +1551,13 @@ const todayMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -1038,6 +1614,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1047,6 +1630,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1056,6 +1646,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1065,6 +1662,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1074,6 +1678,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -1085,6 +1696,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1094,6 +1712,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1103,6 +1728,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1112,6 +1744,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1121,6 +1760,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1130,6 +1776,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1139,6 +1792,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -1194,6 +1854,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1203,6 +1870,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1212,6 +1886,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1221,6 +1902,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1230,6 +1918,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -1241,6 +1936,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1250,6 +1952,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1259,6 +1968,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1268,6 +1984,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1277,6 +2000,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1286,6 +2016,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1295,6 +2032,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -1349,6 +2093,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1358,6 +2109,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1367,6 +2125,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1376,6 +2141,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1385,6 +2157,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -1396,6 +2175,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1405,6 +2191,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1414,6 +2207,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1423,6 +2223,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1432,6 +2239,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1441,6 +2255,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1450,6 +2271,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -1507,6 +2335,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1516,6 +2351,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1525,6 +2367,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1534,6 +2383,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1543,6 +2399,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -1554,6 +2417,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1563,6 +2433,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1572,6 +2449,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1581,6 +2465,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1590,6 +2481,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1599,6 +2497,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1608,6 +2513,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },
@@ -1665,6 +2577,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1674,6 +2593,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1683,6 +2609,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1692,6 +2625,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1701,6 +2641,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
       '2D': [
@@ -1712,6 +2659,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '200',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1721,6 +2675,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1730,6 +2691,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1739,6 +2707,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '250',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1748,6 +2723,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1757,6 +2739,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
         {
           startTime: getTodayStartMoment()
@@ -1766,6 +2755,13 @@ const tomorrowMovies = [
             .seconds(0)
             .unix(),
           price: '270',
+          auditorium: {
+            layout: auditoriumLayout,
+            name: 'Средний зал',
+          },
+          seats: {
+            taken: [1, 2, 3, 17, 22],
+          },
         },
       ],
     },

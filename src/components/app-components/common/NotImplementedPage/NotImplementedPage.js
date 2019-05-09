@@ -1,7 +1,7 @@
 import React from 'react';
 
 function NotImplementedPage() {
-  return <h1 className='page-title'>Страница не реализована</h1>;
+  return <p className='page-title'>Страница не реализована</p>;
 }
 
 export default NotImplementedPage;
