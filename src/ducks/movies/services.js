@@ -17,6 +17,7 @@ function fetchMovie(id) {
 }
 
 function fetchSeances(movieId, date) {
+  console.log('date: ', date);
   return new Promise(resolve => {
     setTimeout(() => resolve(getSeances(movieId, date)), 1000);
   });

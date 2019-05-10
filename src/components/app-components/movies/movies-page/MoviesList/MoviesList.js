@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Movie } from '../Movie';
@@ -8,6 +8,9 @@ import { NoScheduleComponent } from '../../../common/NoScheduleComponent';
 import { Spinner } from '../../../common/Spinner';
 
 import './MoviesList.scss';
+import { fetchMoviesRequest } from '../../../../../ducks/movies/actions';
+import { selectMovies } from '../../../../../ducks/movies/selectors';
+import { connect } from 'react-redux';
 
 const MOVIES_STATE = {
   LOADING: 0,
@@ -16,32 +19,30 @@ const MOVIES_STATE = {
   FOUND: 3,
 };
 
+function getMoviesState(movies, selectedMovies) {
+  if (!movies.length) {
+    return MOVIES_STATE.SCHEDULE_NOT_EXIST;
+  }
+  if (!selectedMovies.length) {
+    return MOVIES_STATE.NOT_FOUND;
+  }
+  return MOVIES_STATE.FOUND;
+}
+
 function MoviesList({ movies, movieHint, selectedRange, selectedDate, resetFiltersSettings }) {
   const selectedMovies = useMemo(
     () =>
       movies
-        ? movies
-            .filter(movie => movie.name.toLowerCase().includes(movieHint.toLowerCase().trim()))
-            .map(movie => ({
-              ...movie,
-              seances: keepSeancesAt(selectedDate, selectedRange, movie.seances),
-            }))
-            .filter(movie => movie.seances)
-        : null,
+        .filter(movie => movie.name.toLowerCase().includes(movieHint.toLowerCase().trim()))
+        .map(movie => ({
+          ...movie,
+          seances: keepSeancesAt(selectedDate, selectedRange, movie.seances),
+        }))
+        .filter(movie => movie.seances),
     [movies, movieHint, selectedRange],
   );
 
-  let moviesState;
-  if (!movies) {
-    moviesState = MOVIES_STATE.LOADING;
-  } else if (!movies.length) {
-    moviesState = MOVIES_STATE.SCHEDULE_NOT_EXIST;
-  } else if (!selectedMovies.length) {
-    moviesState = MOVIES_STATE.NOT_FOUND;
-  } else {
-    moviesState = MOVIES_STATE.FOUND;
-  }
-
+  const moviesState = getMoviesState(movies, selectedMovies);
   switch (moviesState) {
     case MOVIES_STATE.LOADING:
       return <Spinner className='info-box' />;
@@ -83,7 +84,7 @@ MoviesList.propTypes = {
         ),
       ).isRequired,
     }),
-  ),
+  ).isRequired,
   movieHint: PropTypes.string.isRequired,
   selectedRange: PropTypes.shape({
     start: PropTypes.number.isRequired,
@@ -93,8 +94,24 @@ MoviesList.propTypes = {
   resetFiltersSettings: PropTypes.func.isRequired,
 };
 
-MoviesList.defaultProps = {
-  movies: null,
+// eslint-disable-next-line react/prop-types
+function MoviesListContainer({ movies, selectedDate, fetchMovies, ...props }) {
+  useEffect(() => {
+    fetchMovies(selectedDate);
+  }, [selectedDate]);
+
+  return movies ? <MoviesList movies={movies} selectedDate={selectedDate} {...props} /> : <Spinner className='info-box' />;
+}
+
+const mapStateToProps = state => ({
+  movies: selectMovies(state),
+});
+
+const mapDispatchToProps = {
+  fetchMovies: fetchMoviesRequest,
 };
 
-export default MoviesList;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MoviesListContainer);

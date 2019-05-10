@@ -12,7 +12,6 @@ class Toggle extends React.Component {
   };
 
   state = {
-    // eslint-disable-next-line react/destructuring-assignment
     on: this.props.openByDefault,
   };
 

@@ -8,7 +8,7 @@ plugins:
 - unicorn
 
 extends:
-- react-app-components
+- react-app
 - airbnb
 - prettier
 - plugin:prettier/recommended

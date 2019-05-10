@@ -1,14 +1,18 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { Seances } from '../../common/Seances';
 import { keepSeancesAt } from '../../utils/movies';
-
-import './SeancesList.scss';
 import { Spinner } from '../../../common/Spinner';
 import { NoScheduleComponent } from '../../../common/NoScheduleComponent';
 import { NotFoundComponent } from '../../../common/NotFoundComponent';
+
+import { selectSeances } from '../../../../../ducks/movies/selectors';
+import { fetchSeancesRequest } from '../../../../../ducks/movies/actions';
+
+import './SeancesList.scss';
 
 const SEANCES_STATE = {
   LOADING: 0,
@@ -17,26 +21,27 @@ const SEANCES_STATE = {
   FOUND: 3,
 };
 
+function getSeancesState(seances, selectedSeances) {
+  if (_.isEmpty(seances)) {
+    return SEANCES_STATE.SCHEDULE_NOT_EXIST;
+  }
+  if (!selectedSeances) {
+    return SEANCES_STATE.NOT_FOUND;
+  }
+  return SEANCES_STATE.FOUND;
+}
+
 function SeancesList({ seances, selectedRange, selectedDate, resetFiltersSettings }) {
   const selectedSeances = useMemo(
     () => (seances ? keepSeancesAt(selectedDate, selectedRange, seances) : null),
     [seances, selectedRange],
   );
+  console.log('seances: ', seances);
 
-  let seancesState;
-  if (!seances) {
-    seancesState = SEANCES_STATE.LOADING;
-  } else if (_.isEmpty(seances)) {
-    seancesState = SEANCES_STATE.SCHEDULE_NOT_EXIST;
-  } else if (!selectedSeances) {
-    seancesState = SEANCES_STATE.NOT_FOUND;
-  } else {
-    seancesState = SEANCES_STATE.FOUND;
-  }
-
+  const seancesState = getSeancesState(seances, selectedSeances);
   switch (seancesState) {
     case SEANCES_STATE.LOADING:
-      return <Spinner className='info-box' />;
+      return;
     case SEANCES_STATE.SCHEDULE_NOT_EXIST:
       return <NoScheduleComponent className='info-box' />;
     case SEANCES_STATE.NOT_FOUND:
@@ -58,7 +63,7 @@ SeancesList.propTypes = {
         price: PropTypes.string.isRequired,
       }),
     ),
-  ),
+  ).isRequired,
   selectedRange: PropTypes.shape({
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
@@ -67,8 +72,29 @@ SeancesList.propTypes = {
   resetFiltersSettings: PropTypes.func.isRequired,
 };
 
-SeancesList.defaultProps = {
-  seances: null,
+// eslint-disable-next-line react/prop-types
+function SeancesListContainer({ movieId, seances, selectedDate, fetchSeances, ...props }) {
+  useEffect(() => {
+    fetchSeances(movieId, selectedDate);
+  }, [selectedDate]);
+  console.log('selectedDate: ', selectedDate);
+
+  return seances ? (
+    <SeancesList seances={seances} selectedDate={selectedDate} {...props} />
+  ) : (
+    <Spinner className='info-box' />
+  );
+}
+
+const mapStateToProps = state => ({
+  seances: selectSeances(state),
+});
+
+const mapDispatchToProps = {
+  fetchSeances: fetchSeancesRequest,
 };
 
-export default SeancesList;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SeancesListContainer);

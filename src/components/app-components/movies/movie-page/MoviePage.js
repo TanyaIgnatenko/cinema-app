@@ -3,29 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Gallery } from './Gallery';
-import { SeancesList } from './SeancesList';
 import { Spinner } from '../../common/Spinner';
-import { DateFilter } from '../movies-page/DateFilter';
 import { ErrorPage } from '../../common/ErrorPage';
+import { SeancesListContainer } from './SeancesList';
+import { DateFilter } from '../movies-page/DateFilter';
 import { NotFoundPage } from '../../common/NotFoundPage';
 import { TimeRangeSlider } from '../movies-page/TimeRangeSlider';
-import { fetchMovieRequest, fetchSeancesRequest } from '../../../../ducks/movies/actions';
+import { fetchMovieRequest } from '../../../../ducks/movies/actions';
 import { TIME_SLIDER_RANGE } from '../movies-page/TimeRangeSlider/TimeRangeSlider';
+import { selectMoviesError, selectSelectedMovie } from '../../../../ducks/movies/selectors';
 import { getTodayDate } from '../../../../utils/date';
-
-import {
-  selectMoviesError,
-  selectSeances,
-  selectSelectedMovie,
-} from '../../../../ducks/movies/selectors';
 
 import './MoviePage.scss';
 
-function MoviePage({ movie, seances, fetchMovie, fetchSeances, match, error }) {
-  if (error) {
-    return error.name === 'NotFoundError' ? <NotFoundPage /> : <ErrorPage />;
-  }
-
+function MoviePage({ movie }) {
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
 
   const [selectedRange, setSelectedRange] = useState(TIME_SLIDER_RANGE);
@@ -33,16 +24,7 @@ function MoviePage({ movie, seances, fetchMovie, fetchSeances, match, error }) {
     setSelectedRange(TIME_SLIDER_RANGE);
   };
 
-  const movieId = parseInt(match.params.id, 10);
-  useEffect(() => {
-    fetchMovie(movieId);
-  }, []);
-
-  useEffect(() => {
-    fetchSeances(movieId, selectedDate);
-  }, [selectedDate]);
-
-  return movie ? (
+  return (
     <>
       <h1 className='page-title'>{movie.name}</h1>
       <Gallery items={movie.frames} />
@@ -75,61 +57,61 @@ function MoviePage({ movie, seances, fetchMovie, fetchSeances, match, error }) {
             selectRange={setSelectedRange}
           />
         </div>
-        <SeancesList
-          seances={seances}
+        <SeancesListContainer
+          movieId={movie.id}
           selectedDate={selectedDate}
           selectedRange={selectedRange}
           resetFiltersSettings={handleResetFiltersSettings}
         />
       </div>
     </>
-  ) : (
-    <Spinner className='page-spinner-container' />
   );
 }
 
 MoviePage.propTypes = {
   movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     duration: PropTypes.number.isRequired,
-    frames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  }),
-  seances: PropTypes.objectOf(
-    PropTypes.arrayOf(
+    frames: PropTypes.arrayOf(
       PropTypes.shape({
-        startTime: PropTypes.number.isRequired,
-        price: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
       }),
-    ),
-  ),
-  fetchMovie: PropTypes.func.isRequired,
-  fetchSeances: PropTypes.func.isRequired,
-  error: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
-  match: PropTypes.object.isRequired,
+    ).isRequired,
+  }).isRequired,
 };
 
-MoviePage.defaultProps = {
-  movie: null,
-  seances: null,
-  error: null,
-};
+// eslint-disable-next-line react/prop-types
+function MoviePageContainer({ movie, fetchMovie, match, error, ...props }) {
+  if (error) {
+    return error.name === 'NotFoundError' ? <NotFoundPage /> : <ErrorPage />;
+  }
+
+  const movieId = parseInt(match.params.id, 10);
+  useEffect(() => {
+    fetchMovie(movieId);
+  }, []);
+
+  return movie ? (
+    <MoviePage movie={movie} {...props} />
+  ) : (
+    <Spinner className='page-spinner-container' />
+  );
+}
 
 const mapStateToProps = state => ({
   movie: selectSelectedMovie(state),
-  seances: selectSeances(state),
   error: selectMoviesError(state),
 });
 
 const mapDispatchToProps = {
   fetchMovie: fetchMovieRequest,
-  fetchSeances: fetchSeancesRequest,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(MoviePage);
+)(MoviePageContainer);

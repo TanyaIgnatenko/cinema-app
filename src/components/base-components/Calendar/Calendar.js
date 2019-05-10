@@ -10,11 +10,7 @@ import { ButtonNext } from '../ButtonNext';
 import { ButtonPrev } from '../ButtonPrev';
 import { range } from '../../../utils/array';
 
-import {
-  dateRange,
-  toAppDateFormat,
-  toMoment,
-} from '../../../utils/date';
+import { dateRange, toAppDateFormat, toMoment } from '../../../utils/date';
 
 import './Calendar.scss';
 
@@ -43,7 +39,6 @@ class Calendar extends React.Component {
   };
 
   state = {
-    // eslint-disable-next-line react/destructuring-assignment
     selectedMonth: this.props.initialMonth,
   };
 
@@ -66,12 +61,7 @@ class Calendar extends React.Component {
   };
 
   handleDateSelected = date => {
-    const {
-      onDateSelected,
-      onDateLeave,
-      closeOnSelect,
-      closeCalendar,
-    } = this.props;
+    const { onDateSelected, onDateLeave, closeOnSelect, closeCalendar } = this.props;
 
     onDateSelected(date);
     if (closeOnSelect) {
@@ -100,10 +90,8 @@ class Calendar extends React.Component {
 
     const minMoment = toMoment(minDate);
     const maxMoment = toMoment(maxDate);
-    const prevMonthBtnEnabled =
-      !minMoment.isValid() || minMoment.isBefore(startMonthDate);
-    const nextMonthBtnEnabled =
-      !minMoment.isValid() || maxMoment.isAfter(endMonthDate);
+    const prevMonthBtnEnabled = !minMoment.isValid() || minMoment.isBefore(startMonthDate);
+    const nextMonthBtnEnabled = !minMoment.isValid() || maxMoment.isAfter(endMonthDate);
 
     return (
       <div className='calendar'>
@@ -112,10 +100,7 @@ class Calendar extends React.Component {
           <div className='btnContainer'>
             <ButtonPrev
               onClick={this.handlePrevMonthClick}
-              className={classNames(
-                'btn btn-prev',
-                !prevMonthBtnEnabled && 'disabled',
-              )}
+              className={classNames('btn btn-prev', !prevMonthBtnEnabled && 'disabled')}
               disabled={!prevMonthBtnEnabled}
             />
             <ButtonNext
@@ -146,17 +131,11 @@ class Calendar extends React.Component {
               <li
                 key={date.format('DD')}
                 onClick={() =>
-                  enabledDate
-                    ? this.handleDateSelected(toAppDateFormat(date))
-                    : false
+                  enabledDate ? this.handleDateSelected(toAppDateFormat(date)) : false
                 }
                 className={enabledDate ? 'enabled-day' : 'disabled-day'}
-                onMouseEnter={() =>
-                  enabledDate ? onDateEnter(toAppDateFormat(date)) : false
-                }
-                onMouseLeave={() =>
-                  enabledDate ? onDateLeave(toAppDateFormat(date)) : false
-                }
+                onMouseEnter={() => (enabledDate ? onDateEnter(toAppDateFormat(date)) : false)}
+                onMouseLeave={() => (enabledDate ? onDateLeave(toAppDateFormat(date)) : false)}
               >
                 {date.format('DD')}
               </li>

@@ -1,1 +1,1 @@
-export { default as SeancesList } from './SeancesList';
+export { default as SeancesListContainer } from './SeancesList';
