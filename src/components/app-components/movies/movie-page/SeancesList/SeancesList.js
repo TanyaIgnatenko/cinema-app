@@ -36,7 +36,6 @@ function SeancesList({ seances, selectedRange, selectedDate, resetFiltersSetting
     () => (seances ? keepSeancesAt(selectedDate, selectedRange, seances) : null),
     [seances, selectedRange],
   );
-  console.log('seances: ', seances);
 
   const seancesState = getSeancesState(seances, selectedSeances);
   switch (seancesState) {

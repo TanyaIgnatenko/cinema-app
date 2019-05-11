@@ -27,7 +27,7 @@ function MoviePage({ movie }) {
   return (
     <>
       <h1 className='page-title'>{movie.name}</h1>
-      <Gallery items={movie.frames} />
+      <Gallery items={movie.frames} className='movie-frames-gallery' />
       <p className='movie-description'>{movie.description}</p>
       <div className='movie-extra-info'>
         <li>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { GalleryViewer } from './GalleryViewer';
 
@@ -7,7 +8,7 @@ import './Gallery.scss';
 
 const MAX_PREVIEWS_COUNT = 4;
 
-function Gallery({ items }) {
+function Gallery({ items, className }) {
   const hasAtLeastOneItem = Boolean(items.length);
   const primaryItem = items[0];
 
@@ -32,7 +33,7 @@ function Gallery({ items }) {
 
   return (
     hasAtLeastOneItem && (
-      <div className='gallery'>
+      <div className={classNames('gallery', className)}>
         <div className='primary-item-container'>
           <img className='primary-item' src={primaryItem.url} onClick={() => handleItemClick(0)} />
         </div>
@@ -79,6 +80,11 @@ Gallery.propTypes = {
       url: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  className: PropTypes.string,
+};
+
+Gallery.defaultProps = {
+  className: '',
 };
 
 export default Gallery;
