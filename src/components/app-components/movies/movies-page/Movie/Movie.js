@@ -13,11 +13,13 @@ function Movie({ id, name, genres, poster, seances, className, history, ...props
   const goToMoviePage = () => history.push(createRoute(ROUTE.MOVIE, { id }));
 
   return (
-    <div onClick={goToMoviePage} className={classNames('movie-box', className)} {...props}>
-      <img alt='movie poster' className='poster' src={poster} />
+    <div className={classNames('movie-box', className)} {...props}>
+      <img alt='movie poster' className='poster' src={poster} onClick={goToMoviePage} />
       <div className='main-info'>
         <p className='genres'>{genres.join(', ')}</p>
-        <p className='title'>{name}</p>
+        <p className='title' onClick={goToMoviePage}>
+          {name}
+        </p>
       </div>
       <Seances seances={seances} className='seances' />
     </div>
