@@ -31,6 +31,12 @@ const dateRange = (startDate, endDate) => {
   return dateRange;
 };
 
+const bindTimeToDayMoment = (time, dayMoment) => {
+  return dayMoment.clone().add(moment.duration(time));
+};
+
+const momentToUnixTime = momentDate => momentDate.unix();
+
 export {
   toAppDateFormat,
   toMoment,
@@ -40,4 +46,6 @@ export {
   getDateAfterTomorrow,
   getEndDateOfSixthMonthFromCurrent,
   dateRange,
+  bindTimeToDayMoment,
+  momentToUnixTime,
 };

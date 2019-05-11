@@ -60,7 +60,7 @@ SeancesList.propTypes = {
     PropTypes.arrayOf(
       PropTypes.shape({
         startTime: PropTypes.number.isRequired,
-        price: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
       }),
     ),
   ).isRequired,

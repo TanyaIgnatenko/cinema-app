@@ -15,7 +15,7 @@ function Seances({ seances, className }) {
       {Object.keys(seances).map(
         format =>
           seances[format].length && (
-            <div key={format}>
+            <div key={format} className='format-seances-container'>
               <p className='format'>{format}</p>
               <div className='format-seances'>
                 {seances[format].map(seance => {
@@ -46,7 +46,7 @@ Seances.propTypes = {
     PropTypes.arrayOf(
       PropTypes.shape({
         startTime: PropTypes.number.isRequired,
-        price: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
       }),
     ),
   ),

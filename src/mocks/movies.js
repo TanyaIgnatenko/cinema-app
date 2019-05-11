@@ -1,7 +1,187 @@
-import { getTodayStartMoment } from '../utils/date';
+/* eslint-disable no-use-before-define */
+import moment from 'moment';
 
-export const todayMovies = [
-  {
+import {
+  bindTimeToDayMoment,
+  getTodayDate,
+  getTomorrowDate,
+  momentToUnixTime,
+  toMoment,
+} from '../utils/date';
+
+const daysWithSchedule = [getTodayDate(), getTomorrowDate()];
+export function getMovies(date) {
+  return daysWithSchedule.includes(date) ? generateMoviesFor(date) : [];
+}
+
+export function getMovie(id) {
+  if (!movies[id]) throw new NotFoundError('Movie with given id is not found');
+  return movies[id];
+}
+
+export function getSeances(movieId, date) {
+  return daysWithSchedule.includes(date) ? generateSeancesFor(toMoment(date), movieId) : {};
+}
+
+function generateMoviesFor(day) {
+  const dayStartMoment = toMoment(day).startOf('day');
+
+  const moviesArray = [];
+  Object.keys(movies).forEach((movieId, idx) => {
+    const movie = movies[movieId];
+    moviesArray.push({
+      id: parseInt(movieId, 10),
+      ...movie,
+      seances: generateSeancesFor(dayStartMoment, movieId),
+    });
+  });
+
+  return moviesArray;
+}
+
+function generateSeancesFor(dayStartMoment, movieId) {
+  const seanceStartTimes2D = possibleSeanceStartTimes[movieId % possibleSeanceStartTimes.length];
+  const seanceStartTimes3D =
+    possibleSeanceStartTimes[(movieId + 1) % possibleSeanceStartTimes.length];
+
+  return {
+    '3D': generateSeancesAt(
+      seanceStartTimes3D
+        .map(time => bindTimeToDayMoment(time, dayStartMoment))
+        .map(momentToUnixTime),
+    ),
+    '2D': generateSeancesAt(
+      seanceStartTimes2D
+        .map(time => bindTimeToDayMoment(time, dayStartMoment))
+        .map(momentToUnixTime),
+    ),
+  };
+}
+
+function generateSeancesAt(seanceStartTimes) {
+  return seanceStartTimes.map((startTime, idx) => ({
+    startTime,
+    hallScheme,
+    price: getMinPrice(hallScheme),
+    takenSeats: possibleTakenSeats[idx % possibleTakenSeats.length],
+    reservedSeats: possibleReservedSeats[idx % possibleReservedSeats.length],
+  }));
+}
+
+class NotFoundError extends Error {
+  constructor(message) {
+    super();
+    this.name = 'NotFoundError';
+    this.message = message;
+  }
+}
+
+function getMinPrice(hallScheme) {
+  return hallScheme.reduce((min, row) => {
+    return row
+      ? row.reduce((min, seat) => {
+          return seat ? Math.min(min, seat.price) : min;
+        }, min)
+      : min;
+  }, Infinity);
+}
+
+const hallScheme = [
+  [
+    null,
+    { id: 1, number: 1, price: 200 },
+    { id: 2, number: 2, price: 200 },
+    { id: 3, number: 3, price: 200 },
+    null,
+    { id: 4, number: 4, price: 200 },
+    { id: 5, number: 5, price: 200 },
+    { id: 6, number: 6, price: 200 },
+    null,
+    { id: 7, number: 7, price: 200 },
+    { id: 8, number: 8, price: 200 },
+    { id: 9, number: 9, price: 200 },
+  ],
+  [
+    null,
+    { id: 10, number: 1, price: 200 },
+    { id: 11, number: 2, price: 200 },
+    { id: 12, number: 3, price: 200 },
+    null,
+    { id: 13, number: 4, price: 200 },
+    { id: 14, number: 5, price: 200 },
+    { id: 15, number: 6, price: 200 },
+    null,
+    { id: 16, number: 7, price: 200 },
+    { id: 17, number: 8, price: 200 },
+    { id: 18, number: 9, price: 200 },
+  ],
+  [
+    null,
+    { id: 19, number: 1, price: 200 },
+    { id: 20, number: 2, price: 200 },
+    { id: 21, number: 3, price: 200 },
+    null,
+    { id: 22, number: 4, price: 200 },
+    { id: 23, number: 5, price: 200 },
+    { id: 24, number: 6, price: 200 },
+    null,
+    { id: 25, number: 7, price: 200 },
+    { id: 26, number: 8, price: 200 },
+    { id: 27, number: 9, price: 200 },
+  ],
+  [
+    null,
+    { id: 28, number: 1, price: 200 },
+    { id: 29, number: 2, price: 200 },
+    { id: 30, number: 3, price: 200 },
+    null,
+    { id: 31, number: 4, price: 200 },
+    { id: 32, number: 5, price: 200 },
+    { id: 33, number: 6, price: 200 },
+    null,
+    { id: 34, number: 7, price: 200 },
+    { id: 35, number: 8, price: 200 },
+    { id: 36, number: 9, price: 200 },
+  ],
+  null,
+  [
+    { id: 37, number: 1, price: 250 },
+    { id: 38, number: 2, price: 250 },
+    { id: 39, number: 3, price: 250 },
+    { id: 40, number: 4, price: 250 },
+    { id: 41, number: 5, price: 250 },
+    { id: 42, number: 6, price: 250 },
+    { id: 43, number: 7, price: 250 },
+    { id: 44, number: 8, price: 250 },
+    { id: 45, number: 9, price: 250 },
+    { id: 46, number: 10, price: 250 },
+    { id: 47, number: 11, price: 250 },
+    { id: 48, number: 12, price: 200 },
+  ],
+];
+
+const possibleTakenSeats = [
+  [3, 13, 17, 24, 26, 28, 30],
+  [39, 40, 43, 44, 46],
+  [16, 17, 18, 19],
+  [2, 3, 4, 5, 6],
+];
+
+const possibleReservedSeats = [
+  [16, 17, 18, 19],
+  [2, 3, 4, 5, 6],
+  [3, 13, 24, 26, 28, 30],
+  [39, 40, 43, 44, 46],
+];
+
+const possibleSeanceStartTimes = [
+  ['12:30', '14:30', '16:50', '17:50', '19:20'],
+  ['12:30', '14:30', '16:50', '17:50', '19:20'],
+  ['12:30', '14:30', '16:50', '17:50', '26:20'],
+];
+
+const movies = {
+  1: {
     id: 1,
     name: 'Властелин колец',
     description:
@@ -13,212 +193,37 @@ export const todayMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/328.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
+        description: 'Властелин колец',
+        url: 'https://www.kinopoisk.ru/images/film_big/328.jpg',
+      },
+      {
+        description: 'Властелин колец',
         url:
           'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Властелин колец',
         url:
           'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530934.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Властелин колец',
         url:
           'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530933.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Властелин колец',
         url:
           'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530932.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Властелин колец',
         url:
           'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530925.jpg',
       },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530924.jpg',
-      },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(26)
-            .minutes(0)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-  {
+  2: {
     id: 2,
     name: 'Хоббит: Битва пяти воинств',
     description: `Когда отряд из тринадцати гномов нанимал хоббита Бильбо Бэгинса в качестве взломщика и четырнадцатого, «счастливого», участника похода к Одинокой горе, Бильбо полагал, что его приключения закончатся, когда он выполнит свою задачу — найдет сокровище, которое так необходимо предводителю гномов Торину. Путешествие в Эребор, захваченное драконом Смаугом королевство гномов, оказалось еще более опасным, чем предполагали гномы и даже Гэндальф — мудрый волшебник, протянувший Торину и его отряду руку помощи.
@@ -229,212 +234,37 @@ export const todayMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/694633.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
+        description: 'Хоббит: Битва пяти воинств',
+        url: 'https://www.kinopoisk.ru/images/film_big/694633.jpg',
+      },
+      {
+        description: 'Хоббит: Битва пяти воинств',
         url:
           'https://st.kp.yandex.net/im/kadr/2/5/4/kinopoisk.ru-The-Hobbit_3A-The-Battle-of-the-Five-Armies-2545681.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Хоббит: Битва пяти воинств',
         url:
           'https://st.kp.yandex.net/im/kadr/2/5/4/kinopoisk.ru-The-Hobbit_3A-The-Battle-of-the-Five-Armies-2545680.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Хоббит: Битва пяти воинств',
         url:
           'https://st.kp.yandex.net/im/kadr/2/5/4/kinopoisk.ru-The-Hobbit_3A-The-Battle-of-the-Five-Armies-2545678.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Хоббит: Битва пяти воинств',
         url:
           'https://st.kp.yandex.net/im/kadr/2/5/4/kinopoisk.ru-The-Hobbit_3A-The-Battle-of-the-Five-Armies-2545677.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Хоббит: Битва пяти воинств',
         url:
           'https://st.kp.yandex.net/im/kadr/2/5/4/kinopoisk.ru-The-Hobbit_3A-The-Battle-of-the-Five-Armies-2545676.jpg',
       },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/2/5/2/kinopoisk.ru-The-Hobbit_3A-The-Battle-of-the-Five-Armies-2525027.jpg',
-      },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-  {
+  3: {
     id: 3,
     name: 'Борджиа',
     description:
@@ -444,206 +274,32 @@ export const todayMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/521722.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
+        description: 'Борджиа',
+        url: 'https://www.kinopoisk.ru/images/film_big/521722.jpg',
+      },
+      {
+        description: 'Борджиа',
         url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192982.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Борджиа',
         url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192979.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Борджиа',
         url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192978.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Борджиа',
         url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192981.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Борджиа',
         url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192977.jpg',
       },
-      {
-        description: 'Битва на черноводной',
-        url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192974.jpg',
-      },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(0)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-  {
+  4: {
     id: 4,
     name: 'Король говорит!',
     description:
@@ -653,206 +309,32 @@ export const todayMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/485311.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
+        description: 'Король говорит!',
+        url: 'https://www.kinopoisk.ru/images/film_big/485311.jpg',
+      },
+      {
+        description: 'Король говорит!',
         url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433002.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Король говорит!',
         url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433006.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Король говорит!',
         url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433004.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Король говорит!',
         url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433000.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Король говорит!',
         url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1432996.jpg',
       },
-      {
-        description: 'Битва на черноводной',
-        url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1432990.jpg',
-      },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-  {
+  5: {
     id: 5,
     name: 'Игра престолов',
     description:
@@ -862,209 +344,32 @@ export const todayMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/464963.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
+        description: 'Игра престолов',
+        url: 'https://www.kinopoisk.ru/images/film_big/464963.jpg',
+      },
+      {
+        description: 'Игра престолов',
         url: 'https://st.kp.yandex.net/im/kadr/2/7/7/kinopoisk.ru-Game-of-Thrones-2777019.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Игра престолов',
         url: 'https://st.kp.yandex.net/im/kadr/2/7/8/kinopoisk.ru-Game-of-Thrones-2786695.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Игра престолов',
         url: 'https://st.kp.yandex.net/im/kadr/3/0/3/kinopoisk.ru-Game-of-Thrones-3030604.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Игра престолов',
         url: 'https://st.kp.yandex.net/im/kadr/3/0/1/kinopoisk.ru-Game-of-Thrones-3019199.jpg',
       },
       {
-        description: 'Битва на черноводной',
+        description: 'Игра престолов',
         url: 'https://st.kp.yandex.net/im/kadr/3/0/1/kinopoisk.ru-Game-of-Thrones-3011410.jpg',
       },
-      {
-        description: 'Битва на черноводной',
-        url: 'https://st.kp.yandex.net/im/kadr/3/0/1/kinopoisk.ru-Game-of-Thrones-3014600.jpg',
-      },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-];
-
-export const tomorrowMovies = [
-  {
+  6: {
     id: 6,
     name: 'Мстители: Финал',
     description:
@@ -1074,224 +379,12 @@ export const tomorrowMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/843650.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+        description: 'Мстители: Финал',
+        url: 'https://www.kinopoisk.ru/images/film_big/843650.jpg',
       },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-  {
+  7: {
     id: 7,
     name: 'Мстители',
     description: `Локи, сводный брат Тора, возвращается, и в этот раз он не один. Земля на грани порабощения, и только лучшие из лучших могут спасти человечество.
@@ -1302,224 +395,12 @@ export const tomorrowMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/263531.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+        description: 'Мстители',
+        url: 'https://www.kinopoisk.ru/images/film_big/263531.jpg',
       },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-  {
+  8: {
     id: 8,
     name: 'Терминатор',
     description:
@@ -1529,224 +410,12 @@ export const tomorrowMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/507.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+        description: 'Терминатор',
+        url: 'https://www.kinopoisk.ru/images/film_big/507.jpg',
       },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-  {
+  9: {
     id: 9,
     name: 'Терминатор 2: Судный день',
     description: `Прошло более десяти лет с тех пор, как киборг-терминатор из 2029 года пытался уничтожить Сару Коннор — женщину, чей будущий сын выиграет войну человечества против машин.
@@ -1759,224 +428,12 @@ export const tomorrowMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/444.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+        description: 'Терминатор 2: Судный день',
+        url: 'https://www.kinopoisk.ru/images/film_big/444.jpg',
       },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-  {
+  10: {
     id: 10,
     name: 'Терминатор 3: Восстание машин',
     description: `Прошло десять лет с тех пор, как Джон Коннор помог предотвратить Судный День и спасти человечество от массового уничтожения. Теперь ему 25, Коннор не живет «как все» — у него нет дома, нет кредитных карт, нет сотового телефона и никакой работы.
@@ -1989,299 +446,9 @@ export const tomorrowMovies = [
     poster: 'https://www.kinopoisk.ru/images/film_big/319.jpg',
     frames: [
       {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
-      },
-      {
-        description: 'Битва на черноводной',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/5/3/kinopoisk.ru-The-Lord-of-the-Rings_3A-The-Fellowship-of-the-Ring-1530919.jpg',
+        description: 'Терминатор 3: Восстание машин',
+        url: 'https://www.kinopoisk.ru/images/film_big/319.jpg',
       },
     ],
-    seances: {
-      '3D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(14)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(16)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(50)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-      '2D': [
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(12)
-            .minutes(40)
-            .seconds(0)
-            .unix(),
-          price: '200',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(15)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(17)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(19)
-            .minutes(20)
-            .seconds(0)
-            .unix(),
-          price: '250',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(21)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(22)
-            .minutes(30)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-        {
-          startTime: getTodayStartMoment()
-            .add(1, 'days')
-            .hours(0)
-            .minutes(10)
-            .seconds(0)
-            .unix(),
-          price: '270',
-          hall: {
-            id: 1,
-            seats: {
-              taken: [1, 2, 3, 77, 100],
-            },
-          },
-        },
-      ],
-    },
   },
-];
-
-// eslint-disable-next-line no-unused-vars
-const dayAfterTomorrowMovies = [
-  {
-    id: 11,
-    name: 'Остров сокровищ',
-    description:
-      'ornare sagittis felis. Donec tempor, est ac mattis semper, dui lectus rutrum urna, nec luctus felis purus ac tellus. Suspendisse sed dolor. Fusce mi lorem, vehicula et, rutrum eu, ultrices',
-    duration: 143,
-  },
-  {
-    id: 12,
-    name: 'Король лев',
-    description:
-      'eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu.',
-    duration: 187,
-  },
-  {
-    id: 13,
-    name: 'Мадагаскар',
-    description:
-      'Aliquam erat volutpat. Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies adipiscing, enim mi tempor lorem, eget mollis lectus pede et risus. Quisque libero lacus, varius et, euismod et, commodo at, libero. Morbi',
-    duration: 196,
-  },
-  {
-    id: 14,
-    name: 'Мадагаскар 2',
-    description:
-      'egestas. Aliquam fringilla cursus purus. Nullam scelerisque neque sed sem egestas blandit. Nam nulla magna, malesuada vel, convallis in, cursus et, eros. Proin ultrices. Duis volutpat nunc sit amet metus. Aliquam erat volutpat. Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla. Integer vulputate,',
-    duration: 98,
-  },
-  {
-    id: 15,
-    name: 'Шрек 2',
-    description:
-      'tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor ullamcorper, nisl arcu iaculis enim, sit',
-    duration: 131,
-  },
-];
-
-// eslint-disable-next-line no-unused-vars
-const afterDayAfterTomorrowMovies = [
-  {
-    id: 16,
-    name: 'Пираты карибского моря',
-    description:
-      'Integer eu lacus. Quisque imperdiet, erat nonummy ultricies ornare, elit elit fermentum risus, at fringilla purus mauris a nunc. In at pede. Cras vulputate velit eu sem. Pellentesque ut ipsum ac mi',
-    duration: 114,
-  },
-  {
-    id: 17,
-    name: 'Пираты карибского моря 2',
-    description:
-      'Mauris nulla. Integer urna. Vivamus molestie dapibus ligula. Aliquam erat volutpat. Nulla dignissim. Maecenas ornare egestas ligula. Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque. Nullam nisl. Maecenas malesuada fringilla est. Mauris eu turpis.',
-    duration: 210,
-  },
-  {
-    id: 18,
-    name: 'Пираты карибского моря 3',
-    description:
-      'mi enim, condimentum eget, volutpat ornare, facilisis eget, ipsum. Donec sollicitudin adipiscing ligula. Aenean gravida nunc sed pede. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel arcu eu odio tristique pharetra. Quisque ac libero nec ligula',
-    duration: 114,
-  },
-  {
-    id: 19,
-    name: 'Унесенные призраками',
-    description:
-      'aliquet diam. Sed diam lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus nisi. Mauris nulla. Integer urna. Vivamus molestie dapibus ligula. Aliquam erat',
-    duration: 141,
-  },
-  {
-    id: 20,
-    name: 'Ходячий замок',
-    description:
-      'lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend. Cras sed leo. Cras vehicula aliquet libero. Integer in magna. Phasellus dolor',
-    duration: 68,
-  },
-];
+};
