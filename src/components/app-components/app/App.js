@@ -8,7 +8,7 @@ import '../../../assets/scss/main.scss';
 
 function App({ currentUser }) {
   return (
-    <div className='app'>
+    <div>
       <NavBar currentUser={currentUser} onLogout={() => {}} onSettings={() => {}} />
       <div className='page'>
         <Routes className='' />
