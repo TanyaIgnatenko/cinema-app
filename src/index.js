@@ -8,7 +8,9 @@ import { App } from './components/app-components/app';
 import { history } from './store/rootReducer';
 import { store } from './store/store';
 
+import './assets/scss/reset.scss';
 import './assets/scss/main.scss';
+import './index.scss';
 
 moment.locale('ru');
 

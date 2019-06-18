@@ -35,7 +35,9 @@
 }
 
 .schedule-container {
+  z-index: -1000;
   margin-top: 3rem;
+  margin-bottom: 30px;
 
   .schedule-title {
     margin-bottom: 1.5rem;
@@ -45,13 +47,14 @@
   }
 
   .filters-container {
+    z-index: -1;
     display: flex;
     justify-content: space-between;
     padding: 2.5rem;
 
     background-color: #F5F5F5;
 
-    .date-filter {
+    .movie-date-filter {
       width: 800px;
     }
   }

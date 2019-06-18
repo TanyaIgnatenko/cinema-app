@@ -28,7 +28,7 @@ function Wireframe({ min, max, valuePerStep, formatLabel, labelMarkStep }) {
             />
           </div>
         ) : (
-          <div className={classNames('time-interval')} />
+          <div key={unit} className={classNames('time-interval')} />
         ),
       )}
       <div className='invisible-time-interval-with-mark-box'>

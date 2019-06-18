@@ -111,13 +111,13 @@ class Calendar extends React.Component {
           </div>
         </div>
         <ul className='weekdays'>
-          <li className='weekday'>пн</li>
-          <li className='weekday'>вт</li>
-          <li className='weekday'>ср</li>
-          <li className='weekday'>чт</li>
-          <li className='weekday'>пт</li>
-          <li className='weekday weekend'>сб</li>
-          <li className='weekday weekend'>вс</li>
+          <li key={0} className='weekday'>пн</li>
+          <li key={1} className='weekday'>вт</li>
+          <li key={2} className='weekday'>ср</li>
+          <li key={3} className='weekday'>чт</li>
+          <li key={4} className='weekday'>пт</li>
+          <li key={5} className='weekday weekend'>сб</li>
+          <li key={6} className='weekday weekend'>вс</li>
         </ul>
         <ul className='days'>
           {startEmptyDays.map(() => (

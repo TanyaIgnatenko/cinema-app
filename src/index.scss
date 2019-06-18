@@ -1,0 +1,15 @@
+@import 'assets/scss/variables';
+
+* {
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+}
+
+html {
+  overflow-x: hidden;
+  font-size: 62.5%;
+}
+
+html, body {
+  height: 100%;
+}

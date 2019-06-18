@@ -22,7 +22,7 @@ function Search({ hint, placeholder, onHintChange, resetHint, className }) {
             aria-label='reset icon'
             alt='reset-icon'
             src={crossIcon}
-            className='reset-icon enhance-on-hover'
+            className='reset-icon smooth-enhance-on-hover'
             onClick={resetHint}
           />
         )}

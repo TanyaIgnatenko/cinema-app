@@ -76,7 +76,6 @@ function SeancesListContainer({ movieId, seances, selectedDate, fetchSeances, ..
   useEffect(() => {
     fetchSeances(movieId, selectedDate);
   }, [selectedDate]);
-  console.log('selectedDate: ', selectedDate);
 
   return seances ? (
     <SeancesList seances={seances} selectedDate={selectedDate} {...props} />

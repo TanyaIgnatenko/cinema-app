@@ -11,7 +11,6 @@ import { MINUTES_IN_HOUR, toTimeLabel } from '../../../../utils/time';
 import { SEANCES_TIME_RANGE } from '../../../../constants';
 
 import './MoviesPage.scss';
-import '../../../../assets/scss/main.scss';
 
 const MOVIE_SEARCH_PLACEHOLDER = 'Название';
 
@@ -28,7 +27,11 @@ function MoviesPage() {
   return (
     <>
       <h1 className='page-title'>Расписание</h1>
-      <DateFilter selectedDate={selectedDate} selectDate={setSelectedDate} />
+      <DateFilter
+        className='movies-date-filter'
+        selectedDate={selectedDate}
+        selectDate={setSelectedDate}
+      />
       <div className='sub-filters'>
         <Search
           hint={movieHint}

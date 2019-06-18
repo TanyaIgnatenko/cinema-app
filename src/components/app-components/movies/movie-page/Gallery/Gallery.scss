@@ -1,4 +1,5 @@
 .gallery {
+  z-index: 2000;
   position: relative;
 
   width: 100%;
@@ -11,6 +12,7 @@
       height: 500px;
 
       object-fit: cover;
+      object-position: 30% 30%;
       cursor: pointer;
     }
   }

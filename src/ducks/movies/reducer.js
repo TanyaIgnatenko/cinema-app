@@ -27,7 +27,6 @@ export const movies = (state = initialState, action) => {
       };
     }
     case FETCH_MOVIES.SUCCESS: {
-      console.log('action.movies: ', action.movies);
       return {
         ...state,
         movies: action.movies,

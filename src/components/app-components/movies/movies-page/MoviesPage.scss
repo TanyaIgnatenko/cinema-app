@@ -1,3 +1,7 @@
+.movies-date-filter {
+  z-index: 1;
+}
+
 .sub-filters {
   display: flex;
   justify-content: space-between;
@@ -5,10 +9,11 @@
 }
 
 .search {
-
 }
 
 .time-range-slider {
+  z-index: 0;
+
   margin-top: 20px;
   margin-left: 3vw;
   margin-right: 3vw;

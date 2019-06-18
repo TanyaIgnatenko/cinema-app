@@ -30,7 +30,7 @@ function MoviePage({ movie }) {
       <h1 className='page-title'>{movie.name}</h1>
       <Gallery items={movie.frames} className='movie-frames-gallery' />
       <p className='movie-description'>{movie.description}</p>
-      <div className='movie-extra-info'>
+      <ul className='movie-extra-info'>
         <li>
           <label className='label' htmlFor='genres'>
             Жанры:
@@ -43,12 +43,12 @@ function MoviePage({ movie }) {
           </label>
           <p id='duration'>{`${movie.duration} мин.`}</p>
         </li>
-      </div>
+      </ul>
       <div className='schedule-container'>
         <h2 className='schedule-title'>Расписание</h2>
         <div className='filters-container'>
           <DateFilter
-            className='date-filter'
+            className='movie-date-filter'
             selectedDate={selectedDate}
             selectDate={setSelectedDate}
           />

@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import { NavBar } from '../navbar';
 import { Routes } from '../routes';
 
-import '../../../assets/scss/main.scss';
-
 function App({ currentUser }) {
   return (
-    <div>
+    <div className='app'>
       <NavBar currentUser={currentUser} onLogout={() => {}} onSettings={() => {}} />
       <div className='page'>
         <Routes className='' />

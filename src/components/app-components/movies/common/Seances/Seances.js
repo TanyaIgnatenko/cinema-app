@@ -17,7 +17,7 @@ function Seances({ seances, className }) {
           seances[format].length && (
             <div key={format} className='format-seances-container'>
               <p className='format'>{format}</p>
-              <div className='format-seances'>
+              <ul className='format-seances'>
                 {seances[format].map(seance => {
                   return (
                     <li key={seance.startTime}>
@@ -33,7 +33,7 @@ function Seances({ seances, className }) {
                     </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
           ),
       )}
