@@ -10,6 +10,7 @@
 #root {
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
   height: 100vh;
 }
 
@@ -24,8 +25,9 @@ li {
 .page {
   width: 1300px;
   height: 100%;
-  background-color: white;
   padding: 30px 300px 30px 100px;
+
+  background-color: white;
 }
 
 .page-title {

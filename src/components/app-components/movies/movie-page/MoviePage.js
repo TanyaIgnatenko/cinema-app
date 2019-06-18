@@ -8,20 +8,21 @@ import { ErrorPage } from '../../common/ErrorPage';
 import { SeancesListContainer } from './SeancesList';
 import { DateFilter } from '../movies-page/DateFilter';
 import { NotFoundPage } from '../../common/NotFoundPage';
-import { TimeRangeSlider } from '../movies-page/TimeRangeSlider';
 import { fetchMovieRequest } from '../../../../ducks/movies/actions';
-import { TIME_SLIDER_RANGE } from '../movies-page/TimeRangeSlider/TimeRangeSlider';
 import { selectMoviesError, selectSelectedMovie } from '../../../../ducks/movies/selectors';
+import { SEANCES_TIME_RANGE } from '../../../../constants';
 import { getTodayDate } from '../../../../utils/date';
 
 import './MoviePage.scss';
+import { RangeSlider } from '../../../base-components/RangeSlider';
+import { MINUTES_IN_HOUR, toTimeLabel } from '../../../../utils/time';
 
 function MoviePage({ movie }) {
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
 
-  const [selectedRange, setSelectedRange] = useState(TIME_SLIDER_RANGE);
+  const [selectedRange, setSelectedRange] = useState(SEANCES_TIME_RANGE);
   const handleResetFiltersSettings = () => {
-    setSelectedRange(TIME_SLIDER_RANGE);
+    setSelectedRange(SEANCES_TIME_RANGE);
   };
 
   return (
@@ -51,10 +52,14 @@ function MoviePage({ movie }) {
             selectedDate={selectedDate}
             selectDate={setSelectedDate}
           />
-          <TimeRangeSlider
+          <RangeSlider
             className='time-range-slider'
+            min={SEANCES_TIME_RANGE.start}
+            max={SEANCES_TIME_RANGE.end}
+            valuePerStep={MINUTES_IN_HOUR}
             selectedRange={selectedRange}
-            selectRange={setSelectedRange}
+            onChange={setSelectedRange}
+            formatLabel={toTimeLabel}
           />
         </div>
         <SeancesListContainer

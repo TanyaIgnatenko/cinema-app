@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 
 import { Search } from './Search';
 import { DateFilter } from './DateFilter';
-import { TimeRangeSlider } from './TimeRangeSlider';
 import { MoviesListContainer } from './MoviesList';
 
-import { TIME_SLIDER_RANGE } from './TimeRangeSlider/TimeRangeSlider';
 import { getTodayDate } from '../../../../utils/date';
+
+import { RangeSlider } from '../../../base-components/RangeSlider';
+import { MINUTES_IN_HOUR, toTimeLabel } from '../../../../utils/time';
+import { SEANCES_TIME_RANGE } from '../../../../constants';
 
 import './MoviesPage.scss';
 import '../../../../assets/scss/main.scss';
@@ -15,12 +17,12 @@ const MOVIE_SEARCH_PLACEHOLDER = 'Название';
 
 function MoviesPage() {
   const [movieHint, setMovieHint] = useState('');
-  const [selectedRange, setSelectedRange] = useState(TIME_SLIDER_RANGE);
+  const [selectedRange, setSelectedRange] = useState(SEANCES_TIME_RANGE);
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
 
   const handleResetFiltersSettings = () => {
     setMovieHint('');
-    setSelectedRange(TIME_SLIDER_RANGE);
+    setSelectedRange(SEANCES_TIME_RANGE);
   };
 
   return (
@@ -35,10 +37,14 @@ function MoviesPage() {
           resetHint={() => setMovieHint('')}
           className='search'
         />
-        <TimeRangeSlider
+        <RangeSlider
           className='time-range-slider'
+          min={SEANCES_TIME_RANGE.start}
+          max={SEANCES_TIME_RANGE.end}
+          valuePerStep={MINUTES_IN_HOUR}
           selectedRange={selectedRange}
-          selectRange={setSelectedRange}
+          onChange={setSelectedRange}
+          formatLabel={toTimeLabel}
         />
       </div>
       <MoviesListContainer
