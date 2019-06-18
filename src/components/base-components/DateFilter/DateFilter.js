@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DateFilterContext } from './index';
 import { DateInput } from './DateInput';
+import { DateFilterContext } from './index';
 import { FrequentDateButton } from './FrequentDateButton';
 
 class DateFilter extends React.Component {

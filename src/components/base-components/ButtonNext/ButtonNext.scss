@@ -3,8 +3,12 @@
   justify-content: center;
   align-items: center;
 
-  .arrowNext {
+  .btn-icon {
     width: 60%;
     height: 60%;
+
+    &.arrow-next {
+      transform: rotate(180deg);
+    }
   }
 }

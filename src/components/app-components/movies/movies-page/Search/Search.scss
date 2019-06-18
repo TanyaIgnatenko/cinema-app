@@ -23,22 +23,24 @@
     width: 15px;
     height: 15px;
     color: black;
-    opacity: .3;
+    opacity: .5;
   }
 
   .search-icon {
     @extend .icon;
     left: 10px;
+
     cursor: default;
   }
 
   .reset-icon {
     @extend .icon;
     right: 10px;
+
     cursor: pointer;
 
     &:hover {
-      opacity: .8;
+      opacity: 1;
     }
   }
 }

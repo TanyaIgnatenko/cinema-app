@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import onClickOutside from 'react-onclickoutside';
 
 import Moment from 'moment/moment';
 import { extendMoment } from 'moment-range/dist/moment-range';
-import onClickOutside from 'react-onclickoutside';
 
 import { ButtonNext } from '../ButtonNext';
 import { ButtonPrev } from '../ButtonPrev';

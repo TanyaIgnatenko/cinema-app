@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { DateFilterContext } from '../index';
+import { DateFilterContext } from '..';
 import { Button } from '../../Button';
 import { Calendar } from '../../Calendar';
 import { Toggle } from '../../Toggle';
@@ -32,10 +32,7 @@ function DateInput({
       {(on, toggle) => (
         <div className='date-input-container'>
           <Button
-            className={classNames(
-              'calendar-btn ignore-react-onclickoutside',
-              active && 'active',
-            )}
+            className={classNames('calendar-btn ignore-react-onclickoutside', active && 'active')}
             onClick={toggle}
           >
             {buttonLabel}

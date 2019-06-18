@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './Search.scss';
 
-import crossIcon from '../../../../../assets/images/cross-icon.svg';
+import crossIcon from '../../../../../assets/images/dark-cross-icon.svg';
 import searchIcon from '../../../../../assets/images/search-icon.svg';
 
 function Search({ hint, placeholder, onHintChange, resetHint, className }) {
@@ -19,9 +19,10 @@ function Search({ hint, placeholder, onHintChange, resetHint, className }) {
         />
         {hint && (
           <img
+            aria-label='reset icon'
             alt='reset-icon'
             src={crossIcon}
-            className='reset-icon'
+            className='reset-icon enhance-on-hover'
             onClick={resetHint}
           />
         )}
