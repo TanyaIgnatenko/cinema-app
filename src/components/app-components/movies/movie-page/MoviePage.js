@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Gallery } from './Gallery';
+import { Gallery } from '../../../base-components/Gallery';
 import { Spinner } from '../../common/Spinner';
 import { ErrorPage } from '../../common/ErrorPage';
 import { SeancesListContainer } from './SeancesList';

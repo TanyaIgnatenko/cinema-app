@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import crossIcon from '../../../../../../assets/images/light-cross-icon.svg';
+import crossIcon from '../../../../assets/images/light-cross-icon.svg';
 
 import './GalleryViewer.scss';
 
@@ -14,12 +14,16 @@ function GalleryViewer({ items, selectedItemIdx, selectItem, closeViewer }) {
     <div className='gallery-popup'>
       <div className='popup-header'>
         <p className='item-number-info'>{`${selectedItemIdx + 1} из ${items.length}`}</p>
-        <img className='close-icon smooth-enhance-on-hover' src={crossIcon} onClick={closeViewer} />
+        <img
+          className='close-icon smoothly-enhance-on-hover'
+          src={crossIcon}
+          onClick={closeViewer}
+        />
       </div>
       <div className='popup-content'>
         <img className='item-content' src={items[selectedItemIdx].url} />
-        <div className='btn-prev smooth-enhance-on-hover' onClick={handlePreviousItemClick} />
-        <div className='btn-next smooth-enhance-on-hover' onClick={handleNextItemClick} />
+        <div className='btn-prev smoothly-enhance-on-hover' onClick={handlePreviousItemClick} />
+        <div className='btn-next smoothly-enhance-on-hover' onClick={handleNextItemClick} />
       </div>
       <div className='popup-footer'>
         <p className='item-description'>{items[selectedItemIdx].description}</p>

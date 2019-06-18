@@ -1,6 +1,4 @@
 /* eslint-disable no-use-before-define */
-import moment from 'moment';
-
 import {
   bindTimeToDayMoment,
   getTodayDate,
@@ -27,7 +25,7 @@ function generateMoviesFor(day) {
   const dayStartMoment = toMoment(day).startOf('day');
 
   const moviesArray = [];
-  Object.keys(movies).forEach((movieId, idx) => {
+  Object.keys(movies).forEach(movieId => {
     const movie = movies[movieId];
     moviesArray.push({
       id: parseInt(movieId, 10),
