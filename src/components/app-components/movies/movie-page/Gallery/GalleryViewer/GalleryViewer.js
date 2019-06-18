@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './GalleryViewer.scss';
+import crossIcon from '../../../../../../assets/images/light-cross-icon.svg';
 
-import crossIcon from '../../../../../../assets/images/cross-icon.svg';
+import './GalleryViewer.scss';
 
 function GalleryViewer({ items, selectedItemIdx, selectItem, closeViewer }) {
   const handleNextItemClick = () => selectItem((selectedItemIdx + 1) % items.length);
@@ -14,12 +14,12 @@ function GalleryViewer({ items, selectedItemIdx, selectItem, closeViewer }) {
     <div className='gallery-popup'>
       <div className='popup-header'>
         <p className='item-number-info'>{`${selectedItemIdx + 1} из ${items.length}`}</p>
-        <img className='close-icon' src={crossIcon} onClick={closeViewer} />
+        <img className='close-icon enhance-on-hover' src={crossIcon} onClick={closeViewer} />
       </div>
       <div className='popup-content'>
         <img className='item-content' src={items[selectedItemIdx].url} />
-        <div className='btn-prev' onClick={handlePreviousItemClick} />
-        <div className='btn-next' onClick={handleNextItemClick} />
+        <div className='btn-prev enhance-on-hover' onClick={handlePreviousItemClick} />
+        <div className='btn-next enhance-on-hover' onClick={handleNextItemClick} />
       </div>
       <div className='popup-footer'>
         <p className='item-description'>{items[selectedItemIdx].description}</p>
