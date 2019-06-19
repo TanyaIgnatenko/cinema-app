@@ -1,4 +1,4 @@
-import { all, call, takeLatest, put } from 'redux-saga/effects';
+import { all, call, takeLatest, put } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 
 import {
   fetchMovieError,

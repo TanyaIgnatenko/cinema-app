@@ -39,6 +39,7 @@
         width: 64px;
         height: 34px;
         border-radius: 3px;
+        border: none;
 
         background-color: rgb(255, 219, 77);
         font-size: 1.5rem;
@@ -52,38 +53,7 @@
         }
 
         .price-tooltip {
-          z-index: 15;
-          position: absolute;
-          top: calc(100% - 68px);
           display: none;
-          height: 28px;
-          width: 72px;
-          justify-content: center;
-          align-items: center;
-
-          background-color: white;
-          font-size: 14px;
-          border: 1px solid lightgray;
-          border-radius: 3px;
-
-          &::before, &::after {
-            content: '';
-            position: absolute;
-            left: auto;
-            width: 0;
-            height: 0;
-            border: 7px solid transparent;
-          }
-
-          &::before {
-            bottom: -15px;
-            border-top-color: lightgray;
-          }
-
-          &::after {
-            bottom: -13px;
-            border-top-color: white;
-          }
         }
 
         &:hover {

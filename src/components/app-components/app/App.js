@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 
 import { NavBar } from '../navbar';
 import { Routes } from '../routes';
+import { ModalManager } from '../../base-components/ModalManager';
 
 function App({ currentUser }) {
   return (
     <div className='app'>
-      <NavBar currentUser={currentUser} onLogout={() => {}} onSettings={() => {}} />
+      <ModalManager />
+      <NavBar
+        currentUser={currentUser}
+        onLogout={() => {}}
+        onSettings={() => {}}
+      />
       <div className='page'>
         <Routes className='' />
       </div>

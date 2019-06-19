@@ -8,8 +8,8 @@ import { ErrorPage } from '../../common/ErrorPage';
 import { SeancesListContainer } from './SeancesList';
 import { DateFilter } from '../movies-page/DateFilter';
 import { NotFoundPage } from '../../common/NotFoundPage';
-import { fetchMovieRequest } from '../../../../ducks/movies/actions';
-import { selectMoviesError, selectSelectedMovie } from '../../../../ducks/movies/selectors';
+import { fetchMovieRequest } from '../../../../ducks/data/movies/actions';
+import { selectMoviesError, selectSelectedMovie } from '../../../../ducks/data/movies/selectors';
 import { SEANCES_TIME_RANGE } from '../../../../constants';
 import { getTodayDate } from '../../../../utils/date';
 

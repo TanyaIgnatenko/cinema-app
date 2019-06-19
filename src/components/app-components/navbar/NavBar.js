@@ -17,7 +17,7 @@ function NavBar({ currentUser, onLogout, onSettings }) {
       <div className='leftPart'>
         <h1 className='brand'>Формула кино</h1>
         <NavLink to={ROUTE.MOVIES}>Уже в кино</NavLink>
-        <NavLink to={ROUTE.SOON_MOVIES}>Скоро в кино</NavLink>
+        {/*<NavLink to={ROUTE.SOON_MOVIES}>Скоро в кино</NavLink>*/}
         <NavLink to={ROUTE.BEST_DEALS}>Акции</NavLink>
       </div>
       <div className='rightPart'>

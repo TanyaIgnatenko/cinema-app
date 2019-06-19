@@ -1,0 +1,185 @@
+.seance-tickets-page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  .movie-title-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 20px 20px;
+
+    color: rgb(51, 51, 51);
+    font-size: 1.4rem;
+    font-weight: bold;
+
+  }
+
+  .seance-start-time-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid rgba(51, 51, 51, 0.2);
+    border-bottom: 1px solid rgba(51, 51, 51, 0.2);
+
+    color: rgba(51, 51, 51, 0.8);
+    font-size: 2.2rem;
+    font-weight: bold;
+  }
+
+  .tickets-purchase-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 73px;
+    padding-right: 32px;
+    border-top: 1px solid rgba(51, 51, 51, 0.2);
+    margin-top: 40px;
+
+    flex-grow: 1;
+
+    .buy-btn {
+      width: 112px;
+      height: 36px;
+
+      color: rgb(33, 33, 33);
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &.disabled {
+        color: rgb(208, 196, 159);
+        background: rgb(255, 237, 176);
+        cursor: default;
+      }
+    }
+
+    .total-price {
+      margin-right: 20px;
+
+      color: black;
+      font-size: 1.5rem;
+    }
+  }
+
+  .hall-scheme-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .row {
+      display: inline-flex;
+      margin-bottom: 25px;
+    }
+
+    .empty-row {
+      @extend .row;
+    }
+
+    %seat {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      .seat-tooltip {
+        top: calc(100% - 115px);
+
+        display: none;
+        width: 130px;
+        height: 70px;
+
+        .seat-price {
+          margin: 10px 0;
+
+          color: #616161;
+          font-size: 1.5rem;
+        }
+
+        .seat-position {
+          margin-bottom: 10px;
+
+          color: #b3b3b3;
+          font-size: 1.2rem;
+          font-family: 'Open Sans', sans-serif;
+        }
+      }
+
+      &:hover {
+        .seat-tooltip {
+          display: flex;
+        }
+      }
+    }
+
+    .row {
+      .seat-box {
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+
+        & > * {
+          flex-shrink: 0;
+        }
+
+        &:not(:last-of-type) {
+          margin-right: 10px;
+        }
+
+        .available-seat {
+          @extend %seat;
+
+          width: 20px;
+          height: 20px;
+
+          color: #5DC1E3;
+          background-color: #5DC1E3;
+          cursor: pointer;
+
+          &:hover {
+            width: 30px;
+            height: 30px;
+
+            color: white;
+          }
+        }
+
+        .selected-seat {
+          @extend %seat;
+
+          width: 30px;
+          height: 30px;
+
+          color: #5DC1E3;
+          background-color: white;
+          border: 2px solid #5DC1E3;
+          cursor: pointer;
+        }
+
+        .not-available-seat {
+          @extend %seat;
+
+          width: 12px;
+          height: 12px;
+
+          background-color: #DDDDDD;
+        }
+      }
+
+      .empty-space {
+        @extend .seat-box;
+        opacity: 0;
+      }
+    }
+  }
+}

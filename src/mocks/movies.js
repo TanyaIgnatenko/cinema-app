@@ -24,17 +24,17 @@ export function getSeances(movieId, date) {
 function generateMoviesFor(day) {
   const dayStartMoment = toMoment(day).startOf('day');
 
-  const moviesArray = [];
+  const generatedMovies = [];
   Object.keys(movies).forEach(movieId => {
     const movie = movies[movieId];
-    moviesArray.push({
+    generatedMovies.push({
       id: parseInt(movieId, 10),
       ...movie,
       seances: generateSeancesFor(dayStartMoment, movieId),
     });
   });
 
-  return moviesArray;
+  return generatedMovies;
 }
 
 function generateSeancesFor(dayStartMoment, movieId) {

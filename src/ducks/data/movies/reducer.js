@@ -3,7 +3,7 @@ import { FETCH_MOVIE, FETCH_MOVIES, FETCH_SEANCES } from './action-types';
 const initialState = {
   movies: null,
   selectedMovie: null,
-  movieSeances: null,
+  selectedMovieSeances: null,
 };
 
 export const movies = (state = initialState, action) => {
@@ -23,7 +23,7 @@ export const movies = (state = initialState, action) => {
     case FETCH_SEANCES.REQUEST: {
       return {
         ...state,
-        movieSeances: null,
+        selectedMovieSeances: null,
       };
     }
     case FETCH_MOVIES.SUCCESS: {
@@ -41,7 +41,7 @@ export const movies = (state = initialState, action) => {
     case FETCH_SEANCES.SUCCESS: {
       return {
         ...state,
-        movieSeances: action.seances,
+        selectedMovieSeances: action.seances,
       };
     }
     case FETCH_MOVIES.ERROR:

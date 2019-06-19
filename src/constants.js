@@ -7,6 +7,10 @@ const ROUTE = {
   BEST_DEALS: '/best-deals',
 };
 
+const MODAL = {
+  SEANCE_TICKETS: 'SEANCE_TICKETS',
+};
+
 const APP_DATE_FORMAT = 'YYYY-MM-DD';
 
 const SEANCES_TIME_RANGE = {
@@ -14,4 +18,12 @@ const SEANCES_TIME_RANGE = {
   end: 26 * MINUTES_IN_HOUR,
 };
 
-export { ROUTE, APP_DATE_FORMAT, SEANCES_TIME_RANGE };
+const RUSSIAN_CURRENCY_SYMBOL = '\u20BD';
+
+export {
+  ROUTE,
+  APP_DATE_FORMAT,
+  SEANCES_TIME_RANGE,
+  MODAL,
+  RUSSIAN_CURRENCY_SYMBOL,
+};

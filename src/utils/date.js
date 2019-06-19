@@ -10,9 +10,11 @@ const getTodayStartMoment = () => moment().startOf('day');
 
 const getTodayDate = () => toAppDateFormat(getTodayStartMoment());
 
-const getTomorrowDate = () => toAppDateFormat(getTodayStartMoment().add(1, 'days'));
+const getTomorrowDate = () =>
+  toAppDateFormat(getTodayStartMoment().add(1, 'days'));
 
-const getDateAfterTomorrow = () => toAppDateFormat(getTodayStartMoment().add(2, 'days'));
+const getDateAfterTomorrow = () =>
+  toAppDateFormat(getTodayStartMoment().add(2, 'days'));
 
 const getEndDateOfSixthMonthFromCurrent = () =>
   toAppDateFormat(

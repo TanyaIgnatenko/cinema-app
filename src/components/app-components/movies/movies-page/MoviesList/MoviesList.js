@@ -8,8 +8,8 @@ import { NoScheduleComponent } from '../../../common/NoScheduleComponent';
 import { Spinner } from '../../../common/Spinner';
 
 import './MoviesList.scss';
-import { fetchMoviesRequest } from '../../../../../ducks/movies/actions';
-import { selectMovies } from '../../../../../ducks/movies/selectors';
+import { fetchMoviesRequest } from '../../../../../ducks/data/movies/actions';
+import { selectMovies } from '../../../../../ducks/data/movies/selectors';
 import { connect } from 'react-redux';
 
 const MOVIES_STATE = {

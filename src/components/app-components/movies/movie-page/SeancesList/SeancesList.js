@@ -9,8 +9,8 @@ import { Spinner } from '../../../common/Spinner';
 import { NoScheduleComponent } from '../../../common/NoScheduleComponent';
 import { NotFoundComponent } from '../../../common/NotFoundComponent';
 
-import { selectSeances } from '../../../../../ducks/movies/selectors';
-import { fetchSeancesRequest } from '../../../../../ducks/movies/actions';
+import { selectSelectedMovieSeances } from '../../../../../ducks/data/movies/selectors';
+import { fetchSeancesRequest } from '../../../../../ducks/data/movies/actions';
 
 import './SeancesList.scss';
 
@@ -85,7 +85,7 @@ function SeancesListContainer({ movieId, seances, selectedDate, fetchSeances, ..
 }
 
 const mapStateToProps = state => ({
-  seances: selectSeances(state),
+  seances: selectSelectedMovieSeances(state),
 });
 
 const mapDispatchToProps = {

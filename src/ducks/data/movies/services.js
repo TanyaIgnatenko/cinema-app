@@ -1,4 +1,4 @@
-import { getMovie, getMovies, getSeances } from '../../mocks/movies';
+import { getMovie, getMovies, getSeances } from '../../../mocks/movies';
 
 function fetchMovies(date) {
   return new Promise(resolve => {
