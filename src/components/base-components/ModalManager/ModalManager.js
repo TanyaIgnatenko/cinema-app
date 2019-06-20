@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { selectModalsToShow } from '../../../ducks/ui/modals/selectors';
-import { SeanceTicketsPage } from '../../app-components/seanceTickets/SeanceTicketsPage';
-import { MODAL } from '../../../constants';
 import { SeanceTicketsModal } from '../../app-components/seanceTickets/SeanceTicketsModal';
+import { TicketsPaymentModal } from '../../app-components/ticketsPayment/TicketsPaymentModal';
+import { MODAL } from '../../../constants';
 
 const MODAL_COMPONENTS = {
   [MODAL.SEANCE_TICKETS]: SeanceTicketsModal,
+  [MODAL.TICKETS_PAYMENT]: TicketsPaymentModal,
 };
 
 function ModalManager({ modalsToShow }) {

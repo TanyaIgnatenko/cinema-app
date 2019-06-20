@@ -14,8 +14,10 @@ import Button from '../../../base-components/Button/Button';
 import hallScreen from '../../../../assets/images/cropped-screen.svg';
 
 import './SeanceTicketsPage.scss';
-import { RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
-import Tooltip from '../../../base-components/Tooltip/Tooltip';
+import { MODAL, RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
+import { Tooltip } from '../../../base-components/Tooltip';
+import { closeModal, showModal } from '../../../../ducks/ui/modals/actions';
+import { connect } from 'react-redux';
 
 function SeanceTicketsPage({
   movieName,
@@ -23,6 +25,8 @@ function SeanceTicketsPage({
   hallScheme,
   takenSeats,
   reservedSeats,
+  closeModal,
+  showModal,
 }) {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const selectSeat = useCallback((seatId, price) => {
@@ -49,12 +53,21 @@ function SeanceTicketsPage({
     });
   }, []);
 
+  const seatsAreNotSelected = !selectedSeats.length;
+
   const totalPrice = useMemo(() => {
     return selectedSeats.reduce(
       (totalPrice, seat) => (totalPrice += seat.price),
       0,
     );
   }, [selectedSeats]);
+
+  const buyTickets = useCallback(() => {
+    closeModal();
+
+    const modalProps = { tickets: selectedSeats, totalPrice };
+    showModal(MODAL.TICKETS_PAYMENT, modalProps);
+  }, [selectedSeats, totalPrice]);
 
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
@@ -74,8 +87,6 @@ function SeanceTicketsPage({
       break;
   }
   const seanceStartTimeAppearance = moment.unix(startTime).format('HH:mm');
-
-  const seatsAreNotSelected = !selectedSeats.length;
 
   return (
     <div className='seance-tickets-page-container'>
@@ -143,6 +154,7 @@ function SeanceTicketsPage({
         )}
         <Button
           className={classNames('buy-btn', seatsAreNotSelected && 'disabled')}
+          onClick={buyTickets}
           disabled={seatsAreNotSelected}
         >
           Купить
@@ -167,4 +179,12 @@ SeanceTicketsPage.propTypes = {
   reservedSeats: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
-export default SeanceTicketsPage;
+const mapDispatchToProps = {
+  closeModal,
+  showModal,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(SeanceTicketsPage);
