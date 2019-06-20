@@ -1,0 +1,35 @@
+.payment-success-modal {
+  width: 420px;
+  height: 250px;
+
+  .payment-success-msg-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 40px;
+
+    .congrat-icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    .payment-success-msg {
+      margin-top: 40px;
+      margin-bottom: 35px;
+
+      color: #414141;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .close-btn {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 60px
+    }
+  }
+}

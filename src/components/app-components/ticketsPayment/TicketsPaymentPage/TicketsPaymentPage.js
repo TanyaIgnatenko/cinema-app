@@ -7,12 +7,14 @@ import classNames from 'classnames';
 import { Button } from '../../../base-components/Button';
 import { useInputState } from '../../../../hooks/useInputState';
 import { useFocusState } from '../../../../hooks/useFocusState';
-import { RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
+import { MODAL, RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
 
 import 'react-credit-cards/lib/styles.scss';
 import './TicketsPaymentPage.scss';
+import { closeModal, showModal } from '../../../../ducks/ui/modals/actions';
+import { connect } from 'react-redux';
 
-function TicketsPaymentPage({ tickets, totalPrice }) {
+function TicketsPaymentPage({ tickets, totalPrice, showModal, closeModal }) {
   const [
     number,
     handleNumberChange,
@@ -65,7 +67,8 @@ function TicketsPaymentPage({ tickets, totalPrice }) {
   const [focused, handleFocusChange] = useFocusState('');
 
   const handleSubmit = useCallback(() => {
-
+    closeModal();
+    showModal(MODAL.PAYMENT_SUCCESS);
   }, []);
 
   const ticketsCount = declint(tickets.length, [
@@ -150,6 +153,7 @@ function TicketsPaymentPage({ tickets, totalPrice }) {
       <div className='payment-actions'>
         <Button
           className={classNames('pay-btn', !allValid && 'disabled')}
+          onClick={handleSubmit}
           disabled={!allValid}
         >
           Оплатить
@@ -159,9 +163,19 @@ function TicketsPaymentPage({ tickets, totalPrice }) {
   );
 }
 
+const mapDispatchToProps = {
+  showModal,
+  closeModal,
+};
+
 TicketsPaymentPage.propTypes = {
   tickets: PropTypes.arrayOf(PropTypes.Object).isRequired,
   totalPrice: PropTypes.number.isRequired,
+  showModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
-export default TicketsPaymentPage;
+export default connect(
+  null,
+  mapDispatchToProps,
+)(TicketsPaymentPage);

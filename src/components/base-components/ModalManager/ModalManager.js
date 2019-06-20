@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { selectModalsToShow } from '../../../ducks/ui/modals/selectors';
 import { SeanceTicketsModal } from '../../app-components/seanceTickets/SeanceTicketsModal';
 import { TicketsPaymentModal } from '../../app-components/ticketsPayment/TicketsPaymentModal';
+import { PaymentSuccessModal } from '../../app-components/ticketsPayment/PaymentSuccessModal';
 import { MODAL } from '../../../constants';
 
 const MODAL_COMPONENTS = {
   [MODAL.SEANCE_TICKETS]: SeanceTicketsModal,
   [MODAL.TICKETS_PAYMENT]: TicketsPaymentModal,
+  [MODAL.PAYMENT_SUCCESS]: PaymentSuccessModal,
 };
 
 function ModalManager({ modalsToShow }) {
