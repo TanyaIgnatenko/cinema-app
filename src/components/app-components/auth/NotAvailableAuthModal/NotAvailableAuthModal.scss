@@ -1,8 +1,8 @@
-.payment-success-modal {
+.not-available-auth-modal {
   width: 420px;
   height: 250px;
 
-  .payment-success-msg-box {
+  .msg-box {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -11,12 +11,12 @@
     height: 100%;
     padding: 40px;
 
-    .congrat-icon {
+    .sadness-icon {
       width: 50px;
       height: 50px;
     }
 
-    .payment-success-msg {
+    .msg {
       margin-top: 20px;
       margin-bottom: 35px;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { NavLink } from './NavLink';
@@ -7,59 +7,48 @@ import { ToggleIcon } from '../../base-components/ToggleIcon';
 import { VerticalLine } from '../../base-components/VerticalLine';
 import { Dropdown } from '../../base-components/Dropdown';
 import { Button } from '../../base-components/Button';
-import { ROUTE } from '../../../constants';
+import { MODAL, ROUTE } from '../../../constants';
 
 import './NavBar.scss';
+import { showModal } from '../../../ducks/ui/modals/actions';
+import { connect } from 'react-redux';
 
-function NavBar({ currentUser, onLogout, onSettings }) {
+function NavBar({ showModal }) {
+  const showNotAvailableAuthModal = useCallback(() => {
+    showModal(MODAL.NOT_AVAILABLE_AUTH);
+  }, []);
+
   return (
-    <ul className='navBarContainer'>
-      <div className='leftPart'>
-        <h1 className='brand'>Формула кино</h1>
-        <NavLink to={ROUTE.MOVIES}>Уже в кино</NavLink>
-        {/*<NavLink to={ROUTE.SOON_MOVIES}>Скоро в кино</NavLink>*/}
-        <NavLink to={ROUTE.BEST_DEALS}>Акции</NavLink>
-      </div>
+    <header className='navBarContainer'>
+      <ul className='leftPart'>
+        <li>
+          <h1 className='brand'>Формула кино</h1>
+        </li>
+        <li>
+          <NavLink to={ROUTE.MOVIES}>Уже в кино</NavLink>
+        </li>
+        <li>
+          <NavLink to={ROUTE.BEST_DEALS}>Акции</NavLink>
+        </li>
+      </ul>
       <div className='rightPart'>
-        {currentUser ? (
-          <>
-            <VerticalLine length={60} width={1} className='zone-delimeter' />
-            <UserIcon />
-            <div className='usernameContainer'>
-              <p>{currentUser.name}</p>
-              <p>{currentUser.surname}</p>
-            </div>
-            <Dropdown>
-              <Dropdown.Toggle>
-                {(on, toggleDropdown) => (
-                  <ToggleIcon on={on} onClick={toggleDropdown} />
-                )}
-              </Dropdown.Toggle>
-              <Dropdown.List>
-                <Dropdown.Item onClick={onSettings}>Настройки</Dropdown.Item>
-                <Dropdown.Item onClick={onLogout}>Выход</Dropdown.Item>
-              </Dropdown.List>
-            </Dropdown>
-          </>
-        ) : (
-          <Button className='login-btn'>Войти</Button>
-        )}
+        <Button className='login-btn' onClick={showNotAvailableAuthModal}>
+          Войти
+        </Button>
       </div>
-    </ul>
+    </header>
   );
 }
 
 NavBar.propTypes = {
-  currentUser: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    surname: PropTypes.string.isRequired,
-  }),
-  onLogout: PropTypes.func.isRequired,
-  onSettings: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
 
-NavBar.defaultProps = {
-  currentUser: null,
+const mapDispatchToProps = {
+  showModal,
 };
 
-export default NavBar;
+export default connect(
+  null,
+  mapDispatchToProps,
+)(NavBar);
