@@ -1,0 +1,103 @@
+.tickets-payment-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  .tickets-payment-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 20px 20px;
+
+    color: rgb(51, 51, 51);
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  .tickets-info-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid rgba(51, 51, 51, 0.2);
+    border-bottom: 1px solid rgba(51, 51, 51, 0.2);
+
+    color: rgba(51, 51, 51, 0.8);
+    font-size: 2.2rem;
+    font-weight: bold;
+  }
+
+  .payment-info-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+
+      .rccs {
+        position: static;
+        width: 350px;
+        margin: 0;
+        margin-right: 50px;
+
+        .rccs__card {
+          height: 240px;
+          width: 350px;
+        }
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+
+        .form-input {
+          width: 350px;
+          height: 45px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+
+          color: black;
+          font-size: 2rem;
+
+          &:not(:last-child) {
+            margin-bottom: 15px;
+          }
+
+          &.invalid {
+            border: 1px solid hsl(0, 100%, 45%);
+          }
+        }
+      }
+    }
+
+  .payment-actions {
+    //display: flex;
+    //justify-content: flex-end;
+    //padding-top: 35px;
+    //align-self: flex-end;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 85px;
+    padding-right: 32px;
+    border-top: 1px solid rgba(51, 51, 51, 0.2);
+
+    .pay-btn {
+      width: 130px;
+      height: 40px;
+
+      color: rgb(33, 33, 33);
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &.disabled {
+        color: rgb(208, 196, 159);
+        background: rgb(255, 237, 176);
+        cursor: default;
+      }
+    }
+  }
+}
+
