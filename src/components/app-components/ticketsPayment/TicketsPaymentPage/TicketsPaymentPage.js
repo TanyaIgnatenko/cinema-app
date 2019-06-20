@@ -1,26 +1,35 @@
 import React, { useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
 import Card from 'react-credit-cards';
 import declint from 'declint-ru';
-import classNames from 'classnames';
 
+import { Spinner } from '../../common/Spinner';
 import { Button } from '../../../base-components/Button';
 import { useInputState } from '../../../../hooks/useInputState';
 import { useFocusState } from '../../../../hooks/useFocusState';
-import { MODAL, RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
+import { closeModal, showModal } from '../../../../ducks/ui/modals/actions';
+import { selectPaymentStatus } from '../../../../ducks/data/tickets/selectors';
+import { MODAL, RUSSIAN_CURRENCY_SYMBOL, STATUS } from '../../../../constants';
+
+import {
+  payTicketsRequest,
+  resetPaymentStatus,
+  resetReservationStatus,
+} from '../../../../ducks/data/tickets/actions';
 
 import 'react-credit-cards/lib/styles.scss';
 import './TicketsPaymentPage.scss';
-import { closeModal, showModal } from '../../../../ducks/ui/modals/actions';
-import { connect } from 'react-redux';
-import { resetReservationStatus } from '../../../../ducks/data/tickets/actions';
 
 function TicketsPaymentPage({
-  tickets,
-  totalPrice,
+  orderDetails,
+  payTickets,
+  paymentStatus,
   showModal,
   closeModal,
   resetReservationStatus,
+  resetPaymentStatus,
 }) {
   useEffect(() => {
     resetReservationStatus();
@@ -77,25 +86,60 @@ function TicketsPaymentPage({
 
   const [focused, handleFocusChange] = useFocusState('');
 
-  const handleSubmit = useCallback(() => {
-    closeModal();
-    showModal(MODAL.PAYMENT_SUCCESS);
-  }, []);
-
-  const ticketsCount = declint(tickets.length, [
+  const ticketsCount = declint(orderDetails.seatsId.length, [
     '%s билет',
     '%s билета',
     '%s билетов',
   ]);
 
-  return (
+  const handleSubmit = useCallback(() => {
+    payTickets(orderDetails.seanceId, orderDetails.seatsId);
+  }, []);
+
+  const showPaymentSuccessModal = useCallback(() => {
+    resetPaymentStatus();
+    closeModal();
+    showModal(MODAL.PAYMENT_SUCCESS);
+  }, []);
+
+  const showPaymentFailureModal = useCallback(() => {
+    showModal(MODAL.PAYMENT_FAILURE);
+  }, []);
+
+  useEffect(() => {
+    switch (paymentStatus) {
+      case STATUS.SUCCESS: {
+        showPaymentSuccessModal();
+        break;
+      }
+      case STATUS.ERROR: {
+        showPaymentFailureModal();
+        break;
+      }
+      case STATUS.REQUEST: {
+        break;
+      }
+      case STATUS.IDLE: {
+        break;
+      }
+      default: {
+        console.error('Unknown status ', paymentStatus);
+      }
+    }
+  }, [paymentStatus]);
+
+  return paymentStatus === STATUS.REQUEST ? (
+    <Spinner message='Идет оплата заказа' />
+  ) : (
     <div className='tickets-payment-box'>
       <header className='tickets-payment-header'>
         <h1 className='tickets-payment-title'>Оплата билетов</h1>
       </header>
       <div className='tickets-info-box'>
         <p className='tickets-info'>
-          {`= ${ticketsCount} ${totalPrice}${RUSSIAN_CURRENCY_SYMBOL}`}
+          {`= ${ticketsCount} ${
+            orderDetails.totalPrice
+          }${RUSSIAN_CURRENCY_SYMBOL}`}
         </p>
       </div>
       <div className='payment-info-box'>
@@ -174,20 +218,29 @@ function TicketsPaymentPage({
   );
 }
 
+const mapStateToProps = state => ({
+  paymentStatus: selectPaymentStatus(state),
+});
+
 const mapDispatchToProps = {
   showModal,
   closeModal,
   resetReservationStatus,
+  resetPaymentStatus,
+  payTickets: payTicketsRequest,
 };
 
 TicketsPaymentPage.propTypes = {
-  tickets: PropTypes.arrayOf(PropTypes.object).isRequired,
-  totalPrice: PropTypes.number.isRequired,
+  orderDetails: PropTypes.shape({
+    seanceId: PropTypes.string.isRequired,
+    seatsId: PropTypes.arrayOf(PropTypes.number).isRequired,
+    totalPrice: PropTypes.number.isRequired,
+  }),
   showModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(TicketsPaymentPage);

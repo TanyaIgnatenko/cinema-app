@@ -4,8 +4,6 @@ import { StatusModal } from '../../common/StatusModal';
 
 import congratIcon from '../../../../assets/images/congrat-icon.svg';
 
-import './PaymentSuccessModal.scss';
-
 function PaymentSuccessModal() {
   return (
     <StatusModal

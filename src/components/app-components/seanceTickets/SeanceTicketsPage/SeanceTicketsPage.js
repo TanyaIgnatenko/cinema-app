@@ -77,11 +77,13 @@ function SeanceTicketsPage({
   const goToTicketsPayment = useCallback(() => {
     closeModal();
 
-    const modalProps = { tickets: selectedSeats, totalPrice };
+    const seatsId = selectedSeats.map(seat => seat.id);
+    const modalProps = { orderDetails: { seanceId, seatsId, totalPrice } };
+
     showModal(MODAL.TICKETS_PAYMENT, modalProps);
   }, [selectedSeats, totalPrice]);
 
-  const showReservationErrorModal = useCallback(() => {
+  const showReservationFailureModal = useCallback(() => {
     setSelectedSeats([]);
     showModal(MODAL.RESERVATION_FAILURE);
   }, []);
@@ -93,7 +95,7 @@ function SeanceTicketsPage({
         break;
       }
       case STATUS.ERROR: {
-        showReservationErrorModal();
+        showReservationFailureModal();
         break;
       }
       case STATUS.REQUEST: {

@@ -9,6 +9,7 @@ import { TicketsPaymentModal } from '../../app-components/ticketsPayment/Tickets
 import { PaymentSuccessModal } from '../../app-components/ticketsPayment/PaymentSuccessModal';
 import { NotAvailableAuthModal } from '../../app-components/auth/NotAvailableAuthModal';
 import { ReservationFailureModal } from '../../app-components/seanceTickets/ReservationFailureModal';
+import { PaymentFailureModal } from '../../app-components/ticketsPayment/PaymentFailureModal';
 
 const MODAL_COMPONENTS = {
   [MODAL.SEANCE_TICKETS]: SeanceTicketsModal,
@@ -16,6 +17,7 @@ const MODAL_COMPONENTS = {
   [MODAL.PAYMENT_SUCCESS]: PaymentSuccessModal,
   [MODAL.NOT_AVAILABLE_AUTH]: NotAvailableAuthModal,
   [MODAL.RESERVATION_FAILURE]: ReservationFailureModal,
+  [MODAL.PAYMENT_FAILURE]: PaymentFailureModal,
 };
 
 function ModalManager({ modalsToShow }) {
@@ -39,6 +41,8 @@ ModalManager.propTypes = {
         MODAL.TICKETS_PAYMENT,
         MODAL.PAYMENT_SUCCESS,
         MODAL.NOT_AVAILABLE_AUTH,
+        MODAL.RESERVATION_FAILURE,
+        MODAL.PAYMENT_FAILURE,
       ]).isRequired,
       modalProps: PropTypes.object,
     }).isRequired,

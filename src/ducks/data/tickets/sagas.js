@@ -1,7 +1,12 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 
-import { reserveTicketsError, reserveTicketsSuccess } from './actions';
-import { RESERVE_TICKETS } from './action-types';
+import {
+  payTicketsError,
+  payTicketsSuccess,
+  reserveTicketsError,
+  reserveTicketsSuccess,
+} from './actions';
+import { PAY_TICKETS, RESERVE_TICKETS } from './action-types';
 import * as services from './services';
 
 function* reserveTickets({ seanceId, seatsId }) {
@@ -17,6 +22,22 @@ function* reserveTickets({ seanceId, seatsId }) {
   }
 }
 
+function* payTickets({ seanceId, seatsId }) {
+  try {
+    const [payedSeanceId, payedSeatsId] = yield call(
+      services.payTicketsRequest,
+      seanceId,
+      seatsId,
+    );
+    yield put(payTicketsSuccess(payedSeanceId, payedSeatsId));
+  } catch (e) {
+    yield put(payTicketsError(e));
+  }
+}
+
 export function* watchTicketsRequests() {
-  yield all([takeLatest(RESERVE_TICKETS.REQUEST, reserveTickets)]);
+  yield all([
+    takeLatest(RESERVE_TICKETS.REQUEST, reserveTickets),
+    takeLatest(PAY_TICKETS.REQUEST, payTickets),
+  ]);
 }

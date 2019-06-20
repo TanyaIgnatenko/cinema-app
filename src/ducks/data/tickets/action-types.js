@@ -4,4 +4,12 @@ export const RESERVE_TICKETS = {
   ERROR: '@@tickets/RESERVE_TICKETS_ERROR',
 };
 
+export const PAY_TICKETS = {
+  REQUEST: '@@tickets/PAY_TICKETS_REQUEST',
+  SUCCESS: '@@tickets/PAY_TICKETS_SUCCESS',
+  ERROR: '@@tickets/PAY_TICKETS_ERROR',
+};
+
 export const RESET_RESERVATION_STATUS = '@@tickets/RESET_RESERVATION_STATUS';
+
+export const RESET_PAYMENT_STATUS = '@@tickets/RESET_PAYMENT_STATUS';

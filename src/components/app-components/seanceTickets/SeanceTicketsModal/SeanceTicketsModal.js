@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Modal } from '../../../base-components/Modal';
 import { SeanceTicketsPage } from '../SeanceTicketsPage';
 import { closeModal } from '../../../../ducks/ui/modals/actions';
+import { resetReservationStatus } from '../../../../ducks/data/tickets/actions';
 
-function SeanceTicketsModal({ closeModal, ...seanceTicketsPageProps }) {
+function SeanceTicketsModal({
+  resetReservationStatus,
+  closeModal,
+  ...seanceTicketsPageProps
+}) {
+  const handleModalClose = useCallback(() => {
+    resetReservationStatus();
+    closeModal();
+  }, []);
+
   return (
-    <Modal onClose={closeModal}>
+    <Modal onClose={handleModalClose}>
       <SeanceTicketsPage {...seanceTicketsPageProps} />
     </Modal>
   );
@@ -16,10 +26,12 @@ function SeanceTicketsModal({ closeModal, ...seanceTicketsPageProps }) {
 
 SeanceTicketsModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
+  resetReservationStatus: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
   closeModal,
+  resetReservationStatus,
 };
 
 export default connect(
