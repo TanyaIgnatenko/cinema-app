@@ -11,9 +11,9 @@ function ErrorPage() {
       <br />
       <span className='error-page-request'>
         Попробуйте&nbsp;
-        <a className='reload-link' onClick={reloadPage}>
+        <button className='reload-link' onClick={reloadPage}>
           перезагрузить страницу
-        </a>
+        </button>
       </span>
     </p>
   );

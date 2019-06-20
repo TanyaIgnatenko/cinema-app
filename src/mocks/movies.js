@@ -18,7 +18,9 @@ export function getMovie(id) {
 }
 
 export function getSeances(movieId, date) {
-  return daysWithSchedule.includes(date) ? generateSeancesFor(toMoment(date), movieId) : {};
+  return daysWithSchedule.includes(date)
+    ? generateSeancesFor(toMoment(date), movieId)
+    : {};
 }
 
 function generateMoviesFor(day) {
@@ -38,7 +40,8 @@ function generateMoviesFor(day) {
 }
 
 function generateSeancesFor(dayStartMoment, movieId) {
-  const seanceStartTimes2D = possibleSeanceStartTimes[movieId % possibleSeanceStartTimes.length];
+  const seanceStartTimes2D =
+    possibleSeanceStartTimes[movieId % possibleSeanceStartTimes.length];
   const seanceStartTimes3D =
     possibleSeanceStartTimes[(movieId + 1) % possibleSeanceStartTimes.length];
 
@@ -77,7 +80,7 @@ class NotFoundError extends Error {
 function getMinPrice(hallScheme) {
   return hallScheme.reduce((min, row) => {
     return row
-      ? row.reduce((min, seat) => {
+      ? row.seats.reduce((min, seat) => {
           return seat ? Math.min(min, seat.price) : min;
         }, min)
       : min;
@@ -85,77 +88,92 @@ function getMinPrice(hallScheme) {
 }
 
 const hallScheme = [
-  [
-    null,
-    { id: 1, number: 1, price: 200 },
-    { id: 2, number: 2, price: 200 },
-    { id: 3, number: 3, price: 200 },
-    null,
-    { id: 4, number: 4, price: 200 },
-    { id: 5, number: 5, price: 200 },
-    { id: 6, number: 6, price: 200 },
-    null,
-    { id: 7, number: 7, price: 200 },
-    { id: 8, number: 8, price: 200 },
-    { id: 9, number: 9, price: 200 },
-  ],
-  [
-    null,
-    { id: 10, number: 1, price: 200 },
-    { id: 11, number: 2, price: 200 },
-    { id: 12, number: 3, price: 200 },
-    null,
-    { id: 13, number: 4, price: 200 },
-    { id: 14, number: 5, price: 200 },
-    { id: 15, number: 6, price: 200 },
-    null,
-    { id: 16, number: 7, price: 200 },
-    { id: 17, number: 8, price: 200 },
-    { id: 18, number: 9, price: 200 },
-  ],
-  [
-    null,
-    { id: 19, number: 1, price: 200 },
-    { id: 20, number: 2, price: 200 },
-    { id: 21, number: 3, price: 200 },
-    null,
-    { id: 22, number: 4, price: 200 },
-    { id: 23, number: 5, price: 200 },
-    { id: 24, number: 6, price: 200 },
-    null,
-    { id: 25, number: 7, price: 200 },
-    { id: 26, number: 8, price: 200 },
-    { id: 27, number: 9, price: 200 },
-  ],
-  [
-    null,
-    { id: 28, number: 1, price: 200 },
-    { id: 29, number: 2, price: 200 },
-    { id: 30, number: 3, price: 200 },
-    null,
-    { id: 31, number: 4, price: 200 },
-    { id: 32, number: 5, price: 200 },
-    { id: 33, number: 6, price: 200 },
-    null,
-    { id: 34, number: 7, price: 200 },
-    { id: 35, number: 8, price: 200 },
-    { id: 36, number: 9, price: 200 },
-  ],
+  {
+    number: 1,
+    seats: [
+      null,
+      { id: 1, number: 1, price: 200 },
+      { id: 2, number: 2, price: 200 },
+      { id: 3, number: 3, price: 200 },
+      null,
+      { id: 4, number: 4, price: 200 },
+      { id: 5, number: 5, price: 200 },
+      { id: 6, number: 6, price: 200 },
+      null,
+      { id: 7, number: 7, price: 200 },
+      { id: 8, number: 8, price: 200 },
+      { id: 9, number: 9, price: 200 },
+    ],
+  },
+  {
+    number: 2,
+    seats: [
+      null,
+      { id: 10, number: 1, price: 200 },
+      { id: 11, number: 2, price: 200 },
+      { id: 12, number: 3, price: 200 },
+      null,
+      { id: 13, number: 4, price: 200 },
+      { id: 14, number: 5, price: 200 },
+      { id: 15, number: 6, price: 200 },
+      null,
+      { id: 16, number: 7, price: 200 },
+      { id: 17, number: 8, price: 200 },
+      { id: 18, number: 9, price: 200 },
+    ],
+  },
+  {
+    number: 3,
+    seats: [
+      null,
+      { id: 19, number: 1, price: 200 },
+      { id: 20, number: 2, price: 200 },
+      { id: 21, number: 3, price: 200 },
+      null,
+      { id: 22, number: 4, price: 200 },
+      { id: 23, number: 5, price: 200 },
+      { id: 24, number: 6, price: 200 },
+      null,
+      { id: 25, number: 7, price: 200 },
+      { id: 26, number: 8, price: 200 },
+      { id: 27, number: 9, price: 200 },
+    ],
+  },
+  {
+    number: 4,
+    seats: [
+      null,
+      { id: 28, number: 1, price: 200 },
+      { id: 29, number: 2, price: 200 },
+      { id: 30, number: 3, price: 200 },
+      null,
+      { id: 31, number: 4, price: 200 },
+      { id: 32, number: 5, price: 200 },
+      { id: 33, number: 6, price: 200 },
+      null,
+      { id: 34, number: 7, price: 200 },
+      { id: 35, number: 8, price: 200 },
+      { id: 36, number: 9, price: 200 },
+    ],
+  },
   null,
-  [
-    { id: 37, number: 1, price: 250 },
-    { id: 38, number: 2, price: 250 },
-    { id: 39, number: 3, price: 250 },
-    { id: 40, number: 4, price: 250 },
-    { id: 41, number: 5, price: 250 },
-    { id: 42, number: 6, price: 250 },
-    { id: 43, number: 7, price: 250 },
-    { id: 44, number: 8, price: 250 },
-    { id: 45, number: 9, price: 250 },
-    { id: 46, number: 10, price: 250 },
-    { id: 47, number: 11, price: 250 },
-    { id: 48, number: 12, price: 200 },
-  ],
+  {
+    number: 5,
+    seats: [
+      { id: 37, number: 1, price: 250 },
+      { id: 38, number: 2, price: 250 },
+      { id: 39, number: 3, price: 250 },
+      { id: 40, number: 4, price: 250 },
+      { id: 41, number: 5, price: 250 },
+      { id: 42, number: 6, price: 250 },
+      { id: 43, number: 7, price: 250 },
+      { id: 44, number: 8, price: 250 },
+      { id: 45, number: 9, price: 250 },
+      { id: 46, number: 10, price: 250 },
+      { id: 47, number: 11, price: 250 },
+      { id: 48, number: 12, price: 200 },
+    ],
+  },
 ];
 
 const possibleTakenSeats = [
@@ -277,23 +295,28 @@ const movies = {
       },
       {
         description: 'Борджиа',
-        url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192982.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192982.jpg',
       },
       {
         description: 'Борджиа',
-        url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192979.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192979.jpg',
       },
       {
         description: 'Борджиа',
-        url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192978.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192978.jpg',
       },
       {
         description: 'Борджиа',
-        url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192981.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192981.jpg',
       },
       {
         description: 'Борджиа',
-        url: 'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192977.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192977.jpg',
       },
     ],
   },
@@ -312,23 +335,28 @@ const movies = {
       },
       {
         description: 'Король говорит!',
-        url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433002.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433002.jpg',
       },
       {
         description: 'Король говорит!',
-        url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433006.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433006.jpg',
       },
       {
         description: 'Король говорит!',
-        url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433004.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433004.jpg',
       },
       {
         description: 'Король говорит!',
-        url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433000.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433000.jpg',
       },
       {
         description: 'Король говорит!',
-        url: 'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1432996.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1432996.jpg',
       },
     ],
   },
@@ -347,23 +375,28 @@ const movies = {
       },
       {
         description: 'Игра престолов',
-        url: 'https://st.kp.yandex.net/im/kadr/2/7/7/kinopoisk.ru-Game-of-Thrones-2777019.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/2/7/7/kinopoisk.ru-Game-of-Thrones-2777019.jpg',
       },
       {
         description: 'Игра престолов',
-        url: 'https://st.kp.yandex.net/im/kadr/2/7/8/kinopoisk.ru-Game-of-Thrones-2786695.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/2/7/8/kinopoisk.ru-Game-of-Thrones-2786695.jpg',
       },
       {
         description: 'Игра престолов',
-        url: 'https://st.kp.yandex.net/im/kadr/3/0/3/kinopoisk.ru-Game-of-Thrones-3030604.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/0/3/kinopoisk.ru-Game-of-Thrones-3030604.jpg',
       },
       {
         description: 'Игра престолов',
-        url: 'https://st.kp.yandex.net/im/kadr/3/0/1/kinopoisk.ru-Game-of-Thrones-3019199.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/0/1/kinopoisk.ru-Game-of-Thrones-3019199.jpg',
       },
       {
         description: 'Игра престолов',
-        url: 'https://st.kp.yandex.net/im/kadr/3/0/1/kinopoisk.ru-Game-of-Thrones-3011410.jpg',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/0/1/kinopoisk.ru-Game-of-Thrones-3011410.jpg',
       },
     ],
   },

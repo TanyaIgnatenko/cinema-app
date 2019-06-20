@@ -18,6 +18,7 @@ import { MODAL, RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
 import { Tooltip } from '../../../base-components/Tooltip';
 import { closeModal, showModal } from '../../../../ducks/ui/modals/actions';
 import { connect } from 'react-redux';
+import { uniqueId } from 'lodash';
 
 function SeanceTicketsPage({
   movieName,
@@ -99,13 +100,16 @@ function SeanceTicketsPage({
         </p>
       </div>
       <div className='hall-scheme-box'>
-        <object data={hallScreen} style={{ width: '450px' }} />
-        {hallScheme.map((row, rowIdx) => {
-          if (!row) return <div className='empty-row' />;
+        <object data={hallScreen} style={{ width: '450px' }}>
+          <p>Screen</p>
+        </object>
+        {hallScheme.map(row => {
+          if (!row)
+            return <div key={uniqueId('empty-row')} className='empty-row' />;
 
           return (
-            <div className='row'>
-              {row.map((seat, idx) => {
+            <div key={row.number} className='row'>
+              {row.seats.map((seat, idx) => {
                 if (!seat) return <div key={idx} className='empty-space' />;
 
                 const isAvailable =
@@ -116,7 +120,7 @@ function SeanceTicketsPage({
                 );
 
                 return isAvailable ? (
-                  <div key={seat.id} className='seat-box'>
+                  <div key={idx} className='seat-box'>
                     <div
                       className={
                         isSelected ? 'selected-seat' : 'available-seat'
@@ -133,7 +137,7 @@ function SeanceTicketsPage({
                           {`${seat.price} ${RUSSIAN_CURRENCY_SYMBOL}`}
                         </p>
                         <p className='seat-position'>
-                          {`${rowIdx + 1} ряд, ${seat.number} место`}
+                          {`${row.number} ряд, ${seat.number} место`}
                         </p>
                       </Tooltip>
                     </div>
@@ -166,14 +170,17 @@ function SeanceTicketsPage({
 
 SeanceTicketsPage.propTypes = {
   movieName: PropTypes.string.isRequired,
-  startTime: PropTypes.string.isRequired,
+  startTime: PropTypes.number.isRequired,
   hallScheme: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        number: PropTypes.number,
-        price: PropTypes.number,
-      }),
-    ),
+    PropTypes.shape({
+      number: PropTypes.number.isRequired,
+      seats: PropTypes.arrayOf(
+        PropTypes.shape({
+          number: PropTypes.number,
+          price: PropTypes.number,
+        }),
+      ),
+    }),
   ).isRequired,
   takenSeats: PropTypes.arrayOf(PropTypes.number).isRequired,
   reservedSeats: PropTypes.arrayOf(PropTypes.number).isRequired,

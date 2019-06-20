@@ -63,6 +63,7 @@ function MoviePage({ movie }) {
           />
         </div>
         <SeancesListContainer
+          movieName={movie.name}
           movieId={movie.id}
           selectedDate={selectedDate}
           selectedRange={selectedRange}

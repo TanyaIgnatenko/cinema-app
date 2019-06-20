@@ -32,7 +32,12 @@ function ModalManager({ modalsToShow }) {
 ModalManager.propTypes = {
   modalsToShow: PropTypes.arrayOf(
     PropTypes.shape({
-      modalType: PropTypes.oneOf([MODAL.SEANCE_TICKETS]).isRequired,
+      modalType: PropTypes.oneOf([
+        MODAL.SEANCE_TICKETS,
+        MODAL.TICKETS_PAYMENT,
+        MODAL.PAYMENT_SUCCESS,
+        MODAL.NOT_AVAILABLE_AUTH,
+      ]).isRequired,
       modalProps: PropTypes.object,
     }).isRequired,
   ).isRequired,

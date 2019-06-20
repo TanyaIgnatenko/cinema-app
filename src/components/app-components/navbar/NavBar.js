@@ -2,10 +2,6 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { NavLink } from './NavLink';
-import { UserIcon } from './UserIcon';
-import { ToggleIcon } from '../../base-components/ToggleIcon';
-import { VerticalLine } from '../../base-components/VerticalLine';
-import { Dropdown } from '../../base-components/Dropdown';
 import { Button } from '../../base-components/Button';
 import { MODAL, ROUTE } from '../../../constants';
 

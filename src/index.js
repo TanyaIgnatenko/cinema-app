@@ -55,11 +55,6 @@ moment.updateLocale('ru', {
   weekdaysMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
 });
 
-const currentUser = {
-  name: 'Таня',
-  surname: 'Игнатенко',
-};
-
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

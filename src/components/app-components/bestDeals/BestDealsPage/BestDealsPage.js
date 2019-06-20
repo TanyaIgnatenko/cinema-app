@@ -8,7 +8,7 @@ function BestDealsPage() {
   return (
     <p className='page-info'>
       К сожалению, в данный момент акции не проходят{' '}
-      <img className='sadness-icon' src={sadnessIcon} />
+      <img alt='' className='sadness-icon' src={sadnessIcon} />
     </p>
   );
 }

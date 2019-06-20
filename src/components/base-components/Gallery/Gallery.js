@@ -35,7 +35,12 @@ function Gallery({ items, className }) {
     hasAtLeastOneItem && (
       <div className={classNames('gallery', className)}>
         <div className='primary-item-container'>
-          <img className='primary-item' src={primaryItem.url} onClick={() => handleItemClick(0)} />
+          <img
+            alt='primary item'
+            className='primary-item'
+            src={primaryItem.url}
+            onClick={() => handleItemClick(0)}
+          />
         </div>
         {hasAtLeastOneItemWithPreview && (
           <div className='items-previews-container'>
@@ -46,7 +51,11 @@ function Gallery({ items, className }) {
                   className='item-preview-container'
                   onClick={() => handleItemClick(idx + 1)}
                 >
-                  <img className='item-preview' src={itemWithPreview.url} />
+                  <img
+                    alt='item preview'
+                    className='item-preview'
+                    src={itemWithPreview.url}
+                  />
                 </div>
               ))}
               {hasAtLeastOneHiddenItem && (

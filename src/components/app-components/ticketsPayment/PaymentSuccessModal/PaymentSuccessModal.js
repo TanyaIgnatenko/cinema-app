@@ -18,7 +18,7 @@ function PaymentSuccessModal({ closeModal }) {
       showCloseIcon={false}
     >
       <div className='payment-success-msg-box'>
-        <img className='congrat-icon' src={congratIcon} />
+        <img alt='' className='congrat-icon' src={congratIcon} />
         <p className='payment-success-msg'>Оплата прошла успешно!</p>
         <Button className='close-btn' onClick={closeModal}>Ок</Button>
       </div>

@@ -18,7 +18,7 @@ function NotAvailableAuthModal({ closeModal }) {
       showCloseIcon={false}
     >
       <div className='msg-box'>
-        <img className='sadness-icon' src={sadnessIcon} />
+        <img alt='' className='sadness-icon' src={sadnessIcon} />
         <p className='msg'>
           К сожалению в вашем регионе не доступна функция авторизации
         </p>

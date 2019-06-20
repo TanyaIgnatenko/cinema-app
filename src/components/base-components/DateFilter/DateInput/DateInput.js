@@ -32,7 +32,10 @@ function DateInput({
       {(on, toggle) => (
         <div className='date-input-container'>
           <Button
-            className={classNames('calendar-btn ignore-react-onclickoutside', active && 'active')}
+            className={classNames(
+              'calendar-btn ignore-react-onclickoutside',
+              active && 'active',
+            )}
             onClick={toggle}
           >
             {buttonLabel}

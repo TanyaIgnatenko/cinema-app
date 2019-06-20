@@ -31,9 +31,16 @@ function getSeancesState(seances, selectedSeances) {
   return SEANCES_STATE.FOUND;
 }
 
-function SeancesList({ seances, selectedRange, selectedDate, resetFiltersSettings }) {
+function SeancesList({
+  movieName,
+  seances,
+  selectedRange,
+  selectedDate,
+  resetFiltersSettings,
+}) {
   const selectedSeances = useMemo(
-    () => (seances ? keepSeancesAt(selectedDate, selectedRange, seances) : null),
+    () =>
+      seances ? keepSeancesAt(selectedDate, selectedRange, seances) : null,
     [seances, selectedRange],
   );
 
@@ -44,11 +51,16 @@ function SeancesList({ seances, selectedRange, selectedDate, resetFiltersSetting
     case SEANCES_STATE.SCHEDULE_NOT_EXIST:
       return <NoScheduleComponent className='info-box' />;
     case SEANCES_STATE.NOT_FOUND:
-      return <NotFoundComponent className='info-box' resetSettings={resetFiltersSettings} />;
+      return (
+        <NotFoundComponent
+          className='info-box'
+          resetSettings={resetFiltersSettings}
+        />
+      );
     case SEANCES_STATE.FOUND:
       return (
         <div className='seances-list'>
-          <Seances seances={selectedSeances} className='seances' />
+          <Seances movieName={movieName} seances={selectedSeances} className='seances' />
         </div>
       );
   }
@@ -71,8 +83,13 @@ SeancesList.propTypes = {
   resetFiltersSettings: PropTypes.func.isRequired,
 };
 
-// eslint-disable-next-line react/prop-types
-function SeancesListContainer({ movieId, seances, selectedDate, fetchSeances, ...props }) {
+function SeancesListContainer({
+  movieId,
+  seances,
+  selectedDate,
+  fetchSeances,
+  ...props
+}) {
   useEffect(() => {
     fetchSeances(movieId, selectedDate);
   }, [selectedDate]);

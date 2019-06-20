@@ -19,6 +19,7 @@ function Modal({ children, onClose, showCloseIcon, className }) {
       <div className={classNames('modal', className)}>
         {showCloseIcon && (
           <img
+            alt='close'
             src={crossIcon}
             onClick={onClose}
             className='close-icon'

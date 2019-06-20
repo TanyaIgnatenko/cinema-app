@@ -6,24 +6,38 @@ import crossIcon from '../../../../assets/images/light-cross-icon.svg';
 import './GalleryViewer.scss';
 
 function GalleryViewer({ items, selectedItemIdx, selectItem, closeViewer }) {
-  const handleNextItemClick = () => selectItem((selectedItemIdx + 1) % items.length);
+  const handleNextItemClick = () =>
+    selectItem((selectedItemIdx + 1) % items.length);
   const handlePreviousItemClick = () =>
     selectItem((items.length + selectedItemIdx - 1) % items.length);
 
   return (
     <div className='gallery-popup'>
       <div className='popup-header'>
-        <p className='item-number-info'>{`${selectedItemIdx + 1} из ${items.length}`}</p>
+        <p className='item-number-info'>
+          {`${selectedItemIdx + 1} из ${items.length}`}
+        </p>
         <img
+          alt='close'
           className='close-icon smoothly-enhance-on-hover'
           src={crossIcon}
           onClick={closeViewer}
         />
       </div>
       <div className='popup-content'>
-        <img className='item-content' src={items[selectedItemIdx].url} />
-        <div className='btn-prev smoothly-enhance-on-hover' onClick={handlePreviousItemClick} />
-        <div className='btn-next smoothly-enhance-on-hover' onClick={handleNextItemClick} />
+        <img
+          alt='item'
+          className='item-content'
+          src={items[selectedItemIdx].url}
+        />
+        <div
+          className='btn-prev smoothly-enhance-on-hover'
+          onClick={handlePreviousItemClick}
+        />
+        <div
+          className='btn-next smoothly-enhance-on-hover'
+          onClick={handleNextItemClick}
+        />
       </div>
       <div className='popup-footer'>
         <p className='item-description'>{items[selectedItemIdx].description}</p>

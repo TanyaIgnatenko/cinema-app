@@ -17,12 +17,11 @@ function Movie({
   seances,
   className,
   history,
-  ...props
 }) {
   const goToMoviePage = () => history.push(createRoute(ROUTE.MOVIE, { id }));
 
   return (
-    <div className={classNames('movie-box', className)} {...props}>
+    <div className={classNames('movie-box', className)}>
       <img
         alt='movie poster'
         className='poster'

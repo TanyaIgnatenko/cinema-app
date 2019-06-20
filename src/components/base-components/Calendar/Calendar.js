@@ -61,7 +61,12 @@ class Calendar extends React.Component {
   };
 
   handleDateSelected = date => {
-    const { onDateSelected, onDateLeave, closeOnSelect, closeCalendar } = this.props;
+    const {
+      onDateSelected,
+      onDateLeave,
+      closeOnSelect,
+      closeCalendar,
+    } = this.props;
 
     onDateSelected(date);
     if (closeOnSelect) {
@@ -90,8 +95,10 @@ class Calendar extends React.Component {
 
     const minMoment = toMoment(minDate);
     const maxMoment = toMoment(maxDate);
-    const prevMonthBtnEnabled = !minMoment.isValid() || minMoment.isBefore(startMonthDate);
-    const nextMonthBtnEnabled = !minMoment.isValid() || maxMoment.isAfter(endMonthDate);
+    const prevMonthBtnEnabled =
+      !minMoment.isValid() || minMoment.isBefore(startMonthDate);
+    const nextMonthBtnEnabled =
+      !minMoment.isValid() || maxMoment.isAfter(endMonthDate);
 
     return (
       <div className='calendar'>
@@ -100,7 +107,10 @@ class Calendar extends React.Component {
           <div className='btnContainer'>
             <ButtonPrev
               onClick={this.handlePrevMonthClick}
-              className={classNames('btn btn-prev', !prevMonthBtnEnabled && 'disabled')}
+              className={classNames(
+                'btn btn-prev',
+                !prevMonthBtnEnabled && 'disabled',
+              )}
               disabled={!prevMonthBtnEnabled}
             />
             <ButtonNext
@@ -111,17 +121,31 @@ class Calendar extends React.Component {
           </div>
         </div>
         <ul className='weekdays'>
-          <li key={0} className='weekday'>пн</li>
-          <li key={1} className='weekday'>вт</li>
-          <li key={2} className='weekday'>ср</li>
-          <li key={3} className='weekday'>чт</li>
-          <li key={4} className='weekday'>пт</li>
-          <li key={5} className='weekday weekend'>сб</li>
-          <li key={6} className='weekday weekend'>вс</li>
+          <li key={0} className='weekday'>
+            пн
+          </li>
+          <li key={1} className='weekday'>
+            вт
+          </li>
+          <li key={2} className='weekday'>
+            ср
+          </li>
+          <li key={3} className='weekday'>
+            чт
+          </li>
+          <li key={4} className='weekday'>
+            пт
+          </li>
+          <li key={5} className='weekday weekend'>
+            сб
+          </li>
+          <li key={6} className='weekday weekend'>
+            вс
+          </li>
         </ul>
         <ul className='days'>
-          {startEmptyDays.map(() => (
-            <li className='day' />
+          {startEmptyDays.map(day => (
+            <li key={day} className='day' />
           ))}
           {monthDates.map(date => {
             const enabledDate =
@@ -131,11 +155,17 @@ class Calendar extends React.Component {
               <li
                 key={date.format('DD')}
                 onClick={() =>
-                  enabledDate ? this.handleDateSelected(toAppDateFormat(date)) : false
+                  enabledDate
+                    ? this.handleDateSelected(toAppDateFormat(date))
+                    : false
                 }
                 className={enabledDate ? 'enabled-day' : 'disabled-day'}
-                onMouseEnter={() => (enabledDate ? onDateEnter(toAppDateFormat(date)) : false)}
-                onMouseLeave={() => (enabledDate ? onDateLeave(toAppDateFormat(date)) : false)}
+                onMouseEnter={() =>
+                  enabledDate ? onDateEnter(toAppDateFormat(date)) : false
+                }
+                onMouseLeave={() =>
+                  enabledDate ? onDateLeave(toAppDateFormat(date)) : false
+                }
               >
                 {date.format('DD')}
               </li>

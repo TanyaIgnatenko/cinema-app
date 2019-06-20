@@ -169,7 +169,7 @@ const mapDispatchToProps = {
 };
 
 TicketsPaymentPage.propTypes = {
-  tickets: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  tickets: PropTypes.arrayOf(PropTypes.object).isRequired,
   totalPrice: PropTypes.number.isRequired,
   showModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,

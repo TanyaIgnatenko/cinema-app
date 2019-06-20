@@ -12,9 +12,9 @@ function NotFoundComponent({ resetSettings, className }) {
         <br />
         <span className='reset-request'>
           Пожалуйста,&nbsp;
-          <a className='reset-settings-link' onClick={resetSettings}>
+          <button className='reset-settings-link' onClick={resetSettings}>
             сбросьте настройки
-          </a>
+          </button>
         </span>
       </div>
     </div>
