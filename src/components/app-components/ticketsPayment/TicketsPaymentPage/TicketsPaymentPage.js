@@ -1,64 +1,16 @@
-import React, { useRef, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-credit-cards';
 import declint from 'declint-ru';
 import classNames from 'classnames';
 
+import { Button } from '../../../base-components/Button';
 import { useInputState } from '../../../../hooks/useInputState';
 import { useFocusState } from '../../../../hooks/useFocusState';
+import { RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
 
 import 'react-credit-cards/lib/styles.scss';
 import './TicketsPaymentPage.scss';
-import Button from '../../../base-components/Button/Button';
-import { RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
-
-// state = {
-//   number: '',
-//   name: '',
-//   expiry: '',
-//   cvc: '',
-//   issuer: '',
-//   focused: '',
-//   formData: null,
-// };
-//
-// static propTypes = {
-//   acceptedCards: PropTypes.array,
-//   callback: PropTypes.func,
-//   cvc: PropTypes.oneOfType([
-//     PropTypes.string,
-//     PropTypes.number,
-//   ]).isRequired,
-//   expiry: PropTypes.oneOfType([
-//     PropTypes.string,
-//     PropTypes.number,
-//   ]).isRequired,
-//   focused: PropTypes.string,
-//   issuer: PropTypes.string,
-//   locale: PropTypes.shape({
-//     valid: PropTypes.string,
-//   }),
-//   name: PropTypes.string.isRequired,
-//   number: PropTypes.oneOfType([
-//     PropTypes.string,
-//     PropTypes.number,
-//   ]).isRequired,
-//   placeholders: PropTypes.shape({
-//     name: PropTypes.string,
-//   }),
-//   preview: PropTypes.bool,
-// };
-//
-// static defaultProps = {
-//   acceptedCards: [],
-//   locale: {
-//     valid: 'valid thru',
-//   },
-//   placeholders: {
-//     name: 'YOUR NAME HERE',
-//   },
-//   preview: false,
-// };
 
 function TicketsPaymentPage({ tickets, totalPrice }) {
   const [
@@ -112,7 +64,9 @@ function TicketsPaymentPage({ tickets, totalPrice }) {
 
   const [focused, handleFocusChange] = useFocusState('');
 
-  const handleSubmit = useCallback(() => {}, []);
+  const handleSubmit = useCallback(() => {
+
+  }, []);
 
   const ticketsCount = declint(tickets.length, [
     '%s билет',
