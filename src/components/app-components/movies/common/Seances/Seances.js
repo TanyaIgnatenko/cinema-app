@@ -58,6 +58,7 @@ Seances.propTypes = {
   seances: PropTypes.objectOf(
     PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         startTime: PropTypes.number.isRequired,
         price: PropTypes.number.isRequired,
       }),

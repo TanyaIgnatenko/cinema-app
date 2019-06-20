@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-credit-cards';
 import declint from 'declint-ru';
@@ -13,8 +13,19 @@ import 'react-credit-cards/lib/styles.scss';
 import './TicketsPaymentPage.scss';
 import { closeModal, showModal } from '../../../../ducks/ui/modals/actions';
 import { connect } from 'react-redux';
+import { resetReservationStatus } from '../../../../ducks/data/tickets/actions';
 
-function TicketsPaymentPage({ tickets, totalPrice, showModal, closeModal }) {
+function TicketsPaymentPage({
+  tickets,
+  totalPrice,
+  showModal,
+  closeModal,
+  resetReservationStatus,
+}) {
+  useEffect(() => {
+    resetReservationStatus();
+  }, []);
+
   const [
     number,
     handleNumberChange,
@@ -166,6 +177,7 @@ function TicketsPaymentPage({ tickets, totalPrice, showModal, closeModal }) {
 const mapDispatchToProps = {
   showModal,
   closeModal,
+  resetReservationStatus,
 };
 
 TicketsPaymentPage.propTypes = {

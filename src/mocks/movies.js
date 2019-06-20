@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+import { uniqueId } from 'lodash';
 import {
   bindTimeToDayMoment,
   getTodayDate,
@@ -61,6 +62,7 @@ function generateSeancesFor(dayStartMoment, movieId) {
 
 function generateSeancesAt(seanceStartTimes) {
   return seanceStartTimes.map((startTime, idx) => ({
+    id: uniqueId(),
     startTime,
     hallScheme,
     price: getMinPrice(hallScheme),

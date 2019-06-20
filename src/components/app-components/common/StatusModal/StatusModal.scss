@@ -1,8 +1,8 @@
-.not-available-auth-modal {
+.status-modal {
   width: 420px;
   height: 250px;
 
-  .msg-box {
+  .status-msg-box {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -11,12 +11,12 @@
     height: 100%;
     padding: 40px;
 
-    .sadness-icon {
+    .icon {
       width: 50px;
       height: 50px;
     }
 
-    .msg {
+    .status-msg {
       margin-top: 20px;
       margin-bottom: 35px;
 

@@ -18,10 +18,11 @@
   }
 
   .loading-msg {
-    margin-top: 0.8rem;
+    margin-top: 10px;
 
     font-size: 1.4rem;
     font-weight: 500;
+    white-space: pre-wrap;
   }
 }
 

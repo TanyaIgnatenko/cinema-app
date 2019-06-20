@@ -4,20 +4,22 @@ import classNames from 'classnames';
 
 import './Spinner.scss';
 
-function Spinner({ className }) {
+function Spinner({ message, className }) {
   return (
     <div className={classNames('spinner-container', className)}>
       <div className='spinner' />
-      <p className='loading-msg'>Идет загрузка</p>
+      <p className='loading-msg'>{message}</p>
     </div>
   );
 }
 
 Spinner.propTypes = {
+  message: PropTypes.string,
   className: PropTypes.string,
 };
 
 Spinner.defaultProps = {
+  message: 'Идет загрузка',
   className: '',
 };
 

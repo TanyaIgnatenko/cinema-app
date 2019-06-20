@@ -4,14 +4,14 @@ import sadnessIcon from '../../../../assets/images/sad-icon.svg';
 
 import { StatusModal } from '../../common/StatusModal';
 
-function NotAvailableAuthModal() {
+function ReservationFailureModal() {
   return (
     <StatusModal
-      statusMsg='К сожалению, в вашем регионе\nне доступна функция авторизации'
+      statusMsg='К сожалению, пока выбирали, эти места уже заняли'
       icon={sadnessIcon}
       closeButtonLabel='Ок'
     />
   );
 }
 
-export default NotAvailableAuthModal;
+export default ReservationFailureModal;

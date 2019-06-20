@@ -1,6 +1,8 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment/moment';
+import { uniqueId } from 'lodash';
 import classNames from 'classnames';
 
 import {
@@ -9,23 +11,27 @@ import {
   toAppDateFormat,
 } from '../../../../utils/date';
 
-import Button from '../../../base-components/Button/Button';
+import { Spinner } from '../../common/Spinner';
+import { Button } from '../../../base-components/Button';
+import { Tooltip } from '../../../base-components/Tooltip';
+import { MODAL, RUSSIAN_CURRENCY_SYMBOL, STATUS } from '../../../../constants';
+import { selectReservationStatus } from '../../../../ducks/data/tickets/selectors';
+import { reserveTicketsRequest } from '../../../../ducks/data/tickets/actions';
+import { closeModal, showModal } from '../../../../ducks/ui/modals/actions';
 
 import hallScreen from '../../../../assets/images/cropped-screen.svg';
 
 import './SeanceTicketsPage.scss';
-import { MODAL, RUSSIAN_CURRENCY_SYMBOL } from '../../../../constants';
-import { Tooltip } from '../../../base-components/Tooltip';
-import { closeModal, showModal } from '../../../../ducks/ui/modals/actions';
-import { connect } from 'react-redux';
-import { uniqueId } from 'lodash';
 
 function SeanceTicketsPage({
+  id: seanceId,
   movieName,
   startTime,
   hallScheme,
   takenSeats,
   reservedSeats,
+  reserveTickets,
+  reservationStatus,
   closeModal,
   showModal,
 }) {
@@ -64,11 +70,43 @@ function SeanceTicketsPage({
   }, [selectedSeats]);
 
   const buyTickets = useCallback(() => {
+    const seatsId = selectedSeats.map(seat => seat.id);
+    reserveTickets(seanceId, seatsId);
+  }, [selectedSeats]);
+
+  const goToTicketsPayment = useCallback(() => {
     closeModal();
 
     const modalProps = { tickets: selectedSeats, totalPrice };
     showModal(MODAL.TICKETS_PAYMENT, modalProps);
   }, [selectedSeats, totalPrice]);
+
+  const showReservationErrorModal = useCallback(() => {
+    setSelectedSeats([]);
+    showModal(MODAL.RESERVATION_FAILURE);
+  }, []);
+
+  useEffect(() => {
+    switch (reservationStatus) {
+      case STATUS.SUCCESS: {
+        goToTicketsPayment();
+        break;
+      }
+      case STATUS.ERROR: {
+        showReservationErrorModal();
+        break;
+      }
+      case STATUS.REQUEST: {
+        break;
+      }
+      case STATUS.IDLE: {
+        break;
+      }
+      default: {
+        console.error('Unknown status ', reservationStatus);
+      }
+    }
+  }, [reservationStatus]);
 
   const today = getTodayDate();
   const tomorrow = getTomorrowDate();
@@ -89,7 +127,9 @@ function SeanceTicketsPage({
   }
   const seanceStartTimeAppearance = moment.unix(startTime).format('HH:mm');
 
-  return (
+  return reservationStatus === STATUS.REQUEST ? (
+    <Spinner message='Заказ резервируется' />
+  ) : (
     <div className='seance-tickets-page-container'>
       <div className='movie-title-box'>
         <h1 className='movie-title'>{movieName}</h1>
@@ -169,6 +209,7 @@ function SeanceTicketsPage({
 }
 
 SeanceTicketsPage.propTypes = {
+  id: PropTypes.string.isRequired,
   movieName: PropTypes.string.isRequired,
   startTime: PropTypes.number.isRequired,
   hallScheme: PropTypes.arrayOf(
@@ -186,12 +227,17 @@ SeanceTicketsPage.propTypes = {
   reservedSeats: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
+const mapStateToProps = state => ({
+  reservationStatus: selectReservationStatus(state),
+});
+
 const mapDispatchToProps = {
   closeModal,
   showModal,
+  reserveTickets: reserveTicketsRequest,
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(SeanceTicketsPage);
