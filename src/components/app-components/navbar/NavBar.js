@@ -21,15 +21,9 @@ function NavBar({ showModal }) {
   return (
     <header className='navBarContainer'>
       <ul className='leftPart'>
-        <li>
-          <h1 className='brand'>Формула кино</h1>
-        </li>
-        <li>
-          <NavLink to={ROUTE.MOVIES}>Уже в кино</NavLink>
-        </li>
-        <li>
-          <NavLink to={ROUTE.BEST_DEALS}>Акции</NavLink>
-        </li>
+        <h1 className='brand'>Формула кино</h1>
+        <NavLink to={ROUTE.MOVIES}>Уже в кино</NavLink>
+        <NavLink to={ROUTE.BEST_DEALS}>Акции</NavLink>
       </ul>
       <div className='rightPart'>
         <Button className='login-btn' onClick={showNotAvailableAuthModal}>
