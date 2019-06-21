@@ -129,7 +129,7 @@ function SeanceTicketsPage({
   }
   const seanceStartTimeAppearance = moment.unix(startTime).format('HH:mm');
 
-  return reservationStatus === STATUS.REQUEST ? (
+  return reservationStatus === STATUS.REQUEST || reservationStatus === STATUS.SUCCESS ? (
     <Spinner message='Заказ резервируется' />
   ) : (
     <div className='seance-tickets-page-container'>
