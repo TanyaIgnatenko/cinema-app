@@ -43,7 +43,7 @@ function TicketsPaymentPage({
     numberTouched,
   ] = useInputState({
     initialValue: '',
-    shouldMatch: useMemo(() => /^[\d| ]{16,22}$/, []),
+    shouldMatch: useMemo(() => /^[\d| ]{16,19}$/, []),
     required: true,
   });
   const [
@@ -158,6 +158,7 @@ function TicketsPaymentPage({
           <input
             type='tel'
             name='number'
+            maxLength={19}
             className={classNames(
               'form-input',
               numberTouched && !numberValid && 'invalid',
@@ -182,6 +183,7 @@ function TicketsPaymentPage({
           <input
             type='tel'
             name='expiry'
+            maxLength={5}
             className={classNames(
               'form-input',
               expiryTouched && !expiryValid && 'invalid',
@@ -194,6 +196,7 @@ function TicketsPaymentPage({
           <input
             type='tel'
             name='cvc'
+            maxLength={3}
             className={classNames(
               'form-input',
               cvcTouched && !cvcValid && 'invalid',

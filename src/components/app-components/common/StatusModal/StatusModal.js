@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 import Modal from '../../../base-components/Modal/Modal';
 import Button from '../../../base-components/Button/Button';
+import { closeModal } from '../../../../ducks/ui/modals/actions';
 
 import './StatusModal.scss';
-import { closeModal } from '../../../../ducks/ui/modals/actions';
 
 function StatusModal({ statusMsg, icon, closeButtonLabel, closeModal }) {
   return (

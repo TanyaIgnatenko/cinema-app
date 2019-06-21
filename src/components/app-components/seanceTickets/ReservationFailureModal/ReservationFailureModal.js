@@ -1,8 +1,8 @@
 import React from 'react';
 
-import sadnessIcon from '../../../../assets/images/sad-icon.svg';
-
 import { StatusModal } from '../../common/StatusModal';
+
+import sadnessIcon from '../../../../assets/images/sad-icon.svg';
 
 function ReservationFailureModal() {
   return (
