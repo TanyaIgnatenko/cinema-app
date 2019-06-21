@@ -7,7 +7,9 @@ import { StatusModal } from '../../common/StatusModal';
 function NotAvailableAuthModal() {
   return (
     <StatusModal
-      statusMsg='К сожалению, в вашем регионе\nне доступна функция авторизации'
+      statusMsg={
+        'К сожалению, в вашем регионе\nне доступна функция авторизации'
+      }
       icon={sadnessIcon}
       closeButtonLabel='Ок'
     />

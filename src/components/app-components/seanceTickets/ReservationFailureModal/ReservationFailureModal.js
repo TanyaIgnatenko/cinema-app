@@ -7,7 +7,7 @@ import { StatusModal } from '../../common/StatusModal';
 function ReservationFailureModal() {
   return (
     <StatusModal
-      statusMsg='К сожалению, пока вы выбирали, эти места уже заняли'
+      statusMsg={'К сожалению, пока вы выбирали,\n эти места уже заняли'}
       icon={sadnessIcon}
       closeButtonLabel='Ок'
     />
