@@ -3,12 +3,10 @@ import React, { useState } from 'react';
 import { Search } from './Search';
 import { DateFilter } from './DateFilter';
 import { MoviesListContainer } from './MoviesList';
-
-import { getTodayDate } from '../../../../utils/date';
-
 import { RangeSlider } from '../../../base-components/RangeSlider';
 import { MINUTES_IN_HOUR, toTimeLabel } from '../../../../utils/time';
 import { SEANCES_TIME_RANGE } from '../../../../constants';
+import { getTodayDate } from '../../../../utils/date';
 
 import './MoviesPage.scss';
 

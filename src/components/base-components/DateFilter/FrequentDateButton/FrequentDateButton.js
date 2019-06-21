@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { DateFilterContext } from '../index';
+import { DateFilterContext } from '..';
 
 import './FrequentDateButton.scss';
 

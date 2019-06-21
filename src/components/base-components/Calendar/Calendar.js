@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import onClickOutside from 'react-onclickoutside';
-
-import Moment from 'moment/moment';
 import { extendMoment } from 'moment-range/dist/moment-range';
+import Moment from 'moment/moment';
 
 import { ButtonNext } from '../ButtonNext';
 import { ButtonPrev } from '../ButtonPrev';
 import { range } from '../../../utils/array';
-
 import { dateRange, toAppDateFormat, toMoment } from '../../../utils/date';
 
 import './Calendar.scss';

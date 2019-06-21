@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Modal from '../../../base-components/Modal/Modal';
-import Button from '../../../base-components/Button/Button';
+import { Modal } from '../../../base-components/Modal';
+import { Button } from '../../../base-components/Button';
 import { closeModal } from '../../../../ducks/ui/modals/actions';
 
 import './StatusModal.scss';

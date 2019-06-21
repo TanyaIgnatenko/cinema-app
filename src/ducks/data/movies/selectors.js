@@ -6,4 +6,9 @@ const selectSelectedMovieSeances = state => state.movies.selectedMovieSeances;
 
 const selectMoviesError = state => state.movies.error;
 
-export { selectMovies, selectSelectedMovie, selectMoviesError, selectSelectedMovieSeances };
+export {
+  selectMovies,
+  selectSelectedMovie,
+  selectMoviesError,
+  selectSelectedMovieSeances,
+};

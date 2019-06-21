@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { NavLink } from './NavLink';
 import { Button } from '../../base-components/Button';
 import { MODAL, ROUTE } from '../../../constants';
+import { showModal } from '../../../ducks/ui/modals/actions';
 
 import './NavBar.scss';
-import { showModal } from '../../../ducks/ui/modals/actions';
-import { connect } from 'react-redux';
 
 function NavBar({ showModal }) {
   const showNotAvailableAuthModal = useCallback(() => {

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { MODAL } from '../../../constants';
-import { selectModalsToShow } from '../../../ducks/ui/modals/selectors';
-import { SeanceTicketsModal } from '../../app-components/seanceTickets/SeanceTicketsModal';
-import { TicketsPaymentModal } from '../../app-components/ticketsPayment/TicketsPaymentModal';
-import { PaymentSuccessModal } from '../../app-components/ticketsPayment/PaymentSuccessModal';
-import { NotAvailableAuthModal } from '../../app-components/auth/NotAvailableAuthModal';
 import { ReservationFailureModal } from '../../app-components/seanceTickets/ReservationFailureModal';
+import { NotAvailableAuthModal } from '../../app-components/auth/NotAvailableAuthModal';
+import { PaymentSuccessModal } from '../../app-components/ticketsPayment/PaymentSuccessModal';
+import { TicketsPaymentModal } from '../../app-components/ticketsPayment/TicketsPaymentModal';
+import { SeanceTicketsModal } from '../../app-components/seanceTickets/SeanceTicketsModal';
 import { PaymentFailureModal } from '../../app-components/ticketsPayment/PaymentFailureModal';
+import { selectModalsToShow } from '../../../ducks/ui/modals/selectors';
+import { MODAL } from '../../../constants';
 
 const MODAL_COMPONENTS = {
   [MODAL.SEANCE_TICKETS]: SeanceTicketsModal,

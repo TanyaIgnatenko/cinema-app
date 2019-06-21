@@ -2,14 +2,14 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment/moment';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
-import { showModal } from '../../../../../ducks/ui/modals/actions';
+import { Tooltip } from '../../../../base-components/Tooltip';
 import { MODAL, RUSSIAN_CURRENCY_SYMBOL } from '../../../../../constants';
+import { showModal } from '../../../../../ducks/ui/modals/actions';
 import { hasStarted } from '../../utils/movies';
 
 import './Seances.scss';
-import { connect } from 'react-redux';
-import { Tooltip } from '../../../../base-components/Tooltip';
 
 function Seances({ movieName, seances, className, showModal }) {
   const goToSeanceTicketsPage = useCallback((movieName, seance) => {

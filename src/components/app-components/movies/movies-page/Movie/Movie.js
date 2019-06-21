@@ -9,15 +9,7 @@ import { ROUTE } from '../../../../../constants';
 
 import './Movie.scss';
 
-function Movie({
-  id,
-  name,
-  genres,
-  poster,
-  seances,
-  className,
-  history,
-}) {
+function Movie({ id, name, genres, poster, seances, className, history }) {
   const goToMoviePage = () => history.push(createRoute(ROUTE.MOVIE, { id }));
 
   return (

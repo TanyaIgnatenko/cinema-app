@@ -8,14 +8,18 @@ import { ErrorPage } from '../../common/ErrorPage';
 import { SeancesListContainer } from './SeancesList';
 import { DateFilter } from '../movies-page/DateFilter';
 import { NotFoundPage } from '../../common/NotFoundPage';
+import { RangeSlider } from '../../../base-components/RangeSlider';
 import { fetchMovieRequest } from '../../../../ducks/data/movies/actions';
-import { selectMoviesError, selectSelectedMovie } from '../../../../ducks/data/movies/selectors';
+import { MINUTES_IN_HOUR, toTimeLabel } from '../../../../utils/time';
 import { SEANCES_TIME_RANGE } from '../../../../constants';
 import { getTodayDate } from '../../../../utils/date';
 
+import {
+  selectMoviesError,
+  selectSelectedMovie,
+} from '../../../../ducks/data/movies/selectors';
+
 import './MoviePage.scss';
-import { RangeSlider } from '../../../base-components/RangeSlider';
-import { MINUTES_IN_HOUR, toTimeLabel } from '../../../../utils/time';
 
 function MoviePage({ movie }) {
   const [selectedDate, setSelectedDate] = useState(getTodayDate());

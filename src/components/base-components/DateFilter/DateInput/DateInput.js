@@ -2,11 +2,11 @@ import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { DateFilterContext } from '..';
 import { Button } from '../../Button';
 import { Calendar } from '../../Calendar';
-import { Toggle } from '../../Toggle';
 import { ToggleIcon } from '../../ToggleIcon';
+import { Toggle } from '../../Toggle';
+import { DateFilterContext } from '..';
 
 import './DateInput.scss';
 

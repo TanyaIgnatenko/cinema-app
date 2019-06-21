@@ -1,20 +1,13 @@
-import { randomBoolean } from '../../../utils/randomBoolean';
-
 export function reserveTicketsRequest(seanceId, seatsId) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     setTimeout(() => {
-      const reservationSuccessed = randomBoolean();
-      if (reservationSuccessed) {
-        resolve([seanceId, seatsId]);
-      } else {
-        reject(new Error('Tickets are taken'));
-      }
+      resolve([seanceId, seatsId]);
     }, 1000);
   });
 }
 
 export function payTicketsRequest(seanceId, seatsId) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve([seanceId, seatsId]);
     }, 1000);

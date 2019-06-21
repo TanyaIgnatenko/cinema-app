@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './BestDealsPage.scss';
-
 import sadnessIcon from '../../../../assets/images/sad-icon.svg';
+
+import './BestDealsPage.scss';
 
 function BestDealsPage() {
   return (

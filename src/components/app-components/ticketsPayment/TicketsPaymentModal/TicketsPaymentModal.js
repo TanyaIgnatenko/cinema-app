@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import { Modal } from '../../../base-components/Modal';
 import { TicketsPaymentPage } from '../TicketsPaymentPage';
-import { closeModal } from '../../../../ducks/ui/modals/actions';
 import { resetPaymentStatus } from '../../../../ducks/data/tickets/actions';
+import { closeModal } from '../../../../ducks/ui/modals/actions';
 
 function TicketsPaymentModal({
   closeModal,

@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { Movie } from '../Movie';
-import { keepSeancesAt } from '../../utils/movies';
+import { Spinner } from '../../../common/Spinner';
 import { NotFoundComponent } from '../../../common/NotFoundComponent';
 import { NoScheduleComponent } from '../../../common/NoScheduleComponent';
-import { Spinner } from '../../../common/Spinner';
-
-import './MoviesList.scss';
 import { fetchMoviesRequest } from '../../../../../ducks/data/movies/actions';
 import { selectMovies } from '../../../../../ducks/data/movies/selectors';
-import { connect } from 'react-redux';
+import { keepSeancesAt } from '../../utils/movies';
+
+import './MoviesList.scss';
 
 const MOVIES_STATE = {
   LOADING: 0,
@@ -29,11 +29,19 @@ function getMoviesState(movies, selectedMovies) {
   return MOVIES_STATE.FOUND;
 }
 
-function MoviesList({ movies, movieHint, selectedRange, selectedDate, resetFiltersSettings }) {
+function MoviesList({
+  movies,
+  movieHint,
+  selectedRange,
+  selectedDate,
+  resetFiltersSettings,
+}) {
   const selectedMovies = useMemo(
     () =>
       movies
-        .filter(movie => movie.name.toLowerCase().includes(movieHint.toLowerCase().trim()))
+        .filter(movie =>
+          movie.name.toLowerCase().includes(movieHint.toLowerCase().trim()),
+        )
         .map(movie => ({
           ...movie,
           seances: keepSeancesAt(selectedDate, selectedRange, movie.seances),
@@ -49,7 +57,12 @@ function MoviesList({ movies, movieHint, selectedRange, selectedDate, resetFilte
     case MOVIES_STATE.SCHEDULE_NOT_EXIST:
       return <NoScheduleComponent className='info-box' />;
     case MOVIES_STATE.NOT_FOUND:
-      return <NotFoundComponent className='info-box' resetSettings={resetFiltersSettings} />;
+      return (
+        <NotFoundComponent
+          className='info-box'
+          resetSettings={resetFiltersSettings}
+        />
+      );
     case MOVIES_STATE.FOUND:
       return (
         <ul className='movie-list'>
@@ -101,7 +114,11 @@ function MoviesListContainer({ movies, selectedDate, fetchMovies, ...props }) {
     fetchMovies(selectedDate);
   }, [selectedDate]);
 
-  return movies ? <MoviesList movies={movies} selectedDate={selectedDate} {...props} /> : <Spinner className='info-box' />;
+  return movies ? (
+    <MoviesList movies={movies} selectedDate={selectedDate} {...props} />
+  ) : (
+    <Spinner className='info-box' />
+  );
 }
 
 const mapStateToProps = state => ({
