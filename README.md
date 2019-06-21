@@ -2,7 +2,7 @@
 
 Simplified Yandex.Afisha clone
 
-**[DEMO]()**
+**[DEMO](https://tanyaignatenko.github.io/cinema-app/)**
 
 ## Features :boom:
  * View of cinema schedule
