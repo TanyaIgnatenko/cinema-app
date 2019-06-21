@@ -284,6 +284,52 @@ const movies = {
   },
   3: {
     id: 3,
+    name: 'Видоизмененный углерод',
+    description:
+      'Земля, XXVII век. Мир, в котором появилась возможность «сгружать» человеческое сознание и личность из одного тела в другое. Идеальный мир и для преступников, и для полицейских, и для армии, но вряд ли идеальный для бывшего военного спецназовца и бывшего повстанца Такеси Ковача, которого миллиардер Бэнкрофт нанял для расследования гибели одного из своих тел. Внешне — явное самоубийство, но Бэнкрофт считает себя неспособным на такой поступок, а воспоминания о последних минутах жизни уничтожены метким выстрелом в запоминающее устройство.',
+    duration: 229,
+    genres: ['Фэнтези', 'Приключения'],
+    poster: 'https://www.kinopoisk.ru/images/film_big/669089.jpg',
+    frames: [
+      {
+        description: 'Видоизмененный углерод',
+        url:
+          'https://www.kinopoisk.ru/images/film_big/669089.jpg',
+      },
+      {
+        description: 'Видоизмененный углерод',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/0/8/kinopoisk.ru-Altered-Carbon-3089561.jpg',
+      },
+      {
+        description: 'Видоизмененный углерод',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/2/1/kinopoisk.ru-Altered-Carbon-3216791.jpg',
+      },
+      {
+        description: 'Видоизмененный углерод',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/2/1/kinopoisk.ru-Altered-Carbon-3216789.jpg',
+      },
+      {
+        description: 'Видоизмененный углерод',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/2/1/kinopoisk.ru-Altered-Carbon-3216790.jpg',
+      },
+      {
+        description: 'Видоизмененный углерод',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/1/2/kinopoisk.ru-Altered-Carbon-3121337.jpg',
+      },
+      {
+        description: 'Видоизмененный углерод',
+        url:
+          'https://st.kp.yandex.net/im/kadr/3/1/2/kinopoisk.ru-Altered-Carbon-3121340.jpg',
+      },
+    ],
+  },
+  4: {
+    id: 4,
     name: 'Борджиа',
     description:
       'В конце XV века в руках Папы Римского сосредоточилась неограниченная власть: он мог короновать и свергать королей, изменять судьбу империй. Некогда доброе имя церкви стало теперь ассоциироваться только с коррупцией и безнравственностью. В 1492 году, после смерти папы Иннокентия VIII, престол Святого Петра занял Александр VI (в миру Родриго Борджиа), который вписал в историю имя клана Борджиа отнюдь не благими деяниями…',
@@ -322,46 +368,46 @@ const movies = {
       },
     ],
   },
-  4: {
-    id: 4,
-    name: 'Король говорит!',
-    description:
-      'Сюжет ленты расскажет о герцоге, который готовится вступить в должность британского короля Георга VI, отца нынешней королевы Елизаветы II. После того, как его брат отрекается от престола, герой неохотно соглашается на трон. Измученный страшным нервным заиканием и сомнениями в своих способностях руководить страной, Георг обращается за помощью к неортодоксальному логопеду по имени Лайонел Лог.',
-    duration: 229,
-    genres: ['Фэнтези', 'Приключения'],
-    poster: 'https://www.kinopoisk.ru/images/film_big/485311.jpg',
-    frames: [
-      {
-        description: 'Король говорит!',
-        url: 'https://www.kinopoisk.ru/images/film_big/485311.jpg',
-      },
-      {
-        description: 'Король говорит!',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433002.jpg',
-      },
-      {
-        description: 'Король говорит!',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433006.jpg',
-      },
-      {
-        description: 'Король говорит!',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433004.jpg',
-      },
-      {
-        description: 'Король говорит!',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433000.jpg',
-      },
-      {
-        description: 'Король говорит!',
-        url:
-          'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1432996.jpg',
-      },
-    ],
-  },
+  // 4: {
+  //   id: 4,
+  //   name: 'Король говорит!',
+  //   description:
+  //     'Сюжет ленты расскажет о герцоге, который готовится вступить в должность британского короля Георга VI, отца нынешней королевы Елизаветы II. После того, как его брат отрекается от престола, герой неохотно соглашается на трон. Измученный страшным нервным заиканием и сомнениями в своих способностях руководить страной, Георг обращается за помощью к неортодоксальному логопеду по имени Лайонел Лог.',
+  //   duration: 229,
+  //   genres: ['Фэнтези', 'Приключения'],
+  //   poster: 'https://www.kinopoisk.ru/images/film_big/485311.jpg',
+  //   frames: [
+  //     {
+  //       description: 'Король говорит!',
+  //       url: 'https://www.kinopoisk.ru/images/film_big/485311.jpg',
+  //     },
+  //     {
+  //       description: 'Король говорит!',
+  //       url:
+  //         'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433002.jpg',
+  //     },
+  //     {
+  //       description: 'Король говорит!',
+  //       url:
+  //         'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433006.jpg',
+  //     },
+  //     {
+  //       description: 'Король говорит!',
+  //       url:
+  //         'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433004.jpg',
+  //     },
+  //     {
+  //       description: 'Король говорит!',
+  //       url:
+  //         'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1433000.jpg',
+  //     },
+  //     {
+  //       description: 'Король говорит!',
+  //       url:
+  //         'https://st.kp.yandex.net/im/kadr/1/4/3/kinopoisk.ru-The-King_27s-Speech-1432996.jpg',
+  //     },
+  //   ],
+  // },
   5: {
     id: 5,
     name: 'Игра престолов',
