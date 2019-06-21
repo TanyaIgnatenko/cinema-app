@@ -32,7 +32,6 @@ function Seances({ movieName, seances, className, showModal }) {
                         className={classNames(
                           'seance',
                           hasStarted(seance) && 'has-started',
-                          !hasStarted(seance) && 'beeem',
                         )}
                         onClick={() => goToSeanceTicketsPage(movieName, seance)}
                         disabled={hasStarted(seance)}
