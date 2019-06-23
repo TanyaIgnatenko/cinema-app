@@ -12,6 +12,8 @@ import {
   toMoment,
 } from '../../../../../utils/date';
 
+import './DateFilter.scss';
+
 const TODAY_LABEL = 'Сегодня';
 const TOMORROW_LABEL = 'Завтра';
 const DEFAULT_DATE_INPUT_LABEL = 'Выбрать день';

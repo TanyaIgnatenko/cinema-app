@@ -1,7 +1,7 @@
 @import '../../../../assets/scss/variables';
 
 .link {
-  font-size: 20px;
+  font-size: 2rem;
   color: rgb(21, 21, 21);
   text-decoration: none;
   text-align: center;
@@ -11,9 +11,9 @@
   }
 }
 
-.activelink {}
+.active-link {}
 
-.linkBox {
+.link-box {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +21,7 @@
   margin-right: 30px;
 }
 
-.activeLinkBox{
+.active-link-box{
   border-bottom: 2px solid red;
 }
 

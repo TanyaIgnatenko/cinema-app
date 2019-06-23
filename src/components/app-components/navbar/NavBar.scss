@@ -14,11 +14,21 @@
     display: flex;
     align-items: center;
 
+    .movies-link {
+      min-width: 105px;
+    }
+
+    .best-deals-link {
+      min-width: 50px;
+    }
+
     .brand {
+      min-width: 181px;
+      margin-right: 40px;
+
       color: rgb(21, 21, 21);
       font-size: 26px;
       text-align: center;
-      margin-right: 40px;
       cursor: default;
     }
   }

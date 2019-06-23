@@ -19,15 +19,18 @@ function NavLink({
   return (
     <li
       data-testid='link-box'
-      className={classNames(
-        linkBoxClassName,
-        isActive && activeLinkBoxClassName,
-      )}
+      className={classNames('link-box', linkBoxClassName, {
+        'active-link-box': isActive,
+        activeLinkBoxClassName: isActive,
+      })}
     >
       <Link
         to={to}
         data-testid='link'
-        className={classNames(linkClassName, isActive && activeLinkClassName)}
+        className={classNames('link', linkClassName, {
+          'active-link': isActive,
+          activeLinkClassName: isActive,
+        })}
       >
         {children}
       </Link>
@@ -46,10 +49,10 @@ NavLink.propTypes = {
 };
 
 NavLink.defaultProps = {
-  linkClassName: 'link',
-  linkBoxClassName: 'linkBox',
-  activeLinkClassName: 'activeLink',
-  activeLinkBoxClassName: 'activeLinkBox',
+  linkClassName: '',
+  linkBoxClassName: '',
+  activeLinkClassName: '',
+  activeLinkBoxClassName: '',
 };
 
 export default withRouter(NavLink);

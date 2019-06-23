@@ -57,7 +57,7 @@ function MoviePage({ movie }) {
             selectDate={setSelectedDate}
           />
           <RangeSlider
-            className='time-range-slider'
+            className='movie-time-range-slider'
             min={SEANCES_TIME_RANGE.start}
             max={SEANCES_TIME_RANGE.end}
             valuePerStep={MINUTES_IN_HOUR}

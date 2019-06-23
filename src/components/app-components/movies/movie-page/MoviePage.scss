@@ -1,18 +1,21 @@
 @import '../../../../assets/scss/variables';
 
 .movie-description {
-    margin-top: 1.3rem;
-    margin-bottom: 1.3rem;
+  min-width: 900px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 
-    font-size: 1.6rem;
-    white-space: pre-wrap;
+  font-size: 1.6rem;
+  white-space: pre-wrap;
 }
 
 .movie-frames-gallery {
   z-index: 1;
+  min-width: 900px;
 }
 
 .movie-extra-info {
+  min-width: 900px;
   margin-top: 1.3rem;
   margin-bottom: 1.3rem;
 
@@ -26,12 +29,12 @@
     font-size: 1.4rem;
   }
 
-    p {
-      display: inline;
+  p {
+    display: inline;
 
-      color: black;
-      font-size: 1.4rem;
-    }
+    color: black;
+    font-size: 1.4rem;
+  }
 }
 
 .schedule-container {
@@ -49,15 +52,19 @@
   .filters-container {
     z-index: -1;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    min-width: 900px;
     padding: 2.5rem;
+    padding-right: 3.5rem;
 
     background-color: #F5F5F5;
-
-    .movie-date-filter {
-      width: 800px;
-    }
   }
+}
+
+.movie-time-range-slider {
+  margin-bottom: 15px;
+  max-width: 370px;
 }
 
 .page-spinner-container {
