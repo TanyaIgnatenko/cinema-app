@@ -1,26 +1,23 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import FocusLock from 'react-focus-lock';
+import {FocusOn} from 'react-focus-on';
 
 import crossIcon from '../../../assets/images/dark-cross-icon.svg';
 
 import './Modal.scss';
 
 function Modal({ children, onClose, showCloseIcon, className }) {
-  useEffect(() => {
-    document.body.classList.add('modal-open');
-
-    return () => document.body.classList.remove('modal-open');
-  }, []);
-
   return (
-    <>
+    <FocusOn>
       <div className='modal-overlay' onClick={onClose} />
       <div className={classNames('modal', className)}>
         {showCloseIcon && (
           <img
             alt='close'
             src={crossIcon}
+            tabIndex={0}
             onClick={onClose}
             className='close-icon'
             aria-label='button to close modal'
@@ -28,7 +25,7 @@ function Modal({ children, onClose, showCloseIcon, className }) {
         )}
         {children}
       </div>
-    </>
+    </FocusOn>
   );
 }
 

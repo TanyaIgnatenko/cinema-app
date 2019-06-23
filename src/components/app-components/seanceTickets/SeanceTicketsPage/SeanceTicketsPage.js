@@ -143,7 +143,7 @@ function SeanceTicketsPage({
         </p>
       </div>
       <div className='hall-scheme-box'>
-        <object data={hallScreen} style={{ width: '450px', height: '150px' }}>
+        <object tabIndex={-1} data={hallScreen} style={{ width: '450px', height: '150px' }}>
           <p>Screen</p>
         </object>
         {hallScheme.map(row => {

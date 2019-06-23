@@ -16,6 +16,8 @@
     "react": "^16.8.5",
     "react-credit-cards": "^0.7.0",
     "react-dom": "^16.8.5",
+    "react-focus-lock": "^2.0.0",
+    "react-focus-on": "^2.0.2",
     "react-onclickoutside": "^6.8.0",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
