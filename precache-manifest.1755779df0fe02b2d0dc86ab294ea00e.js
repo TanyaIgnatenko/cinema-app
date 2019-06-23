@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/cinema-app/static/media/dark-arrow-left.eda10a91.svg"
   },
   {
-    "revision": "12a84ffb43c0763313d2",
-    "url": "/cinema-app/static/css/main.2eae5f46.chunk.css"
+    "revision": "3f73fcadca37f27d080e",
+    "url": "/cinema-app/static/css/main.e6c96d2f.chunk.css"
   },
   {
     "revision": "10e0fefc10dbf991c3f2",
@@ -16,8 +16,8 @@ self.__precacheManifest = [
     "url": "/cinema-app/static/media/cropped-screen.a6343b03.svg"
   },
   {
-    "revision": "e45352fb9ca9baecf45b",
-    "url": "/cinema-app/static/js/2.d732d98b.chunk.js"
+    "revision": "970eb5f513bd2eeae308",
+    "url": "/cinema-app/static/js/2.f84fcb8a.chunk.js"
   },
   {
     "revision": "a0e48e08e48e2062a99181578b1a320d",
@@ -28,8 +28,8 @@ self.__precacheManifest = [
     "url": "/cinema-app/static/media/light-arrow-left.76c47b79.svg"
   },
   {
-    "revision": "12a84ffb43c0763313d2",
-    "url": "/cinema-app/static/js/main.eba7b2f7.chunk.js"
+    "revision": "3f73fcadca37f27d080e",
+    "url": "/cinema-app/static/js/main.5bb825e3.chunk.js"
   },
   {
     "revision": "b2320be295af018c999c7bb3e6b9c4b6",
@@ -52,11 +52,11 @@ self.__precacheManifest = [
     "url": "/cinema-app/static/media/congrat-icon.b052a4be.svg"
   },
   {
-    "revision": "e45352fb9ca9baecf45b",
+    "revision": "970eb5f513bd2eeae308",
     "url": "/cinema-app/static/css/2.12b6387f.chunk.css"
   },
   {
-    "revision": "3fe1076f77c55d41aea4a1e6b0d02eaa",
+    "revision": "c4d1b336fe2f582479f5b24e8f34695a",
     "url": "/cinema-app/index.html"
   }
 ];
