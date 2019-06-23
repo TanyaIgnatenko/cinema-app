@@ -13,7 +13,8 @@ function Modal({ children, onClose, showCloseIcon, className }) {
       <div className='modal-overlay' onClick={onClose} />
       <div className={classNames('modal', className)}>
         {showCloseIcon && (
-          <img
+          <input
+            type='image'
             alt='close'
             src={crossIcon}
             tabIndex={0}
