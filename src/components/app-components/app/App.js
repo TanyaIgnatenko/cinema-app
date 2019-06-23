@@ -4,20 +4,23 @@ import PropTypes from 'prop-types';
 import { NavBar } from '../navbar';
 import { Routes } from '../routes';
 import { ModalManager } from '../../base-components/ModalManager';
+import ScrollToTop from '../../base-components/ScrollToTop/ScrollToTop';
 
 function App({ currentUser }) {
   return (
-    <div className='app'>
-      <ModalManager />
-      <NavBar
-        currentUser={currentUser}
-        onLogout={() => {}}
-        onSettings={() => {}}
-      />
-      <div className='page'>
-        <Routes className='' />
+    <ScrollToTop>
+      <div className='app'>
+        <ModalManager />
+        <NavBar
+          currentUser={currentUser}
+          onLogout={() => {}}
+          onSettings={() => {}}
+        />
+        <div className='page'>
+          <Routes className='' />
+        </div>
       </div>
-    </div>
+    </ScrollToTop>
   );
 }
 
