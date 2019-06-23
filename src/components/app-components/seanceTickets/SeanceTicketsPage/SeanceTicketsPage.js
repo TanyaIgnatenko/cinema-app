@@ -129,8 +129,9 @@ function SeanceTicketsPage({
   }
   const seanceStartTimeAppearance = moment.unix(startTime).format('HH:mm');
 
-  return reservationStatus === STATUS.REQUEST || reservationStatus === STATUS.SUCCESS ? (
-    <Spinner message='Заказ резервируется' />
+  return reservationStatus === STATUS.REQUEST ||
+    reservationStatus === STATUS.SUCCESS ? (
+      <Spinner message='Заказ резервируется' />
   ) : (
     <div className='seance-tickets-page-container'>
       <div className='movie-title-box'>
@@ -142,7 +143,7 @@ function SeanceTicketsPage({
         </p>
       </div>
       <div className='hall-scheme-box'>
-        <object data={hallScreen} style={{ width: '450px' }}>
+        <object data={hallScreen} style={{ width: '450px', height: '150px' }}>
           <p>Screen</p>
         </object>
         {hallScheme.map(row => {
