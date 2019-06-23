@@ -1,4 +1,4 @@
-# Cinema app
+# Cinema app [Frontend]
 
 Simplified Yandex.Afisha clone
 
