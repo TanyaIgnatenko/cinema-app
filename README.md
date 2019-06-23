@@ -14,7 +14,7 @@ Simplified Yandex.Afisha clone
  * Payment of seance tickets
 
 ## Screenshots :camera:
-![Cinema schedule screenshot](src/assets/images/cinema-sch.png)
+![Cinema schedule screenshot](src/assets/images/cinema-schedule.png)
 
 ![Movie frames gallery screenshot](src/assets/images/movie-description.png)
 
