@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import FocusLock from 'react-focus-lock';
-import {FocusOn} from 'react-focus-on';
+import { FocusOn } from 'react-focus-on';
 
 import crossIcon from '../../../assets/images/dark-cross-icon.svg';
 
@@ -10,7 +9,7 @@ import './Modal.scss';
 
 function Modal({ children, onClose, showCloseIcon, className }) {
   return (
-    <FocusOn>
+    <FocusOn onEscapeKey={onClose}>
       <div className='modal-overlay' onClick={onClose} />
       <div className={classNames('modal', className)}>
         {showCloseIcon && (
