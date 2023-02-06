@@ -375,46 +375,6 @@ const movies = {
       },
     ],
   },
-  5: {
-    id: 5,
-    name: 'Борджиа',
-    description:
-      'В конце XV века в руках Папы Римского сосредоточилась неограниченная власть: он мог короновать и свергать королей, изменять судьбу империй. Некогда доброе имя церкви стало теперь ассоциироваться только с коррупцией и безнравственностью. В 1492 году, после смерти папы Иннокентия VIII, престол Святого Петра занял Александр VI (в миру Родриго Борджиа), который вписал в историю имя клана Борджиа отнюдь не благими деяниями…',
-    duration: 236,
-    genres: ['История'],
-    poster: 'https://www.kinopoisk.ru/images/film_big/521722.jpg',
-    frames: [
-      {
-        description: 'Борджиа',
-        url: 'https://www.kinopoisk.ru/images/film_big/521722.jpg',
-      },
-      {
-        description: 'Борджиа',
-        url:
-          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192982.jpg',
-      },
-      {
-        description: 'Борджиа',
-        url:
-          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192979.jpg',
-      },
-      {
-        description: 'Борджиа',
-        url:
-          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192978.jpg',
-      },
-      {
-        description: 'Борджиа',
-        url:
-          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192981.jpg',
-      },
-      {
-        description: 'Борджиа',
-        url:
-          'https://st.kp.yandex.net/im/kadr/2/1/9/kinopoisk.ru-The-Borgias-2192977.jpg',
-      },
-    ],
-  },
   6: {
     id: 6,
     name: 'Игра престолов',
