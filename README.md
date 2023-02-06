@@ -4,7 +4,7 @@ Simplified Yandex.Afisha clone
 
 **[DEMO](https://tanyaignatenko.github.io/cinema-app/)**
 
-An application for viewing cinema schedules and purchasing tickets
+An application for viewing cinema schedules and purchasing tickets.
 
 ## Screenshots :camera:
 ![Cinema schedule screenshot](src/assets/images/cinema-schedule.png)
