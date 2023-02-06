@@ -4,14 +4,7 @@ Simplified Yandex.Afisha clone
 
 **[DEMO](https://tanyaignatenko.github.io/cinema-app/)**
 
-## Features :boom:
- * View of cinema schedule
- * Convinient cinema schedule filtration 
- * View of movie description
- * Gallery of movie frames
- * View of cinema hall
- * Reservation of seance tickets
- * Payment of seance tickets
+An application for viewing cinema schedules and purchasing tickets
 
 ## Screenshots :camera:
 ![Cinema schedule screenshot](src/assets/images/cinema-schedule.png)
@@ -31,5 +24,6 @@ Simplified Yandex.Afisha clone
 
 ## Development
 ```
+npm i
 npm start
 ```
